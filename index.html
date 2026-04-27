@@ -180,21 +180,48 @@
         .then(res => res.text()).then(csv => {
             const data = parseCSV(csv).slice(1);
             allProducts = data.map(cols => ({
-                brand: cols[0], 
-                name: cols[1], 
-                cat: cols[2], 
-                price: cols[3], 
-                img: formatDriveUrl(cols[5]) 
+                brand: cols[0], name: cols[1], cat: cols[2], price: cols[3], img: formatDriveUrl(cols[5]) 
             })).filter(p => p.name);
             
-            // 更新篩選選單
+            // 這裡只初始化「品牌」選單
             const brands = [...new Set(allProducts.map(p => p.brand))].filter(Boolean);
-            const cats = [...new Set(allProducts.map(p => p.cat))].filter(Boolean);
             brands.forEach(b => document.getElementById('filter-brand').innerHTML += `<option value="${b}">${b}</option>`);
-            cats.forEach(c => document.getElementById('filter-category').innerHTML += `<option value="${c}">${c}</option>`);
             
-            renderProducts(allProducts);
+            // 觸發一次更新，讓類別選單自動產生
+            updateFilterOptions(); 
         }).finally(() => {
+            const loader = document.getElementById('loader');
+            if(loader) { loader.style.opacity = '0'; setTimeout(() => { loader.style.display = 'none'; }, 500); }
+        });
+
+    // 這裡是關鍵：根據選的品牌，重新畫類別選單
+    function updateFilterOptions() {
+        const brandSelect = document.getElementById('filter-brand');
+        const catSelect = document.getElementById('filter-category');
+        const selectedBrand = brandSelect.value;
+
+        // 找出該品牌擁有的類別
+        const availableCats = [...new Set(
+            allProducts
+                .filter(p => selectedBrand === 'all' || p.brand === selectedBrand)
+                .map(p => p.cat)
+        )].filter(Boolean);
+
+        // 重寫類別選單，這樣沒配件的品牌就不會出現配件選項
+        catSelect.innerHTML = '<option value="all">所有類別</option>';
+        availableCats.forEach(c => {
+            catSelect.innerHTML += `<option value="${c}">${c}</option>`;
+        });
+
+        doFinalFilter(); // 更新完選單後去畫商品
+    }
+
+    function doFinalFilter() {
+        const b = document.getElementById('filter-brand').value;
+        const c = document.getElementById('filter-category').value;
+        const filtered = allProducts.filter(p => (b === 'all' || p.brand === b) && (c === 'all' || p.cat === c));
+        renderProducts(filtered);
+    }
             // 隱藏載入動畫
             setTimeout(() => { 
                 const loader = document.getElementById('loader');
@@ -221,12 +248,10 @@
         });
     }
 
-    document.querySelectorAll('select').forEach(s => {
-        s.addEventListener('change', () => {
-            const b = document.getElementById('filter-brand').value;
-            const c = document.getElementById('filter-category').value;
-            const filtered = allProducts.filter(p => (b === 'all' || p.brand === b) && (c === 'all' || p.cat === c));
-            renderProducts(filtered);
+    // 品牌一換，就執行選單連動
+    document.getElementById('filter-brand').addEventListener('change', updateFilterOptions);
+    // 類別換了，直接過濾商品
+    document.getElementById('filter-category').addEventListener('change', doFinalFilter);
         });
     });
 </script>
