@@ -3,137 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>原點匹克球 | 官方目錄</title>
-    <link rel="icon" href="logo.jpg" type="image/jpeg">
+    <title>原點匹克球 Origin Pickleball</title>
     <style>
-        :root { --primary: #2c3e50; --accent: #4a6741; --bg: #f4f7f6; }
-        body { font-family: "PingFang TC", "Heiti TC", "Microsoft JhengHei", sans-serif; background: var(--bg); margin: 0; padding: 0; color: #333; line-height: 1.6; }
-        .header { background: white; padding: 30px 20px; text-align: center; border-bottom: 3px solid var(--primary); }
-        .logo { max-width: 150px; height: auto; margin-bottom: 10px; }
-        .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; }
-        .about-section { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 30px; }
-        .about-section h2 { color: var(--primary); border-left: 5px solid var(--accent); padding-left: 15px; margin-top: 0; }
-        .filter-bar { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 15px; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .filter-group { display: flex; flex-direction: column; gap: 5px; }
-        .filter-group label { font-size: 0.85em; font-weight: bold; color: var(--primary); }
-        select { padding: 8px 12px; border-radius: 6px; border: 1px solid #ddd; font-size: 1em; background: white; min-width: 140px; cursor: pointer; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
-        .product-item { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: flex; flex-direction: column; transition: transform 0.3s ease; }
-        .product-item:hover { transform: translateY(-5px); }
-        .product-img-container { width: 100%; height: 250px; background: #fff; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #f0f0f0; overflow: hidden; position: relative; }
-        .product-img { max-width: 90%; max-height: 90%; object-fit: contain; color: transparent; }
-        .img-placeholder { position: absolute; color: #ccc; font-size: 0.9em; text-align: center; }
-        .product-info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-        .brand-tag { color: var(--accent); font-size: 0.8em; font-weight: bold; margin-bottom: 5px; letter-spacing: 1px; }
-        .product-title { font-size: 1.1em; margin: 0 0 10px 0; color: var(--primary); font-weight: 600; height: 2.8em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
-        .product-price { color: #e67e22; font-weight: bold; font-size: 1.3em; margin-top: auto; }
-        .contact-btn { display: block; width: fit-content; margin: 40px auto; background: #00b900; color: white; padding: 16px 40px; text-decoration: none; border-radius: 50px; font-weight: bold; transition: 0.3s; text-align: center; }
-        .contact-btn:hover { background: #009800; transform: scale(1.03); }
-        footer { text-align: center; padding: 50px 20px; color: #7f8c8d; font-size: 0.9em; border-top: 1px solid #eee; margin-top: 50px; }
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #27ae60;
+            --bg-color: #f4f7f6;
+        }
+        body {
+            font-family: "Microsoft JhengHei", sans-serif;
+            line-height: 1.6;
+            color: var(--primary-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        header {
+            text-align: center;
+            padding-bottom: 30px;
+            border-bottom: 2px solid var(--bg-color);
+        }
+        .logo {
+            max-width: 150px;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        h1 { color: var(--accent-color); margin-bottom: 5px; }
+        .slogan { font-style: italic; color: #666; margin-top: 0; }
+        
+        section { margin: 30px 0; }
+        h2 { border-left: 5px solid var(--accent-color); padding-left: 15px; color: var(--primary-color); }
+        
+        .core-values {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        .value-item {
+            flex: 1;
+            min-width: 200px;
+            padding: 15px;
+            background: var(--bg-color);
+            border-radius: 5px;
+            text-align: center;
+        }
+        footer {
+            text-align: center;
+            font-size: 0.9em;
+            color: #888;
+            margin-top: 40px;
+            padding-bottom: 20px;
+        }
     </style>
 </head>
 <body>
 
-<header class="header">
-    <img src="logo.jpg" alt="Logo" class="logo" onerror="this.style.display='none'">
-    <h1 style="margin:5px 0; color:var(--primary);">原點匹克球</h1>
-    <div style="color:var(--accent); font-weight:bold; letter-spacing:3px;">ORIGIN PICKLEBALL</div>
-</header>
-
 <div class="container">
-    <div class="about-section">
+    <header>
+        <img src="https://via.placeholder.com/150?text=Origin+Pickleball" alt="原點匹克球 Logo" class="logo">
+        <h1>原點匹克球</h1>
+        <p class="slogan">從原點出發，開始你的第一拍。</p>
+    </header>
+
+    <section>
         <h2>品牌故事</h2>
-        <p>「原點」不只是起點，更是回歸運動最純粹的初心。創辦人兼總教練翰堡，在教學與賽場之間，將這份對匹克球的熱愛轉化為專業。我們根植花蓮，致力於提供最適合每一位球友的器材。不管你幾歲、有沒有基礎，從原點出發，開始你的第一拍。</p>
-    </div>
+        <p>一切從一顆球、一支拍開始。原點匹克球的創辦人兼總教練，第一次拿起球拍的那刻，就被這項運動深深迷住——它不需要過人的體能，卻能給你全身心投入的快感；它簡單上手，卻有著讓人不斷鑽研的深度。</p>
+        <p>「原點」不只是起點，更是回歸——回歸運動最純粹的初心：不為輸贏，只為享受揮拍的瞬間、流汗的快感、與人相連的溫度。</p>
+    </section>
 
-    <div class="filter-bar">
-        <div class="filter-group"><label>品牌篩選</label><select id="filter-brand"><option value="all">所有品牌</option></select></div>
-        <div class="filter-group"><label>分類篩選</label><select id="filter-category"><option value="all">所有類別</option></select></div>
-        <div class="filter-group"><label>價格排序</label><select id="sort-price"><option value="none">預設</option><option value="low">低到高</option><option value="high">高到低</option></select></div>
-    </div>
+    <section>
+        <h2>核心價值</h2>
+        <div class="core-values">
+            <div class="value-item">
+                <strong>簡單快樂</strong>
+                <p>沒有門檻，人人都能參與。</p>
+            </div>
+            <div class="value-item">
+                <strong>人際橋梁</strong>
+                <p>球場上認識新朋友，連結彼此。</p>
+            </div>
+            <div class="value-item">
+                <strong>根植花蓮</strong>
+                <p>為這片土地注入運動活力。</p>
+            </div>
+        </div>
+    </section>
 
-    <div id="product-grid" class="product-grid">正在讀取雲端商品清單...</div>
-
-    <a href="https://line.me/R/ti/p/@yourid" class="contact-btn">💬 聯繫翰堡教練 / 預約試打</a>
+    <footer>
+        <p>&copy; 2026 原點匹克球 Origin Pickleball. All Rights Reserved.</p>
+    </footer>
 </div>
 
-<footer>© 原點匹克球 Origin Pickleball</footer>
-
-<script>
-    const sheetId = '11Uc9hJpgaeci-zsmDi1FQZBgl7f1r_vpVaNeb1Y_Dos';
-    const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&gid=0`;
-    let allProducts = [];
-
-    async function loadData() {
-        try {
-            const res = await fetch(base);
-            const data = await res.text();
-            const rows = data.split('\n').slice(1);
-            const brands = new Set();
-            const categories = new Set();
-            
-            allProducts = rows.map(row => {
-                const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/^"|"$/g, '').trim());
-                if (!cols[1]) return null;
-                if (cols[0]) brands.add(cols[0]);
-                if (cols[2]) categories.add(cols[2]);
-                return { 
-                    brand: cols[0] || '其他', 
-                    name: cols[1], 
-                    category: cols[2] || '未分類', 
-                    price: parseInt(cols[3]?.replace(/[^0-9]/g, '')) || 0, 
-                    img: cols[5] || '' 
-                };
-            }).filter(p => p !== null);
-
-            updateFilters(brands, categories);
-            renderProducts(allProducts);
-        } catch (e) {
-            document.getElementById('product-grid').innerText = '讀取失敗，請確認試算表權限。';
-        }
-    }
-
-    function updateFilters(b, c) {
-        const bs = document.getElementById('filter-brand');
-        const cs = document.getElementById('filter-category');
-        b.forEach(v => bs.innerHTML += `<option value="${v}">${v}</option>`);
-        c.forEach(v => cs.innerHTML += `<option value="${v}">${v}</option>`);
-    }
-
-    function renderProducts(products) {
-        const grid = document.getElementById('product-grid');
-        grid.innerHTML = products.map(p => {
-            let img = p.img;
-            // 雲端硬碟連結自動轉換為直接圖片網址
-            if (img.includes('drive.google.com')) {
-                const id = img.match(/\/d\/([^/]+)/);
-                if (id) img = `https://lh3.googleusercontent.com/d/${id[1]}`;
-            }
-            return `
-            <div class="product-item">
-                <div class="product-img-container">
-                    ${img ? `<img src="${img}" class="product-img" loading="lazy" onerror="this.onerror=null; this.src='logo.jpg';">` : `<div class="img-placeholder">原點匹克球</div>`}
-                </div>
-                <div class="product-info">
-                    <div class="brand-tag">${p.brand}</div>
-                    <h3 class="product-title">${p.name}</h3>
-                    <div class="product-price">NT$ ${p.price.toLocaleString()}</div>
-                </div>
-            </div>`;
-        }).join('');
-    }
-
-    document.querySelectorAll('select').forEach(s => s.addEventListener('change', () => {
-        const b = document.getElementById('filter-brand').value;
-        const c = document.getElementById('filter-category').value;
-        const o = document.getElementById('sort-price').value;
-        let f = allProducts.filter(p => (b === 'all' || p.brand === b) && (c === 'all' || p.category === c));
-        if (o === 'low') f.sort((a,b) => a.price - b.price);
-        if (o === 'high') f.sort((a,b) => b.price - a.price);
-        renderProducts(f);
-    }));
-
-    loadData();
-</script>
 </body>
 </html>
