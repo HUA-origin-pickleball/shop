@@ -55,19 +55,22 @@
 
 <script>
     const sheetId = '11Uc9hJpgaeci-zsmDi1FQZBgl7f1r_vpVaNeb1Y_Dos';
-    const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv`;
+    // gid=0 代表抓取第一個分頁
+    const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&gid=0`;
 
     fetch(base)
         .then(res => res.text())
         .then(data => {
+            // 處理 CSV 格式，考慮到逗號與引號
             const rows = data.split('\n').slice(1);
             let html = '';
             
             rows.forEach(row => {
-                const cols = row.split('","').map(c => c.replace(/"/g, ''));
+                const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/^"|"$/g, '').trim());
+                
                 if (cols[0] && cols[1]) {
-                    // 目前設定：F 欄 (索引 5) 是圖片網址
-                    const imgUrl = (cols[5] && cols[5].trim() !== "") ? cols[5].trim() : 'logo.jpg'; 
+                    // F 欄是索引 5
+                    const imgUrl = (cols[5] && cols[5] !== "") ? cols[5] : 'logo.jpg'; 
                     
                     html += `
                         <div class="product-item">
@@ -83,7 +86,8 @@
             document.getElementById('product-grid').innerHTML = html;
         })
         .catch(err => {
-            document.getElementById('product-grid').innerHTML = "<p style='text-align:center;'>資料載入失敗，請確認網路連線或試算表權限。</p>";
+            console.error(err);
+            document.getElementById('product-grid').innerHTML = "<p style='text-align:center;'>資料載入失敗，請確認試算表已開啟「知道連結的使用者：檢視者」權限。</p>";
         });
 </script>
 
