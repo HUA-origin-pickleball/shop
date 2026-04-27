@@ -143,7 +143,18 @@
         return result;
     }
 
-    // 抓取設定
+    // --- 這裡修正了 formatDriveUrl 的變數語法問題 ---
+    const formatDriveUrl = (url) => {
+        if (!url) return 'logo.jpg'; 
+        const driveRegex = /(?:\/d\/|id=)([\w-]+)/;
+        const match = url.match(driveRegex);
+        if (match && match[1]) {
+            return `https://lh3.googleusercontent.com/d/${match[1]}`;
+        }
+        return url;
+    };
+
+    // 抓取設定 (修正：讓 Logo 和 Favicon 跑轉換函數)
     const fetchSettings = fetch(`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=Settings`)
         .then(res => res.text()).then(csv => {
             const data = parseCSV(csv);
@@ -154,89 +165,14 @@
                 document.getElementById('nav-site-title').innerText = settings.SiteTitle;
                 document.getElementById('page-title').innerText = settings.SiteTitle;
             }
-            if(settings.LogoURL) document.getElementById('nav-logo-img').src = settings.LogoURL;
-            if(settings.FaviconURL) document.getElementById('favicon').href = settings.FaviconURL;
+            // 修正點：加上 formatDriveUrl
+            if(settings.LogoURL) document.getElementById('nav-logo-img').src = formatDriveUrl(settings.LogoURL);
+            if(settings.FaviconURL) document.getElementById('favicon').href = formatDriveUrl(settings.FaviconURL);
+            
             if(settings.AboutContent) document.getElementById('about-text').innerText = settings.AboutContent;
             if(settings.CourseContent) document.getElementById('course-text').innerText = settings.CourseContent;
             if(settings.ContactLink) document.getElementById('line-btn').href = settings.ContactLink;
             document.getElementById('footer-text').innerHTML = `© 原點匹克球 | 從原點出發，開始你的第一拍；從匹克球開始，愛上運動。`;
-        });
-
-    // 抓取商品
-<script>
-    const sheetId = '11Uc9hJpgaeci-zsmDi1FQZBgl7f1r_vpVaNeb1Y_Dos';
-    let allProducts = [];
-
-    // 【修正版】自動識別並轉換 Google Drive 連結
-    const formatDriveUrl = (url) => {
-        if (!url) return 'logo.jpg'; 
-        const driveRegex = /(?:\/d\/|id=)([\w-]+)/;
-        const match = url.match(driveRegex);
-        if (match && match[1]) {
-            // 這裡修正了變數寫法，確保 ID 能正確帶入
-            return `https://lh3.googleusercontent.com/d/${match[1]}`;
-        }
-        return url;
-    };
-
-    // 分頁切換功能
-    function showPage(pageId) {
-        document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('.menu a').forEach(a => a.classList.remove('active'));
-        
-        document.getElementById('page-' + pageId).classList.add('active');
-        if(document.getElementById('nav-' + pageId)) {
-            document.getElementById('nav-' + pageId).classList.add('active');
-        }
-        window.scrollTo(0, 0);
-    }
-
-    function parseCSV(csv) {
-        const result = [];
-        let row = [];
-        let col = '';
-        let inQuotes = false;
-        for (let i = 0; i < csv.length; i++) {
-            const char = csv[i];
-            const nextChar = csv[i + 1];
-            if (char === '"' && inQuotes && nextChar === '"') { col += '"'; i++; }
-            else if (char === '"') inQuotes = !inQuotes;
-            else if (char === ',' && !inQuotes) { row.push(col.trim()); col = ''; }
-            else if ((char === '\r' || char === '\n') && !inQuotes) {
-                if (col !== '' || row.length > 0) { row.push(col.trim()); result.push(row); }
-                row = []; col = '';
-                if (char === '\r' && nextChar === '\n') i++;
-            } else col += char;
-        }
-        if (col !== '' || row.length > 0) { row.push(col.trim()); result.push(row); }
-        return result;
-    }
-
-    // 抓取設定 (這裡加入了 formatDriveUrl 轉換)
-    fetch(`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=Settings`)
-        .then(res => res.text()).then(csv => {
-            const data = parseCSV(csv);
-            const settings = {};
-            data.forEach(cols => { if(cols[0]) settings[cols[0]] = cols[1]; });
-            
-            if(settings.SiteTitle) {
-                document.getElementById('nav-site-title').innerText = settings.SiteTitle;
-                document.getElementById('page-title').innerText = settings.SiteTitle;
-            }
-
-            // --- 這裡修正了，讓 Logo 和 Favicon 也會自動轉換網址 ---
-            if(settings.LogoURL) {
-                document.getElementById('nav-logo-img').src = formatDriveUrl(settings.LogoURL);
-            }
-            if(settings.FaviconURL) {
-                document.getElementById('favicon').href = formatDriveUrl(settings.FaviconURL);
-            }
-            // --------------------------------------------------
-
-            if(settings.AboutContent) document.getElementById('about-text').innerText = settings.AboutContent;
-            if(settings.CourseContent) document.getElementById('course-text').innerText = settings.CourseContent;
-            if(settings.ContactLink) document.getElementById('line-btn').href = settings.ContactLink;
-            document.getElementById('footer-text').innerHTML = `© ${settings.SiteTitle || '原點匹克球'} | 從原點出發，開始你的第一拍`;
         });
 
     // 抓取商品
@@ -251,6 +187,7 @@
                 img: formatDriveUrl(cols[5]) 
             })).filter(p => p.name);
             
+            // 更新篩選選單
             const brands = [...new Set(allProducts.map(p => p.brand))].filter(Boolean);
             const cats = [...new Set(allProducts.map(p => p.cat))].filter(Boolean);
             brands.forEach(b => document.getElementById('filter-brand').innerHTML += `<option value="${b}">${b}</option>`);
@@ -258,6 +195,7 @@
             
             renderProducts(allProducts);
         }).finally(() => {
+            // 隱藏載入動畫
             setTimeout(() => { 
                 const loader = document.getElementById('loader');
                 if(loader) {
@@ -271,14 +209,13 @@
         const grid = document.getElementById('product-grid');
         grid.innerHTML = '';
         list.forEach(p => {
-            const priceText = p.price ? `$${p.price}` : '洽詢';
             grid.innerHTML += `
                 <div class="card">
-                    <img class="card-img" src="${p.img}" onerror="this.src='logo.jpg'">
+                    <img class="card-img" src="${p.img || 'logo.jpg'}" onerror="this.src='logo.jpg'">
                     <div class="card-body">
                         <span class="tag">${p.brand} | ${p.cat}</span>
                         <div class="card-title">${p.name}</div>
-                        <div class="card-price">${priceText}</div>
+                        <div class="card-price">$${p.price || '洽詢'}</div>
                     </div>
                 </div>`;
         });
