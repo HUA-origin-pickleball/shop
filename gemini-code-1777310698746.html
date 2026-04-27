@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>原點匹克球 - 商品一覽</title>
+    <style>
+        body { font-family: "Microsoft JhengHei", sans-serif; background-color: #f4f7f6; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #0066cc; text-align: center; border-bottom: 2px solid #eee; padding-bottom: 10px; }
+        .intro { text-align: center; color: #666; margin-bottom: 30px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th { background-color: #0066cc; color: white; padding: 12px; text-align: left; }
+        td { padding: 12px; border-bottom: 1px solid #eee; }
+        .price { color: #e44d26; font-weight: bold; }
+        .brand { font-size: 0.8em; color: #888; }
+        footer { text-align: center; margin-top: 40px; font-size: 0.9em; color: #999; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>原點匹克球 商品清單</h1>
+    <p class="intro">從原點出發，開始你的第一拍。這裡有翰堡教練為你精選的專業器材。</p>
+    
+    <div id="product-list">載入商品中...</div>
+
+    <footer>
+        © 原點匹克球 | 回歸運動最純粹的初心
+    </footer>
+</div>
+
+<script>
+    // 這是你的 Google 試算表 ID 和工作表名稱
+    const sheetId = '11Uc9hJpgaeci-zsmDi1FQZBgl7f1r_vpVaNeb1Y_Dos';
+    const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv`;
+
+    fetch(base)
+        .then(res => res.text())
+        .then(data => {
+            const rows = data.split('\n').slice(1); // 跳過標題列
+            let html = '<table><thead><tr><th>品牌/系列</th><th>商品名稱</th><th>價格</th></tr></thead><tbody>';
+            
+            rows.forEach(row => {
+                const cols = row.split('","').map(c => c.replace(/"/g, ''));
+                if (cols[0] && cols[1]) {
+                    html += `<tr>
+                        <td><span class="brand">${cols[0]}</span></td>
+                        <td><strong>${cols[1]}</strong></td>
+                        <td><span class="price">$${cols[2] || '洽詢'}</span></td>
+                    </tr>`;
+                }
+            });
+            
+            html += '</tbody></table>';
+            document.getElementById('product-list').innerHTML = html;
+        })
+        .catch(err => {
+            document.getElementById('product-list').innerHTML = "暫時無法讀取資料，請確認網路連線。";
+        });
+</script>
+
+</body>
+</html>
