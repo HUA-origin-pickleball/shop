@@ -11,11 +11,11 @@
         
         /* 載入動畫 */
         #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; display: flex; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s; }
-        .spinner { width: 50px; height: 50px; border: 5px solid #eee; border-top: 5px solid var(--green); border-radius: 50%; animation: spin 1s linear infinite; }
+        .spinner { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid var(--green); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
         /* 導覽列 */
-        nav { background: white; padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        nav { background: white; padding: 12px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .nav-container { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
         .nav-logo { height: 45px; display: flex; align-items: center; text-decoration: none; color: var(--main); font-weight: bold; }
         .nav-logo img { height: 100%; margin-right: 10px; border-radius: 5px; }
@@ -25,9 +25,17 @@
         .section { background: white; padding: 40px; border-radius: 15px; margin-bottom: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         h2 { border-left: 6px solid var(--green); padding-left: 15px; color: var(--main); margin-bottom: 25px; }
 
-        /* 篩選器樣式 */
+        /* 品牌故事區塊 - 修正換行問題 */
+        #about-text { 
+            line-height: 1.8; 
+            color: #555; 
+            white-space: pre-line; /* 關鍵：保留換行 */
+            word-break: break-all;
+        }
+
+        /* 篩選器 */
         .filter-bar { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 30px; background: white; padding: 20px; border-radius: 12px; border: 1px solid #eee; }
-        select { padding: 10px 15px; border-radius: 8px; border: 1px solid #ddd; outline: none; min-width: 150px; }
+        select { padding: 10px 15px; border-radius: 8px; border: 1px solid #ddd; outline: none; min-width: 140px; }
 
         /* 商品卡片 */
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
@@ -39,10 +47,11 @@
         .card-title { font-size: 1.1em; color: var(--main); font-weight: 600; line-height: 1.4; margin-bottom: 15px; height: 2.8em; overflow: hidden; }
         .card-price { color: var(--orange); font-size: 1.3em; font-weight: bold; margin-top: auto; }
 
-        .btn-line { display: block; width: fit-content; margin: 20px auto; background: #00b900; color: white; padding: 15px 40px; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.1em; }
+        .btn-line { display: block; width: fit-content; margin: 20px auto; background: #00b900; color: white; padding: 15px 40px; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.1em; transition: 0.3s; }
+        .btn-line:hover { background: #009800; transform: scale(1.05); }
         footer { text-align: center; padding: 50px 20px; color: #888; background: #fff; border-top: 1px solid #eee; }
         
-        @media (max-width: 768px) { .menu { display: none; } }
+        @media (max-width: 768px) { .menu { display: none; } .section { padding: 25px; } }
     </style>
 </head>
 <body>
@@ -57,8 +66,8 @@
         </a>
         <div class="menu">
             <a href="#about">關於原點</a>
-            <a href="#products">商品一覽</a>
-            <a href="#contact">聯絡我們</a>
+            <a href="#products">器材商城</a>
+            <a href="#contact">聯絡教練</a>
         </div>
     </div>
 </nav>
@@ -66,11 +75,11 @@
 <div class="container">
     <section id="about" class="section">
         <h2 id="about-title">品牌故事</h2>
-        <div id="about-text" style="line-height: 1.8; white-space: pre-wrap; color: #555;">讀取中...</div>
+        <div id="about-text">讀取中...</div>
     </section>
 
     <section id="products">
-        <h2>商品一覽</h2>
+        <h2>精選器材一覽</h2>
         <div class="filter-bar">
             <select id="filter-brand"><option value="all">所有品牌</option></select>
             <select id="filter-category"><option value="all">所有類別</option></select>
@@ -78,10 +87,10 @@
         <div id="product-grid" class="product-grid"></div>
     </section>
 
-    <section id="contact" style="text-align: center; padding: 80px 0;">
+    <section id="contact" style="text-align: center; padding: 60px 0;">
         <h2 style="border:none; padding:0;">聯絡我們</h2>
-        <p>對於課程或是球拍有疑問？歡迎透過LINE官方帳號與我們聯絡哦！</p>
-        <a id="line-btn" href="#" class="btn-line" target="_blank">點我加入原點匹克球LINE官方帳號</a>
+        <p>對球拍有疑問？歡迎直接聯繫翰堡教練，為您推薦最適合的裝備。</p>
+        <a id="line-btn" href="#" class="btn-line" target="_blank">💬 預約試打 / 詢問商品</a>
     </section>
 </div>
 
@@ -91,23 +100,39 @@
     const sheetId = '11Uc9hJpgaeci-zsmDi1FQZBgl7f1r_vpVaNeb1Y_Dos';
     let allProducts = [];
 
-    // 複雜 CSV 解析邏輯，防止因為逗號導致當機
+    // 高級 CSV 解析：正確處理引號內的換行
     function parseCSV(csv) {
-        const lines = csv.split('\n');
-        return lines.map(line => {
-            const result = [];
-            let current = '';
-            let inQuotes = false;
-            for (let char of line) {
-                if (char === '"') inQuotes = !inQuotes;
-                else if (char === ',' && !inQuotes) {
-                    result.push(current.trim());
-                    current = '';
-                } else current += char;
+        const result = [];
+        let row = [];
+        let col = '';
+        let inQuotes = false;
+
+        for (let i = 0; i < csv.length; i++) {
+            const char = csv[i];
+            const nextChar = csv[i + 1];
+
+            if (char === '"' && inQuotes && nextChar === '"') {
+                col += '"'; i++;
+            } else if (char === '"') {
+                inQuotes = !inQuotes;
+            } else if (char === ',' && !inQuotes) {
+                row.push(col.trim()); col = '';
+            } else if ((char === '\r' || char === '\n') && !inQuotes) {
+                if (col !== '' || row.length > 0) {
+                    row.push(col.trim());
+                    result.push(row);
+                }
+                row = []; col = '';
+                if (char === '\r' && nextChar === '\n') i++;
+            } else {
+                col += char;
             }
-            result.push(current.trim());
-            return result;
-        });
+        }
+        if (col !== '' || row.length > 0) {
+            row.push(col.trim());
+            result.push(row);
+        }
+        return result;
     }
 
     // 抓取設定 (Settings)
@@ -115,7 +140,7 @@
         .then(res => res.text()).then(csv => {
             const data = parseCSV(csv);
             const settings = {};
-            data.forEach(cols => { settings[cols[0]] = cols[1]; });
+            data.forEach(cols => { if(cols[0]) settings[cols[0]] = cols[1]; });
             
             if(settings.SiteTitle) {
                 document.getElementById('nav-site-title').innerText = settings.SiteTitle;
@@ -125,7 +150,7 @@
             if(settings.FaviconURL) document.getElementById('favicon').href = settings.FaviconURL;
             if(settings.AboutContent) document.getElementById('about-text').innerText = settings.AboutContent;
             if(settings.ContactLink) document.getElementById('line-btn').href = settings.ContactLink;
-            document.getElementById('footer-text').innerHTML = `© ${settings.SiteTitle || ''} | 回歸運動最純粹的初心`;
+            document.getElementById('footer-text').innerHTML = `© ${settings.SiteTitle || ''} | 從原點出發，開始你的第一拍`;
         });
 
     // 抓取商品 (Products)
@@ -136,7 +161,6 @@
                 brand: cols[0], name: cols[1], cat: cols[2], price: cols[3], img: cols[5]
             })).filter(p => p.name);
 
-            // 自動更新篩選器選單
             const brands = [...new Set(allProducts.map(p => p.brand))].filter(Boolean);
             const cats = [...new Set(allProducts.map(p => p.cat))].filter(Boolean);
             brands.forEach(b => document.getElementById('filter-brand').innerHTML += `<option value="${b}">${b}</option>`);
@@ -145,10 +169,11 @@
             renderProducts(allProducts);
         });
 
-    // 等待所有資料載入後關閉動畫
     Promise.all([fetchSettings, fetchProducts]).finally(() => {
-        setTimeout(() => { document.getElementById('loader').style.opacity = '0'; 
-        setTimeout(() => { document.getElementById('loader').style.display = 'none'; }, 500); }, 300);
+        setTimeout(() => { 
+            document.getElementById('loader').style.opacity = '0'; 
+            setTimeout(() => { document.getElementById('loader').style.display = 'none'; }, 500); 
+        }, 300);
     });
 
     function renderProducts(list) {
