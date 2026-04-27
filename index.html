@@ -4,90 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="page-title">原點匹克球 | 官方網站</title>
+    <link id="favicon" rel="icon" href="logo.jpg" type="image/x-icon">
     <style>
         :root { --main: #2c3e50; --green: #4a6741; --orange: #e67e22; --bg: #f8f9fa; }
         body { font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; margin: 0; background: var(--bg); color: #333; scroll-behavior: smooth; }
         
+        /* 載入動畫 */
+        #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; display: flex; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s; }
+        .spinner { width: 50px; height: 50px; border: 5px solid #eee; border-top: 5px solid var(--green); border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
         /* 導覽列 */
         nav { background: white; padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .nav-container { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .nav-logo { height: 50px; display: flex; align-items: center; text-decoration: none; color: var(--main); font-weight: bold; font-size: 1.2em; }
-        .nav-logo img { height: 100%; margin-right: 10px; }
-        .menu { display: flex; gap: 20px; }
-        .menu a { text-decoration: none; color: var(--main); font-weight: 500; }
+        .nav-logo { height: 45px; display: flex; align-items: center; text-decoration: none; color: var(--main); font-weight: bold; }
+        .nav-logo img { height: 100%; margin-right: 10px; border-radius: 5px; }
+        .menu a { text-decoration: none; color: var(--main); font-weight: 500; margin-left: 20px; font-size: 0.95em; }
 
         .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; }
         .section { background: white; padding: 40px; border-radius: 15px; margin-bottom: 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
         h2 { border-left: 6px solid var(--green); padding-left: 15px; color: var(--main); margin-bottom: 25px; }
 
         /* 篩選器樣式 */
-        .filter-bar { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 30px; background: #eee; padding: 20px; border-radius: 10px; }
-        .filter-group { display: flex; align-items: center; gap: 10px; }
-        select { padding: 8px 15px; border-radius: 5px; border: 1px solid #ddd; font-size: 1em; }
+        .filter-bar { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 30px; background: white; padding: 20px; border-radius: 12px; border: 1px solid #eee; }
+        select { padding: 10px 15px; border-radius: 8px; border: 1px solid #ddd; outline: none; min-width: 150px; }
 
-        /* 商品卡片樣式 */
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        /* 商品卡片 */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
         .card { background: white; border-radius: 12px; overflow: hidden; border: 1px solid #eee; transition: 0.3s; display: flex; flex-direction: column; }
-        .card:hover { transform: translateY(-8px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-        .card-img { width: 100%; height: 250px; object-fit: contain; background: #fff; padding: 15px; box-sizing: border-box; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .card-img { width: 100%; height: 220px; object-fit: contain; background: #fff; padding: 15px; box-sizing: border-box; }
         .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-        .tag { font-size: 0.8em; color: var(--green); font-weight: bold; text-transform: uppercase; }
-        .card-title { font-size: 1.2em; margin: 10px 0; color: var(--main); font-weight: 600; height: 2.8em; overflow: hidden; }
-        .card-price { color: var(--orange); font-size: 1.4em; font-weight: bold; margin-top: auto; }
+        .tag { font-size: 0.75em; color: var(--green); font-weight: bold; margin-bottom: 8px; }
+        .card-title { font-size: 1.1em; color: var(--main); font-weight: 600; line-height: 1.4; margin-bottom: 15px; height: 2.8em; overflow: hidden; }
+        .card-price { color: var(--orange); font-size: 1.3em; font-weight: bold; margin-top: auto; }
 
-        .btn-line { display: block; width: fit-content; margin: 40px auto; background: #00b900; color: white; padding: 15px 40px; text-decoration: none; border-radius: 50px; font-weight: bold; text-align: center; font-size: 1.1em; }
-        footer { text-align: center; padding: 60px 20px; color: #888; background: #fff; border-top: 1px solid #eee; }
+        .btn-line { display: block; width: fit-content; margin: 20px auto; background: #00b900; color: white; padding: 15px 40px; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.1em; }
+        footer { text-align: center; padding: 50px 20px; color: #888; background: #fff; border-top: 1px solid #eee; }
         
-        @media (max-width: 600px) { .menu { display: none; } }
+        @media (max-width: 768px) { .menu { display: none; } }
     </style>
 </head>
 <body>
 
+<div id="loader"><div class="spinner"></div></div>
+
 <nav>
     <div class="nav-container">
         <a href="#" class="nav-logo">
-            <img id="nav-logo-img" src="logo.jpg" alt="Logo" onerror="this.style.display='none'">
+            <img id="nav-logo-img" src="logo.jpg" alt="Logo">
             <span id="nav-site-title">原點匹克球</span>
         </a>
         <div class="menu">
-            <a href="#about">品牌故事</a>
-            <a href="#services">服務項目</a>
-            <a href="#products">商品清單</a>
-            <a href="#contact">聯絡我們</a>
+            <a href="#about">關於原點</a>
+            <a href="#products">器材商城</a>
+            <a href="#contact">聯絡教練</a>
         </div>
     </div>
 </nav>
 
 <div class="container">
     <section id="about" class="section">
-        <h2>品牌故事</h2>
-        <div id="about-text" style="line-height: 1.8; white-space: pre-wrap;">載入中...</div>
-    </section>
-
-    <section id="services" class="section">
-        <h2>服務項目</h2>
-        <div id="service-text" style="line-height: 1.8; white-space: pre-wrap;">載入中...</div>
+        <h2 id="about-title">品牌故事</h2>
+        <div id="about-text" style="line-height: 1.8; white-space: pre-wrap; color: #555;">讀取中...</div>
     </section>
 
     <section id="products">
-        <h2>商品清單</h2>
+        <h2>精選器材一覽</h2>
         <div class="filter-bar">
-            <div class="filter-group">
-                <label>品牌：</label>
-                <select id="filter-brand"><option value="all">全部品牌</option></select>
-            </div>
-            <div class="filter-group">
-                <label>類別：</label>
-                <select id="filter-category"><option value="all">全部類別</option></select>
-            </div>
+            <select id="filter-brand"><option value="all">所有品牌</option></select>
+            <select id="filter-category"><option value="all">所有類別</option></select>
         </div>
-        <div id="product-grid" class="product-grid">載入商品中...</div>
+        <div id="product-grid" class="product-grid"></div>
     </section>
 
-    <section id="contact" style="text-align: center; padding: 60px 0;">
-        <h2>開始你的第一拍</h2>
-        <p>不論您是新手或是選手，都歡迎與我們聯繫。</p>
-        <a id="line-btn" href="#" class="btn-line" target="_blank">💬 聯繫翰堡教練 / 預約試打</a>
+    <section id="contact" style="text-align: center; padding: 80px 0;">
+        <h2 style="border:none; padding:0;">聯絡我們</h2>
+        <p>對球拍有疑問？歡迎直接聯繫翰堡教練，為您推薦最適合的裝備。</p>
+        <a id="line-btn" href="#" class="btn-line" target="_blank">💬 預約試打 / 詢問商品</a>
     </section>
 </div>
 
@@ -97,45 +91,69 @@
     const sheetId = '11Uc9hJpgaeci-zsmDi1FQZBgl7f1r_vpVaNeb1Y_Dos';
     let allProducts = [];
 
-    // 1. 抓取設定分頁 (Settings)
-    fetch(`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=Settings`)
-    .then(res => res.text()).then(csv => {
-        const lines = csv.split('\n').map(l => l.split(',').map(c => c.replace(/"/g, '')));
-        const settings = {};
-        lines.forEach(cols => { settings[cols[0]] = cols[1]; });
-        
-        if(settings.SiteTitle) {
-            document.getElementById('nav-site-title').innerText = settings.SiteTitle;
-            document.getElementById('page-title').innerText = settings.SiteTitle;
-        }
-        if(settings.LogoURL) document.getElementById('nav-logo-img').src = settings.LogoURL;
-        if(settings.AboutContent) document.getElementById('about-text').innerText = settings.AboutContent;
-        if(settings.ServiceContent) document.getElementById('service-text').innerText = settings.ServiceContent;
-        if(settings.ContactLink) document.getElementById('line-btn').href = settings.ContactLink;
-        document.getElementById('footer-text').innerHTML = `© ${settings.SiteTitle || ''} Origin Pickleball | 根植花蓮，注入活力`;
-    });
+    // 複雜 CSV 解析邏輯，防止因為逗號導致當機
+    function parseCSV(csv) {
+        const lines = csv.split('\n');
+        return lines.map(line => {
+            const result = [];
+            let current = '';
+            let inQuotes = false;
+            for (let char of line) {
+                if (char === '"') inQuotes = !inQuotes;
+                else if (char === ',' && !inQuotes) {
+                    result.push(current.trim());
+                    current = '';
+                } else current += char;
+            }
+            result.push(current.trim());
+            return result;
+        });
+    }
 
-    // 2. 抓取商品分頁 (Products)
-    fetch(`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=Products`)
-    .then(res => res.text()).then(csv => {
-        const rows = csv.split('\n').slice(1);
-        allProducts = rows.map(row => {
-            const cols = row.match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g).map(c => c.replace(/"/g, ''));
-            return { brand: cols[0], name: cols[1], cat: cols[2], price: cols[3], img: cols[5] };
-        }).filter(p => p.name);
+    // 抓取設定 (Settings)
+    const fetchSettings = fetch(`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=Settings`)
+        .then(res => res.text()).then(csv => {
+            const data = parseCSV(csv);
+            const settings = {};
+            data.forEach(cols => { settings[cols[0]] = cols[1]; });
+            
+            if(settings.SiteTitle) {
+                document.getElementById('nav-site-title').innerText = settings.SiteTitle;
+                document.getElementById('page-title').innerText = settings.SiteTitle;
+            }
+            if(settings.LogoURL) document.getElementById('nav-logo-img').src = settings.LogoURL;
+            if(settings.FaviconURL) document.getElementById('favicon').href = settings.FaviconURL;
+            if(settings.AboutContent) document.getElementById('about-text').innerText = settings.AboutContent;
+            if(settings.ContactLink) document.getElementById('line-btn').href = settings.ContactLink;
+            document.getElementById('footer-text').innerHTML = `© ${settings.SiteTitle || ''} | 回歸運動最純粹的初心`;
+        });
 
-        // 初始化篩選器
-        const brands = [...new Set(allProducts.map(p => p.brand))];
-        const cats = [...new Set(allProducts.map(p => p.cat))];
-        brands.forEach(b => document.getElementById('filter-brand').innerHTML += `<option value="${b}">${b}</option>`);
-        cats.forEach(c => document.getElementById('filter-category').innerHTML += `<option value="${c}">${c}</option>`);
+    // 抓取商品 (Products)
+    const fetchProducts = fetch(`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=Products`)
+        .then(res => res.text()).then(csv => {
+            const data = parseCSV(csv).slice(1);
+            allProducts = data.map(cols => ({
+                brand: cols[0], name: cols[1], cat: cols[2], price: cols[3], img: cols[5]
+            })).filter(p => p.name);
 
-        renderProducts(allProducts);
+            // 自動更新篩選器選單
+            const brands = [...new Set(allProducts.map(p => p.brand))].filter(Boolean);
+            const cats = [...new Set(allProducts.map(p => p.cat))].filter(Boolean);
+            brands.forEach(b => document.getElementById('filter-brand').innerHTML += `<option value="${b}">${b}</option>`);
+            cats.forEach(c => document.getElementById('filter-category').innerHTML += `<option value="${c}">${c}</option>`);
+
+            renderProducts(allProducts);
+        });
+
+    // 等待所有資料載入後關閉動畫
+    Promise.all([fetchSettings, fetchProducts]).finally(() => {
+        setTimeout(() => { document.getElementById('loader').style.opacity = '0'; 
+        setTimeout(() => { document.getElementById('loader').style.display = 'none'; }, 500); }, 300);
     });
 
     function renderProducts(list) {
         const grid = document.getElementById('product-grid');
-        grid.innerHTML = list.length ? '' : '<p>找不到符合條件的商品。</p>';
+        grid.innerHTML = '';
         list.forEach(p => {
             grid.innerHTML += `
                 <div class="card">
@@ -149,7 +167,6 @@
         });
     }
 
-    // 監聽篩選器
     document.querySelectorAll('select').forEach(s => {
         s.addEventListener('change', () => {
             const b = document.getElementById('filter-brand').value;
