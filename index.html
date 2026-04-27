@@ -223,3 +223,39 @@
             const matchQuery = p.name.toLowerCase().includes(q);
             return matchBrand && matchCat && matchQuery;
         });
+        renderProducts(filtered);
+    }
+
+    function renderProducts(list) {
+        const grid = document.getElementById('product-grid');
+        grid.innerHTML = '';
+        list.forEach(p => {
+            grid.innerHTML += `
+                <div class="card">
+                    <img class="card-img" src="${p.img}" onerror="this.src='logo.jpg'">
+                    <div class="card-body">
+                        <span class="tag">${p.brand} | ${p.cat}</span>
+                        <div class="card-title">${p.name}</div>
+                        <div class="card-price">$${p.price || '洽詢'}</div>
+                    </div>
+                </div>`;
+        });
+    }
+
+    // 事件監聽
+    document.getElementById('filter-brand').addEventListener('change', updateFilterOptions);
+    document.getElementById('filter-category').addEventListener('change', applyFilters);
+    document.getElementById('search-input').addEventListener('input', applyFilters);
+
+    // 回到頂部按鈕顯示邏輯
+    window.onscroll = function() {
+        const btn = document.getElementById('back-to-top');
+        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+            btn.style.display = "flex";
+        } else {
+            btn.style.display = "none";
+        }
+    };
+</script>
+</body>
+</html>
