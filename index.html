@@ -163,27 +163,46 @@
         });
 
     // 抓取商品
-    const fetchProducts = fetch(`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=Products`)
+// 1. 自動識別 Google Drive 連結並轉換的工具 (放在 fetch 之前或裡面皆可)
+    const formatDriveUrl = (url) => {
+        if (!url) return 'logo.jpg'; 
+        const driveRegex = /(?:\/d\/|id=)([\w-]+)/;
+        const match = url.match(driveRegex);
+        if (match && match[1]) {
+            return `https://lh3.googleusercontent.com/d/${match[1]}`;
+        }
+        return url;
+    };
+
+    // 2. 抓取商品分頁資料 (整塊替換)
+    fetch(`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=Products`)
         .then(res => res.text()).then(csv => {
             const data = parseCSV(csv).slice(1);
             allProducts = data.map(cols => ({
-                brand: cols[0], name: cols[1], cat: cols[2], price: cols[3], img: cols[5]
+                brand: cols[0], 
+                name: cols[1], 
+                cat: cols[2], 
+                price: cols[3], 
+                img: formatDriveUrl(cols[5]) // 這裡已經幫你套用轉換引擎了
             })).filter(p => p.name);
-
+            
+            // 更新篩選選單
             const brands = [...new Set(allProducts.map(p => p.brand))].filter(Boolean);
             const cats = [...new Set(allProducts.map(p => p.cat))].filter(Boolean);
             brands.forEach(b => document.getElementById('filter-brand').innerHTML += `<option value="${b}">${b}</option>`);
             cats.forEach(c => document.getElementById('filter-category').innerHTML += `<option value="${c}">${c}</option>`);
-
+            
             renderProducts(allProducts);
+        }).finally(() => {
+            // 隱藏載入動畫
+            setTimeout(() => { 
+                const loader = document.getElementById('loader');
+                if(loader) {
+                    loader.style.opacity = '0'; 
+                    setTimeout(() => { loader.style.display = 'none'; }, 500);
+                }
+            }, 300);
         });
-
-    Promise.all([fetchSettings, fetchProducts]).finally(() => {
-        setTimeout(() => { 
-            document.getElementById('loader').style.opacity = '0'; 
-            setTimeout(() => { document.getElementById('loader').style.display = 'none'; }, 500); 
-        }, 300);
-    });
 
     function renderProducts(list) {
         const grid = document.getElementById('product-grid');
