@@ -3,105 +3,199 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>原點匹克球 Origin Pickleball</title>
+    <title>原點匹克球 Origin Pickleball | 專業教學與器材</title>
     <style>
+        /* 品牌配色與基本設定 */
         :root {
-            --primary-color: #2c3e50;
-            --accent-color: #27ae60;
-            --bg-color: #f4f7f6;
+            --primary-color: #2d3436; /* 質感深灰 */
+            --brand-green: #2ecc71;  /* 匹克球活力綠 */
+            --text-color: #2d3436;
+            --light-bg: #f9f9f9;
         }
+
         body {
             font-family: "Microsoft JhengHei", sans-serif;
-            line-height: 1.6;
-            color: var(--primary-color);
-            background-color: var(--bg-color);
             margin: 0;
             padding: 0;
+            color: var(--text-color);
+            line-height: 1.7;
+            scroll-behavior: smooth;
         }
-        .container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 20px;
-            background: white;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-radius: 8px;
-        }
-        header {
-            text-align: center;
-            padding-bottom: 30px;
-            border-bottom: 2px solid var(--bg-color);
-        }
-        .logo {
-            max-width: 150px;
-            height: auto;
-            margin-bottom: 10px;
-        }
-        h1 { color: var(--accent-color); margin-bottom: 5px; }
-        .slogan { font-style: italic; color: #666; margin-top: 0; }
-        
-        section { margin: 30px 0; }
-        h2 { border-left: 5px solid var(--accent-color); padding-left: 15px; color: var(--primary-color); }
-        
-        .core-values {
+
+        /* 導覽選單 */
+        nav {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1rem 5%;
+            position: fixed;
+            top: 0;
+            width: 90%;
             display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-            gap: 15px;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 1000;
         }
-        .value-item {
-            flex: 1;
-            min-width: 200px;
-            padding: 15px;
-            background: var(--bg-color);
-            border-radius: 5px;
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--brand-green);
+            text-decoration: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            margin-left: 20px;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--brand-green);
+        }
+
+        /* 主視覺區 */
+        header {
+            height: 80vh;
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
+                        url('https://via.placeholder.com/1200x800?text=Origin+Pickleball') no-repeat center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
             text-align: center;
+            padding: 0 20px;
         }
+
+        header h1 { font-size: 3rem; margin-bottom: 1rem; }
+        header p { font-size: 1.2rem; max-width: 600px; }
+
+        /* 內容區塊 */
+        section {
+            padding: 80px 10%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            width: 50px;
+            height: 3px;
+            background: var(--brand-green);
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* 產品與服務卡片 */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            border-bottom: 4px solid var(--brand-green);
+        }
+
+        .card h3 { color: var(--brand-green); margin-top: 0; }
+
+        /* 關於原點（品牌故事） */
+        .about-text {
+            background: var(--light-bg);
+            padding: 40px;
+            border-radius: 15px;
+            font-size: 1.1rem;
+        }
+
+        /* 頁尾 */
         footer {
+            background: var(--primary-color);
+            color: white;
             text-align: center;
-            font-size: 0.9em;
-            color: #888;
-            margin-top: 40px;
-            padding-bottom: 20px;
+            padding: 50px 20px;
+        }
+
+        .contact-info { margin-top: 20px; font-size: 0.9rem; opacity: 0.8; }
+
+        /* 手機版優化 */
+        @media (max-width: 768px) {
+            nav { flex-direction: column; position: relative; width: 100%; }
+            .nav-links { margin-top: 15px; font-size: 0.9rem; }
+            header h1 { font-size: 2rem; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
+    <nav>
+        <a href="#" class="logo">原點匹克球</a>
+        <div class="nav-links">
+            <a href="#story">品牌故事</a>
+            <a href="#services">服務項目</a>
+            <a href="#contact">聯絡我們</a>
+        </div>
+    </nav>
+
     <header>
-        <img src="https://via.placeholder.com/150?text=Origin+Pickleball" alt="原點匹克球 Logo" class="logo">
-        <h1>原點匹克球</h1>
-        <p class="slogan">從原點出發，開始你的第一拍。</p>
+        <h1>從原點出發，開始你的第一拍</h1>
+        <p>不為輸贏，只為享受揮拍的瞬間、流汗的快感、與人相連的溫度。</p>
     </header>
 
-    <section>
+    <section id="story">
         <h2>品牌故事</h2>
-        <p>一切從一顆球、一支拍開始。原點匹克球的創辦人兼總教練，第一次拿起球拍的那刻，就被這項運動深深迷住——它不需要過人的體能，卻能給你全身心投入的快感；它簡單上手，卻有著讓人不斷鑽研的深度。</p>
-        <p>「原點」不只是起點，更是回歸——回歸運動最純粹的初心：不為輸贏，只為享受揮拍的瞬間、流汗的快感、與人相連的溫度。</p>
+        <div class="about-text">
+            <p>一切從一顆球、一支拍開始。原點匹克球的創辦人兼總教練，第一次拿起球拍的那刻，就被這項運動深深迷住——它不需要過人的體能，卻能給你全身心投入的快感；它簡單上手，卻有著讓人不斷鑽研的深度。</p>
+            <p>大學畢業後回到花蓮，在一次次的教學、賽場與揮拍之間，這份熱愛越燒越旺，也讓創辦人做出了一個決定：在花蓮這片土地上，成立「原點匹克球」，為花蓮所有喜愛這項運動的球友與學員服務。</p>
+            <p><strong>我們相信，不管你幾歲、有沒有運動基礎，都值得擁有一項讓你真心愛上的運動。</strong></p>
+        </div>
     </section>
 
-    <section>
-        <h2>核心價值</h2>
-        <div class="core-values">
-            <div class="value-item">
-                <strong>簡單快樂</strong>
-                <p>沒有門檻，人人都能參與。</p>
+    <section id="services">
+        <h2>服務與產品</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>專業教學課程</h3>
+                <p>不論是初學者還是想進階的球友，翰堡教練提供最紮實的教學，帶你從零基礎到享受比賽樂趣。</p>
             </div>
-            <div class="value-item">
-                <strong>人際橋梁</strong>
-                <p>球場上認識新朋友，連結彼此。</p>
+            <div class="card">
+                <h3>專業球拍販售</h3>
+                <p>嚴選適合各種手感與程度的匹克球拍與器材。我們不賣最貴的，只賣最適合你的那支拍。</p>
             </div>
-            <div class="value-item">
-                <strong>根植花蓮</strong>
-                <p>為這片土地注入運動活力。</p>
+            <div class="card">
+                <h3>場地器材諮詢</h3>
+                <p>提供專業器材建議與場地規劃諮詢，推廣匹克球運動進入花蓮的每一個角落。</p>
             </div>
         </div>
     </section>
 
+    <section id="contact">
+        <h2>聯絡原點</h2>
+        <div style="text-align: center;">
+            <p><strong>店址：</strong>花蓮縣（實體店面已於 4/10 低調開幕）</p>
+            <p>歡迎預約教學、試拍或器材洽詢。</p>
+        </div>
+    </section>
+
     <footer>
-        <p>&copy; 2026 原點匹克球 Origin Pickleball. All Rights Reserved.</p>
+        <p>從匹克球開始，愛上運動。</p>
+        <div class="contact-info">
+            &copy; 2026 原點匹克球 Origin Pickleball | 翰堡教練
+        </div>
     </footer>
-</div>
 
 </body>
 </html>
