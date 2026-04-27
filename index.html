@@ -3,199 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>原點匹克球 Origin Pickleball | 專業教學與器材</title>
+    <title>原點匹克球 | 官方目錄</title>
     <style>
-        /* 品牌配色與基本設定 */
-        :root {
-            --primary-color: #2d3436; /* 質感深灰 */
-            --brand-green: #2ecc71;  /* 匹克球活力綠 */
-            --text-color: #2d3436;
-            --light-bg: #f9f9f9;
-        }
+        :root { --primary: #2c3e50; --accent: #4a6741; --bg: #f4f7f6; }
+        body { font-family: "PingFang TC", "Heiti TC", "Microsoft JhengHei", sans-serif; background: var(--bg); margin: 0; padding: 0; color: #333; }
+        
+        /* 頁首 */
+        .header { background: white; padding: 30px 20px; text-align: center; border-bottom: 3px solid var(--primary); }
+        .logo { max-width: 150px; margin-bottom: 10px; }
+        .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; }
+        
+        /* 關於品牌 */
+        .about-section { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 30px; line-height: 1.8; }
+        .about-section h2 { color: var(--primary); border-left: 5px solid var(--accent); padding-left: 15px; margin-top: 0; }
 
-        body {
-            font-family: "Microsoft JhengHei", sans-serif;
-            margin: 0;
-            padding: 0;
-            color: var(--text-color);
-            line-height: 1.7;
-            scroll-behavior: smooth;
-        }
+        /* 篩選器 */
+        .filter-bar { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 15px; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .filter-group { display: flex; flex-direction: column; gap: 5px; }
+        .filter-group label { font-size: 0.85em; font-weight: bold; color: var(--primary); }
+        select { padding: 8px 12px; border-radius: 6px; border: 1px solid #ddd; font-size: 1em; background: white; min-width: 140px; cursor: pointer; }
 
-        /* 導覽選單 */
-        nav {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 1rem 5%;
-            position: fixed;
-            top: 0;
-            width: 90%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            z-index: 1000;
-        }
+        /* 商品卡片區域 */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 25px; }
+        .product-item { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); display: flex; flex-direction: column; transition: transform 0.3s ease; }
+        .product-item:hover { transform: translateY(-5px); }
+        
+        /* 圖片容器 */
+        .product-img-container { width: 100%; height: 250px; background: #fff; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid #f0f0f0; overflow: hidden; position: relative; }
+        .product-img { max-width: 90%; max-height: 90%; object-fit: contain; }
+        .img-placeholder { position: absolute; color: #ccc; font-size: 0.9em; text-align: center; padding: 20px; }
 
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--brand-green);
-            text-decoration: none;
-        }
+        .product-info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .brand-tag { color: var(--accent); font-size: 0.8em; font-weight: bold; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 1px; }
+        .product-title { font-size: 1.1em; margin: 0 0 10px 0; color: var(--primary); font-weight: 600; height: 2.8em; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .product-price { color: #e67e22; font-weight: bold; font-size: 1.3em; margin-top: auto; }
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-color);
-            margin-left: 20px;
-            font-weight: 500;
-        }
-
-        .nav-links a:hover {
-            color: var(--brand-green);
-        }
-
-        /* 主視覺區 */
-        header {
-            height: 80vh;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), 
-                        url('https://via.placeholder.com/1200x800?text=Origin+Pickleball') no-repeat center/cover;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-            padding: 0 20px;
-        }
-
-        header h1 { font-size: 3rem; margin-bottom: 1rem; }
-        header p { font-size: 1.2rem; max-width: 600px; }
-
-        /* 內容區塊 */
-        section {
-            padding: 80px 10%;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        h2 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 3rem;
-            position: relative;
-        }
-
-        h2::after {
-            content: '';
-            width: 50px;
-            height: 3px;
-            background: var(--brand-green);
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-
-        /* 產品與服務卡片 */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .card {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            border-bottom: 4px solid var(--brand-green);
-        }
-
-        .card h3 { color: var(--brand-green); margin-top: 0; }
-
-        /* 關於原點（品牌故事） */
-        .about-text {
-            background: var(--light-bg);
-            padding: 40px;
-            border-radius: 15px;
-            font-size: 1.1rem;
-        }
-
-        /* 頁尾 */
-        footer {
-            background: var(--primary-color);
-            color: white;
-            text-align: center;
-            padding: 50px 20px;
-        }
-
-        .contact-info { margin-top: 20px; font-size: 0.9rem; opacity: 0.8; }
-
-        /* 手機版優化 */
-        @media (max-width: 768px) {
-            nav { flex-direction: column; position: relative; width: 100%; }
-            .nav-links { margin-top: 15px; font-size: 0.9rem; }
-            header h1 { font-size: 2rem; }
-        }
+        /* LINE 按鈕 */
+        .contact-btn { display: block; width: fit-content; margin: 40px auto; background: #00b900; color: white; padding: 16px 40px; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.1em; transition: 0.3s; text-align: center; box-shadow: 0 4px 15px rgba(0,185,0,0.3); }
+        .contact-btn:hover { background: #009800; transform: scale(1.03); }
+        
+        footer { text-align: center; padding: 50px 20px; color: #7f8c8d; font-size: 0.9em; border-top: 1px solid #eee; margin-top: 50px; }
     </style>
 </head>
 <body>
 
-    <nav>
-        <a href="#" class="logo">原點匹克球</a>
-        <div class="nav-links">
-            <a href="#story">品牌故事</a>
-            <a href="#services">服務項目</a>
-            <a href="#contact">聯絡我們</a>
-        </div>
-    </nav>
+<header class="header">
+    <img src="logo.jpg" alt="原點匹克球" class="logo" onerror="this.style.display='none'">
+    <h1 style="margin:5px 0; color:var(--primary); font-size: 1.8em;">原點匹克球</h1>
+    <div style="color:var(--accent); font-weight:bold; letter-spacing:3px; font-size: 0.9em;">ORIGIN PICKLEBALL</div>
+</header>
 
-    <header>
-        <h1>從原點出發，開始你的第一拍</h1>
-        <p>不為輸贏，只為享受揮拍的瞬間、流汗的快感、與人相連的溫度。</p>
-    </header>
-
-    <section id="story">
+<div class="container">
+    <div class="about-section">
         <h2>品牌故事</h2>
-        <div class="about-text">
-            <p>一切從一顆球、一支拍開始。原點匹克球的創辦人兼總教練，第一次拿起球拍的那刻，就被這項運動深深迷住——它不需要過人的體能，卻能給你全身心投入的快感；它簡單上手，卻有著讓人不斷鑽研的深度。</p>
-            <p>大學畢業後回到花蓮，在一次次的教學、賽場與揮拍之間，這份熱愛越燒越旺，也讓創辦人做出了一個決定：在花蓮這片土地上，成立「原點匹克球」，為花蓮所有喜愛這項運動的球友與學員服務。</p>
-            <p><strong>我們相信，不管你幾歲、有沒有運動基礎，都值得擁有一項讓你真心愛上的運動。</strong></p>
-        </div>
-    </section>
+        <p>「原點」不只是起點，更是回歸運動最純粹的初心。創辦人兼總教練翰堡，在教學與賽場之間，將這份對匹克球的熱愛轉化為專業。我們根植花蓮，致力於提供最適合每一位球友的器材。不管你幾歲、有沒有基礎，從原點出發，開始你的第一拍。</p>
+    </div>
 
-    <section id="services">
-        <h2>服務與產品</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>專業教學課程</h3>
-                <p>不論是初學者還是想進階的球友，翰堡教練提供最紮實的教學，帶你從零基礎到享受比賽樂趣。</p>
-            </div>
-            <div class="card">
-                <h3>專業球拍販售</h3>
-                <p>嚴選適合各種手感與程度的匹克球拍與器材。我們不賣最貴的，只賣最適合你的那支拍。</p>
-            </div>
-            <div class="card">
-                <h3>場地器材諮詢</h3>
-                <p>提供專業器材建議與場地規劃諮詢，推廣匹克球運動進入花蓮的每一個角落。</p>
-            </div>
+    <div class="filter-bar">
+        <div class="filter-group">
+            <label>品牌篩選</label>
+            <select id="filter-brand"><option value="all">所有品牌</option></select>
         </div>
-    </section>
+        <div class="filter-group">
+            <label>類別篩選</label>
+            <select id="filter-category"><option value="all">所有類別</option></select>
+        </div>
+        <div class="filter-group">
+            <label>價格區間</label>
+            <select id="filter-price">
+                <option value="all">不限金額</option>
+                <option value="0-1500">1,500 元以下</option>
+                <option value="1501-3500">1,501 - 3,500 元</option>
+                <option value="3501-5000">3,501 - 5,000 元</option>
+                <option value="5001-99999">5,001 元以上</option>
+            </select>
+        </div>
+    </div>
 
-    <section id="contact">
-        <h2>聯絡原點</h2>
-        <div style="text-align: center;">
-            <p><strong>店址：</strong>花蓮縣（實體店面已於 4/10 低調開幕）</p>
-            <p>歡迎預約教學、試拍或器材洽詢。</p>
-        </div>
-    </section>
+    <div id="product-grid" class="product-grid">正在載入商品資料...</div>
 
-    <footer>
-        <p>從匹克球開始，愛上運動。</p>
-        <div class="contact-info">
-            &copy; 2026 原點匹克球 Origin Pickleball | 翰堡教練
-        </div>
-    </footer>
+    <a href="https://line.me/R/ti/p/@yourid" class="contact-btn">💬 聯繫翰堡教練 / 預約試打</a>
+</div>
+
+<footer>
+    © 原點匹克球 Origin Pickleball<br>
+    從原點出發，開始你的第一拍。
+</footer>
+
+<script>
+    const sheetId = '11Uc9hJpgaeci-zsmDi1FQZBgl7f1r_vpVaNeb1Y_Dos';
+    const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&gid=0`;
+    
+    let allProducts = [];
+
+    // 抓取並解析 CSV 資料
+    async function loadData() {
+        try {
+            const response = await fetch(base);
+            const data = await response.text();
+            // 解析 CSV，跳過第一列（標題）
+            const rows = data.split('\n').slice(1);
+            
+            const brands = new Set();
+            const categories = new Set();
+
+            allProducts = rows.map(row => {
+                // 處理 CSV 的正則表達式，確保引號內的內容正確讀取
+                const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/^"|"$/g, '').trim());
+                
+                if (!cols[1]) return null;
+
+                if (cols[0]) brands.add(cols[0]);
+                if (cols[2]) categories.add(cols[2]);
+
+                return {
+                    brand: cols[0] || '其他',
+                    name: cols[1],
+                    category: cols[2] || '未分類',
+                    price: parseInt(cols[3].replace(/[^0-9]/g, '')) || 0,
+                    img: cols[5] || '' 
+                };
+            }).filter(p => p !== null);
+
+            // 動態生成選單選項
+            const bSelect = document.getElementById('filter-brand');
+            brands.forEach(b => bSelect.innerHTML += `<option value="${b}">${b}</option>`);
+            const cSelect = document.getElementById('filter-category');
+            categories.forEach(c => cSelect.innerHTML += `<option value="${c}">${c}</option>`);
+
+            renderProducts(allProducts);
+        } catch (error) {
+            document.getElementById('product-grid').innerText = '資料載入失敗，請確認試算表權限。';
+        }
+    }
+
+    function renderProducts(products) {
+        const grid = document.getElementById('product-grid');
+        grid.innerHTML = products.map(p => {
+            let finalImg = p.img;
+            // Google Drive 圖片連結自動轉換
+            if (finalImg.includes('drive.google.com')) {
+                const fileId = finalImg.match(/\/d\/([^/]+)/);
+                if (fileId) finalImg = `https://lh3.googleusercontent.com/u/0/d/${fileId[1]}`;
+            }
+
+            return `
+                <div class="product-item">
+                    <div class="product-img-container">
+                        ${finalImg ? 
+                            `<img src="${finalImg}" class="product-img" loading="lazy" onerror="this.onerror=null; this.src='logo.jpg';">` : 
+                            `<div class="img-placeholder">原點匹克球<br><small>圖片準備中</small></div>`
+                        }
+                    </div>
+                    <div class="product-info">
+                        <div class="brand-tag">${p.brand}</div>
+                        <h3 class="product-title">${p.name}</h3>
+                        <div class="product-price">NT$ ${p.price.toLocaleString()}</div>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    // 監聽所有選單的變動
+    document.querySelectorAll('select').forEach(select => {
+        select.addEventListener('change', () => {
+            const brand = document.getElementById('filter-brand').value;
+            const category = document.getElementById('filter-category').value;
+            const priceRange = document.getElementById('filter-price').value;
+
+            let filtered = allProducts.filter(p => {
+                const matchBrand = (brand === 'all' || p.brand === brand);
+                const matchCategory = (category === 'all' || p.category === category);
+                
+                let matchPrice = true;
+                if (priceRange !== 'all') {
+                    const [min, max] = priceRange.split('-').map(Number);
+                    matchPrice = (p.price >= min && p.price <= max);
+                }
+                
+                return matchBrand && matchCategory && matchPrice;
+            });
+
+            renderProducts(filtered);
+        });
+    });
+
+    loadData();
+</script>
 
 </body>
 </html>
