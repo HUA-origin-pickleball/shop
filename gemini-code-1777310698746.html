@@ -3,88 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>原點匹克球 | 官方商品目錄</title>
+    <title id="tab-title">原點匹克球</title>
     <style>
-        :root {
-            --primary-blue: #2c3e50; /* 呼應 Logo 的深色系 */
-            --accent-green: #4a6741; /* 呼應 Logo 的綠色系 */
-            --bg-light: #f8f9fa;
-        }
-        body { font-family: "PingFang TC", "Heiti TC", "Microsoft JhengHei", sans-serif; background-color: var(--bg-light); color: #333; margin: 0; padding: 0; }
-        .header { background: white; padding: 30px 20px; text-align: center; border-bottom: 3px solid var(--primary-blue); }
-        .logo { max-width: 150px; margin-bottom: 10px; }
+        :root { --primary: #2c3e50; --accent: #4a6741; --bg: #f4f7f6; }
+        body { font-family: "Microsoft JhengHei", sans-serif; background: var(--bg); margin: 0; padding: 0; color: #333; }
+        .header { background: white; padding: 30px 20px; text-align: center; border-bottom: 3px solid var(--primary); }
+        .logo { max-width: 120px; margin-bottom: 10px; }
         .container { max-width: 900px; margin: 20px auto; padding: 0 15px; }
-        .intro { text-align: center; color: #666; margin-bottom: 30px; font-size: 1.1em; line-height: 1.6; }
         
-        /* 商品表格樣式 */
-        .product-card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 20px; }
-        table { width: 100%; border-collapse: collapse; background: white; }
-        th { background-color: var(--primary-blue); color: white; padding: 15px; text-align: left; font-weight: 500; }
-        td { padding: 15px; border-bottom: 1px solid #eee; vertical-align: middle; }
-        
-        .brand-tag { font-size: 0.85em; color: var(--accent-green); font-weight: bold; display: block; }
-        .product-name { font-size: 1.05em; color: var(--primary-blue); font-weight: 600; }
-        .price { color: #d35400; font-weight: bold; font-size: 1.1em; }
-        
-        .contact-btn { display: block; width: fit-content; margin: 40px auto; background: #00b900; color: white; padding: 15px 40px; text-decoration: none; border-radius: 50px; font-weight: bold; transition: 0.3s; }
-        .contact-btn:hover { background: #009800; transform: translateY(-2px); }
-        
-        footer { text-align: center; padding: 40px 20px; color: #999; font-size: 0.85em; }
+        /* 品牌故事樣式 */
+        .section { background: white; padding: 25px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 30px; }
+        .section-title { color: var(--primary); border-left: 5px solid var(--accent); padding-left: 15px; margin-bottom: 20px; }
+        .about-text { line-height: 1.8; color: #555; white-space: pre-wrap; }
+
+        /* 商品清單樣式 */
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
+        .product-item { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.3s; }
+        .product-item:hover { transform: translateY(-5px); }
+        .product-img { width: 100%; height: 200px; object-fit: contain; background: #eee; }
+        .product-info { padding: 15px; }
+        .brand-name { color: var(--accent); font-size: 0.85em; font-weight: bold; }
+        .product-title { font-size: 1.1em; margin: 5px 0; color: var(--primary); }
+        .product-price { color: #e44d26; font-weight: bold; font-size: 1.2em; }
+
+        .contact-btn { display: block; width: fit-content; margin: 40px auto; background: #00b900; color: white; padding: 15px 40px; text-decoration: none; border-radius: 50px; font-weight: bold; text-align: center; }
+        footer { text-align: center; padding: 40px; color: #999; font-size: 0.8em; }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <img src="logo.jpg" alt="原點匹克球" class="logo" onerror="this.style.display='none'">
-    <h1 style="margin:10px 0; color:var(--primary-blue);">原點匹克球</h1>
-    <div style="color:var(--accent-green); font-weight:bold; letter-spacing: 2px;">ORIGIN PICKLEBALL</div>
+    <img id="site-logo" src="" alt="Logo" class="logo" style="display:none;">
+    <h1 id="site-title">原點匹克球</h1>
+    <div style="color:var(--accent); font-weight:bold; letter-spacing:2px;">ORIGIN PICKLEBALL</div>
 </div>
 
 <div class="container">
-    <p class="intro">「從原點出發，開始你的第一拍」<br>翰堡教練親自嚴選，適合各階段球友的專業器材。</p>
-    
-    <div class="product-card">
-        <div id="product-list">載入精選商品中...</div>
+    <div class="section">
+        <h2 id="about-title" class="section-title">品牌故事</h2>
+        <div id="about-content" class="about-text">載入中...</div>
     </div>
 
-    <a href="https://lin.ee/sABJ7AK" class="contact-btn">💬 聯繫教練 / 預約試打</a>
+    <h2 class="section-title">教練精選器材</h2>
+    <div id="product-grid" class="product-grid">載入商品中...</div>
+
+    <a id="contact-link" href="#" class="contact-btn" style="visibility:hidden;"></a>
 </div>
 
-<footer>
-    © 原點匹克球 Origin Pickleball<br>
-    根植花蓮，用匹克球為這片土地注入活力
-</footer>
+<footer id="site-footer"></footer>
 
 <script>
     const sheetId = '11Uc9hJpgaeci-zsmDi1FQZBgl7f1r_vpVaNeb1Y_Dos';
-    const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv`;
 
-    fetch(base)
-        .then(res => res.text())
-        .then(data => {
+    // 1. 抓取設定值 (Settings)
+    fetch(`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=Settings`)
+        .then(res => res.text()).then(csv => {
+            const settings = {};
+            csv.split('\n').forEach(line => {
+                const cols = line.split('","').map(c => c.replace(/"/g, ''));
+                settings[cols[0]] = cols[1];
+            });
+            if(settings.SiteTitle) document.getElementById('site-title').innerText = settings.SiteTitle;
+            if(settings.LogoURL) { document.getElementById('site-logo').src = settings.LogoURL; document.getElementById('site-logo').style.display='inline-block'; }
+            if(settings.AboutTitle) document.getElementById('about-title').innerText = settings.AboutTitle;
+            if(settings.AboutContent) document.getElementById('about-content').innerText = settings.AboutContent;
+            if(settings.ContactText) {
+                const btn = document.getElementById('contact-link');
+                btn.innerText = settings.ContactText;
+                btn.href = settings.ContactLink || '#';
+                btn.style.visibility = 'visible';
+            }
+            document.getElementById('site-footer').innerHTML = `© ${settings.SiteTitle || '原點匹克球'} | 從原點出發，開始你的第一拍`;
+        });
+
+    // 2. 抓取商品資料 (包含圖片網址)
+    fetch(`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv`)
+        .then(res => res.text()).then(data => {
             const rows = data.split('\n').slice(1);
-            let html = '<table><thead><tr><th>品牌 / 商品名稱</th><th style="width:100px; text-align:right;">建議售價</th></tr></thead><tbody>';
-            
+            let html = '';
             rows.forEach(row => {
                 const cols = row.split('","').map(c => c.replace(/"/g, ''));
                 if (cols[0] && cols[1]) {
-                    html += `<tr>
-                        <td>
-                            <span class="brand-tag">${cols[0]}</span>
-                            <span class="product-name">${cols[1]}</span>
-                        </td>
-                        <td style="text-align:right;"><span class="price">$${cols[2] || '洽詢'}</span></td>
-                    </tr>`;
+                    // 假設欄位順序：A品牌, B名稱, C分類, D價格, E介紹, F圖片網址
+                    const imgUrl = cols[5] || 'https://via.placeholder.com/300?text=No+Image'; 
+                    html += `
+                        <div class="product-item">
+                            <img src="${imgUrl}" class="product-img" alt="${cols[1]}">
+                            <div class="product-info">
+                                <span class="brand-name">${cols[0]}</span>
+                                <h3 class="product-title">${cols[1]}</h3>
+                                <div class="product-price">$${cols[3] || '洽詢'}</div>
+                            </div>
+                        </div>`;
                 }
             });
-            
-            html += '</tbody></table>';
-            document.getElementById('product-list').innerHTML = html;
-        })
-        .catch(err => {
-            document.getElementById('product-list').innerHTML = "<p style='padding:20px; text-align:center;'>資料讀取中，請稍候...</p>";
+            document.getElementById('product-grid').innerHTML = html;
         });
 </script>
-
 </body>
 </html>
