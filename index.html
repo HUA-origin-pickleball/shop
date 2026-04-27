@@ -6,29 +6,49 @@
     <title>原點匹克球 | 官方目錄</title>
     <style>
         :root { --primary: #2c3e50; --accent: #4a6741; --bg: #f4f7f6; }
-        body { font-family: "Microsoft JhengHei", sans-serif; background: var(--bg); margin: 0; padding: 0; color: #333; }
+        body { font-family: "PingFang TC", "Heiti TC", "Microsoft JhengHei", sans-serif; background: var(--bg); margin: 0; padding: 0; color: #333; }
+        
+        /* 頁首 */
         .header { background: white; padding: 30px 20px; text-align: center; border-bottom: 3px solid var(--primary); }
         .logo { max-width: 150px; margin-bottom: 10px; }
         .container { max-width: 1000px; margin: 20px auto; padding: 0 15px; }
         
+        /* 品牌故事 */
         .about-section { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 30px; line-height: 1.8; }
         .about-section h2 { color: var(--primary); border-left: 5px solid var(--accent); padding-left: 15px; margin-top: 0; }
 
-        /* 篩選器樣式 */
+        /* 篩選器 */
         .filter-bar { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 15px; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .filter-group { display: flex; flex-direction: column; gap: 5px; }
         .filter-group label { font-size: 0.85em; font-weight: bold; color: var(--primary); }
-        select { padding: 8px 12px; border-radius: 6px; border: 1px solid #ddd; font-size: 1em; background: white; min-width: 120px; }
+        select { padding: 8px 12px; border-radius: 6px; border: 1px solid #ddd; font-size: 1em; background: white; min-width: 130px; cursor: pointer; }
 
+        /* 商品卡片排列 */
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
         .product-item { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: 0.3s; }
-        .product-img { width: 100%; height: 220px; object-fit: contain; background: #fff; padding: 10px; box-sizing: border-box; }
-        .product-info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-        .brand-name { color: var(--accent); font-size: 0.85em; font-weight: bold; }
-        .product-title { font-size: 1.15em; margin: 8px 0; color: var(--primary); height: 2.4em; overflow: hidden; }
-        .product-price { color: #d35400; font-weight: bold; font-size: 1.25em; margin-top: auto; }
+        .product-item:hover { transform: translateY(-5px); }
+        
+        /* 圖片優化：防止閃爍 */
+        .product-img { 
+            width: 100%; 
+            height: 250px; 
+            object-fit: contain; 
+            background: #fff; 
+            padding: 15px; 
+            box-sizing: border-box; 
+            color: transparent; /* 隱藏載入前的閃爍文字 */
+            border-bottom: 1px solid #f0f0f0;
+        }
 
-        .contact-btn { display: block; width: fit-content; margin: 50px auto; background: #00b900; color: white; padding: 18px 45px; text-decoration: none; border-radius: 50px; font-weight: bold; text-align: center; }
+        .product-info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
+        .brand-name { color: var(--accent); font-size: 0.85em; font-weight: bold; letter-spacing: 1px; }
+        .product-title { font-size: 1.15em; margin: 8px 0; color: var(--primary); height: 2.4em; overflow: hidden; line-height: 1.4; }
+        .product-price { color: #d35400; font-weight: bold; font-size: 1.3em; margin-top: auto; }
+
+        /* 聯絡按鈕 */
+        .contact-btn { display: block; width: fit-content; margin: 50px auto; background: #00b900; color: white; padding: 18px 45px; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.1em; transition: 0.3s; text-align: center; box-shadow: 0 4px 10px rgba(0,185,0,0.3); }
+        .contact-btn:hover { background: #009800; transform: scale(1.05); }
+        
         footer { text-align: center; padding: 40px; color: #999; font-size: 0.85em; border-top: 1px solid #ddd; margin-top: 40px; }
     </style>
 </head>
@@ -59,8 +79,8 @@
             <label>價格排序</label>
             <select id="sort-price">
                 <option value="none">預設排序</option>
-                <option value="low">價格從低到高</option>
-                <option value="high">價格從高到低</option>
+                <option value="low">價格：低到高</option>
+                <option value="high">價格：高到低</option>
             </select>
         </div>
     </div>
@@ -70,73 +90,47 @@
     <a href="你的LINE連結" class="contact-btn">💬 聯繫翰堡教練 / 預約試打</a>
 </div>
 
-<footer>© 原點匹克球 Origin Pickleball</footer>
+<footer>
+    © 原點匹克球 Origin Pickleball<br>
+    從原點出發，開始你的第一拍。
+</footer>
 
 <script>
     const sheetId = '11Uc9hJpgaeci-zsmDi1FQZBgl7f1r_vpVaNeb1Y_Dos';
     const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&gid=0`;
     let allProducts = [];
 
-    fetch(base).then(res => res.text()).then(data => {
-        const rows = data.split('\n').slice(1);
-        const brands = new Set();
-        const categories = new Set();
+    // 抓取試算表資料
+    fetch(base)
+        .then(res => res.text())
+        .then(data => {
+            const rows = data.split('\n').slice(1);
+            const brands = new Set();
+            const categories = new Set();
 
-        allProducts = rows.map(row => {
-            const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/^"|"$/g, '').trim());
-            if (cols[0]) brands.add(cols[0]);
-            if (cols[2]) categories.add(cols[2]);
-            return {
-                brand: cols[0],
-                name: cols[1],
-                category: cols[2],
-                price: parseInt(cols[3]) || 0,
-                img: cols[5] || 'logo.jpg'
-            };
-        }).filter(p => p.name);
+            allProducts = rows.map(row => {
+                // 處理 CSV 逗號與引號
+                const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/^"|"$/g, '').trim());
+                
+                if (cols[0]) brands.add(cols[0]);
+                if (cols[2]) categories.add(cols[2]);
 
-        // 填充選單
-        const brandSelect = document.getElementById('filter-brand');
-        brands.forEach(b => brandSelect.innerHTML += `<option value="${b}">${b}</option>`);
-        const catSelect = document.getElementById('filter-category');
-        categories.forEach(c => catSelect.innerHTML += `<option value="${c}">${c}</option>`);
+                return {
+                    brand: cols[0] || '其他',
+                    name: cols[1] || '',
+                    category: cols[2] || '未分類',
+                    price: parseInt(cols[3].replace(/[^\d]/g, '')) || 0,
+                    img: (cols[5] && cols[5] !== "") ? cols[5] : 'logo.jpg'
+                };
+            }).filter(p => p.name !== '');
 
-        renderProducts(allProducts);
-    });
+            // 填充下拉選單
+            const brandSelect = document.getElementById('filter-brand');
+            brands.forEach(b => brandSelect.innerHTML += `<option value="${b}">${b}</option>`);
+            const catSelect = document.getElementById('filter-category');
+            categories.forEach(c => catSelect.innerHTML += `<option value="${c}">${c}</option>`);
 
-    function renderProducts(products) {
-        let html = '';
-        products.forEach(p => {
-            html += `
-                <div class="product-item">
-                    <img src="${p.img}" class="product-img" alt="${p.name}" onerror="this.src='logo.jpg'">
-                    <div class="product-info">
-                        <span class="brand-name">${p.brand}</span>
-                        <h3 class="product-title">${p.name}</h3>
-                        <div class="product-price">$${p.price || '洽詢'}</div>
-                    </div>
-                </div>`;
-        });
-        document.getElementById('product-grid').innerHTML = html || '<p style="text-align:center; width:100%;">找不到符合條件的商品。</p>';
-    }
-
-    // 監聽篩選與排序
-    document.querySelectorAll('select').forEach(el => {
-        el.addEventListener('change', () => {
-            const brand = document.getElementById('filter-brand').value;
-            const cat = document.getElementById('filter-category').value;
-            const sort = document.getElementById('sort-price').value;
-
-            let filtered = allProducts.filter(p => {
-                return (brand === 'all' || p.brand === brand) && (cat === 'all' || p.category === cat);
-            });
-
-            if (sort === 'low') filtered.sort((a, b) => a.price - b.price);
-            if (sort === 'high') filtered.sort((a, b) => b.price - a.price);
-
-            renderProducts(filtered);
-        });
-    });
-</script>
-</body>
-</html>
+            renderProducts(allProducts);
+        })
+        .catch(err => {
+            document.getElementById('product-grid').innerHTML = "<p style='text-align:center; width:100%;'>資料載入失敗，
