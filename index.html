@@ -11,21 +11,24 @@
         .logo { max-width: 150px; margin-bottom: 10px; }
         .container { max-width: 1000px; margin: 20px auto; padding: 0 15px; }
         
-        /* 品牌故事 */
-        .about-section { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 40px; line-height: 1.8; }
+        .about-section { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); margin-bottom: 30px; line-height: 1.8; }
         .about-section h2 { color: var(--primary); border-left: 5px solid var(--accent); padding-left: 15px; margin-top: 0; }
 
-        /* 商品卡片排列 */
+        /* 篩選器樣式 */
+        .filter-bar { background: white; padding: 20px; border-radius: 12px; margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 15px; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .filter-group { display: flex; flex-direction: column; gap: 5px; }
+        .filter-group label { font-size: 0.85em; font-weight: bold; color: var(--primary); }
+        select { padding: 8px 12px; border-radius: 6px; border: 1px solid #ddd; font-size: 1em; background: white; min-width: 120px; }
+
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .product-item { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
-        .product-img { width: 100%; height: 220px; object-fit: contain; background: #fff; border-bottom: 1px solid #f0f0f0; padding: 10px; box-sizing: border-box; }
+        .product-item { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; transition: 0.3s; }
+        .product-img { width: 100%; height: 220px; object-fit: contain; background: #fff; padding: 10px; box-sizing: border-box; }
         .product-info { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-        .brand-name { color: var(--accent); font-size: 0.85em; font-weight: bold; text-transform: uppercase; }
+        .brand-name { color: var(--accent); font-size: 0.85em; font-weight: bold; }
         .product-title { font-size: 1.15em; margin: 8px 0; color: var(--primary); height: 2.4em; overflow: hidden; }
         .product-price { color: #d35400; font-weight: bold; font-size: 1.25em; margin-top: auto; }
 
-        .contact-btn { display: block; width: fit-content; margin: 50px auto; background: #00b900; color: white; padding: 18px 45px; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.1em; transition: 0.3s; text-align: center; }
-        .contact-btn:hover { background: #009800; transform: scale(1.05); }
+        .contact-btn { display: block; width: fit-content; margin: 50px auto; background: #00b900; color: white; padding: 18px 45px; text-decoration: none; border-radius: 50px; font-weight: bold; text-align: center; }
         footer { text-align: center; padding: 40px; color: #999; font-size: 0.85em; border-top: 1px solid #ddd; margin-top: 40px; }
     </style>
 </head>
@@ -43,53 +46,97 @@
         <p>「原點」不只是起點，更是回歸運動最純粹的初心。創辦人兼總教練翰堡，在教學與賽場之間，將這份對匹克球的熱愛轉化為專業。我們根植花蓮，致力於提供最適合每一位球友的器材。不管你幾歲、有沒有基礎，從原點出發，開始你的第一拍。</p>
     </div>
 
-    <h2 style="color: var(--primary); margin-bottom: 20px; padding-left: 10px;">教練精選器材</h2>
+    <div class="filter-bar">
+        <div class="filter-group">
+            <label>選擇品牌</label>
+            <select id="filter-brand"><option value="all">全部品牌</option></select>
+        </div>
+        <div class="filter-group">
+            <label>選擇分類</label>
+            <select id="filter-category"><option value="all">全部分類</option></select>
+        </div>
+        <div class="filter-group">
+            <label>價格排序</label>
+            <select id="sort-price">
+                <option value="none">預設排序</option>
+                <option value="low">價格從低到高</option>
+                <option value="high">價格從高到低</option>
+            </select>
+        </div>
+    </div>
+
     <div id="product-grid" class="product-grid">載入商品中...</div>
 
     <a href="你的LINE連結" class="contact-btn">💬 聯繫翰堡教練 / 預約試打</a>
 </div>
 
-<footer>
-    © 原點匹克球 Origin Pickleball | 根植花蓮，注入活力
-</footer>
+<footer>© 原點匹克球 Origin Pickleball</footer>
 
 <script>
     const sheetId = '11Uc9hJpgaeci-zsmDi1FQZBgl7f1r_vpVaNeb1Y_Dos';
-    // gid=0 代表抓取第一個分頁
     const base = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&gid=0`;
+    let allProducts = [];
 
-    fetch(base)
-        .then(res => res.text())
-        .then(data => {
-            // 處理 CSV 格式，考慮到逗號與引號
-            const rows = data.split('\n').slice(1);
-            let html = '';
-            
-            rows.forEach(row => {
-                const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/^"|"$/g, '').trim());
-                
-                if (cols[0] && cols[1]) {
-                    // F 欄是索引 5
-                    const imgUrl = (cols[5] && cols[5] !== "") ? cols[5] : 'logo.jpg'; 
-                    
-                    html += `
-                        <div class="product-item">
-                            <img src="${imgUrl}" class="product-img" alt="${cols[1]}" onerror="this.src='logo.jpg'">
-                            <div class="product-info">
-                                <span class="brand-name">${cols[0]}</span>
-                                <h3 class="product-title">${cols[1]}</h3>
-                                <div class="product-price">$${cols[3] || '洽詢'}</div>
-                            </div>
-                        </div>`;
-                }
-            });
-            document.getElementById('product-grid').innerHTML = html;
-        })
-        .catch(err => {
-            console.error(err);
-            document.getElementById('product-grid').innerHTML = "<p style='text-align:center;'>資料載入失敗，請確認試算表已開啟「知道連結的使用者：檢視者」權限。</p>";
+    fetch(base).then(res => res.text()).then(data => {
+        const rows = data.split('\n').slice(1);
+        const brands = new Set();
+        const categories = new Set();
+
+        allProducts = rows.map(row => {
+            const cols = row.split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/).map(c => c.replace(/^"|"$/g, '').trim());
+            if (cols[0]) brands.add(cols[0]);
+            if (cols[2]) categories.add(cols[2]);
+            return {
+                brand: cols[0],
+                name: cols[1],
+                category: cols[2],
+                price: parseInt(cols[3]) || 0,
+                img: cols[5] || 'logo.jpg'
+            };
+        }).filter(p => p.name);
+
+        // 填充選單
+        const brandSelect = document.getElementById('filter-brand');
+        brands.forEach(b => brandSelect.innerHTML += `<option value="${b}">${b}</option>`);
+        const catSelect = document.getElementById('filter-category');
+        categories.forEach(c => catSelect.innerHTML += `<option value="${c}">${c}</option>`);
+
+        renderProducts(allProducts);
+    });
+
+    function renderProducts(products) {
+        let html = '';
+        products.forEach(p => {
+            html += `
+                <div class="product-item">
+                    <img src="${p.img}" class="product-img" alt="${p.name}" onerror="this.src='logo.jpg'">
+                    <div class="product-info">
+                        <span class="brand-name">${p.brand}</span>
+                        <h3 class="product-title">${p.name}</h3>
+                        <div class="product-price">$${p.price || '洽詢'}</div>
+                    </div>
+                </div>`;
         });
-</script>
+        document.getElementById('product-grid').innerHTML = html || '<p style="text-align:center; width:100%;">找不到符合條件的商品。</p>';
+    }
 
+    // 監聽篩選與排序
+    document.querySelectorAll('select').forEach(el => {
+        el.addEventListener('change', () => {
+            const brand = document.getElementById('filter-brand').value;
+            const cat = document.getElementById('filter-category').value;
+            const sort = document.getElementById('sort-price').value;
+
+            let filtered = allProducts.filter(p => {
+                return (brand === 'all' || p.brand === brand) && (cat === 'all' || p.category === cat);
+            });
+
+            if (sort === 'low') filtered.sort((a, b) => a.price - b.price);
+            if (sort === 'high') filtered.sort((a, b) => b.price - a.price);
+
+            renderProducts(filtered);
+        });
+    });
+</script>
 </body>
 </html>
