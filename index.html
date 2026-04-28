@@ -164,4 +164,9 @@
             grid.innerHTML += `<div class="card"><img class="card-img" src="${p.img}" onerror="this.src='logo.jpg'"><div class="card-body"><span class="tag">${p.brand} | ${p.cat}</span><div class="card-title">${p.name}</div><div class="card-price">$${p.price || '洽詢'}</div></div></div>`;
         });
     }
-    document.
+    document.getElementById('filter-brand').addEventListener('change', updateFilters);
+    document.getElementById('filter-category').addEventListener('change', applyFilters);
+    document.getElementById('search-input').addEventListener('input', applyFilters);
+</script>
+</body>
+</html>
