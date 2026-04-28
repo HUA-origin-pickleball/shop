@@ -32,13 +32,14 @@
         .content-box { line-height: 1.8; color: #444; white-space: pre-line; word-break: break-all; }
         .filter-bar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; background: white; padding: 15px; border-radius: 10px; border: 1px solid #eee; }
         select, .search-input { padding: 10px; border-radius: 8px; border: 1px solid #ddd; outline: none; font-size: 14px; flex: 1; min-width: 110px; }
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
         .card { background: white; border-radius: 10px; overflow: hidden; border: 1px solid #eee; display: flex; flex-direction: column; }
-        .card-img { width: 100%; height: 160px; object-fit: contain; background: #fff; padding: 10px; box-sizing: border-box; }
-        .card-body { padding: 12px; flex-grow: 1; }
-        .tag { font-size: 11px; color: var(--green); font-weight: bold; }
-        .card-title { font-size: 14px; color: var(--main); font-weight: 600; margin: 5px 0; height: 2.8em; overflow: hidden; }
-        .card-price { color: var(--orange); font-size: 16px; font-weight: bold; }
+        .card-img { width: 100%; height: 180px; object-fit: contain; background: #fff; padding: 10px; box-sizing: border-box; }
+        .card-body { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; }
+        .tag { font-size: 11px; color: var(--green); font-weight: bold; margin-bottom: 5px; }
+        .card-title { font-size: 15px; color: var(--main); font-weight: 600; margin: 0 0 8px 0; line-height: 1.4; }
+        .card-desc { font-size: 13px; color: #777; line-height: 1.5; margin-bottom: 12px; flex-grow: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .card-price { color: var(--orange); font-size: 17px; font-weight: bold; }
         .btn-line { display: inline-block; background: #00b900; color: white; padding: 12px 30px; text-decoration: none; border-radius: 50px; font-weight: bold; margin-top: 15px; }
         footer { text-align: center; padding: 40px 20px; color: #666; background: #fff; border-top: 1px solid #eee; margin-top: 40px; font-size: 0.9em; line-height: 1.6; }
         .footer-info { margin-top: 15px; color: #888; font-size: 0.85em; }
@@ -97,31 +98,26 @@
     const sheetId = '11Uc9hJpgaeci-zsmDi1FQZBgl7f1r_vpVaNeb1Y_Dos';
     let allProducts = [];
 
-    // 修改切換頁面邏輯，加入 hash 更新
     function showPage(pageId) {
         document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
         document.querySelectorAll('.menu a').forEach(a => a.classList.remove('active'));
-        
         const targetPage = document.getElementById('page-' + pageId);
         const targetNav = document.getElementById('nav-' + pageId);
-        
         if(targetPage) {
             targetPage.classList.add('active');
-            // 更新網址 hash
             window.location.hash = pageId;
         }
         if(targetNav) targetNav.classList.add('active');
         window.scrollTo(0, 0);
     }
 
-    // 檢查網址列是否有指定頁面
     function checkHash() {
         const hash = window.location.hash.replace('#', '');
         const validPages = ['about', 'courses', 'products', 'contact'];
         if (hash && validPages.includes(hash)) {
             showPage(hash);
         } else {
-            showPage('about'); // 預設頁面
+            showPage('about');
         }
     }
 
@@ -147,9 +143,6 @@
         return match ? "https://lh3.googleusercontent.com/d/" + match[1] : url;
     };
 
-    // 初始化頁面
-    checkHash();
-
     fetch("https://docs.google.com/spreadsheets/d/"+sheetId+"/gviz/tq?tqx=out:csv&sheet=Settings")
         .then(res => res.text()).then(csv => {
             const data = parseCSV(csv); const settings = {};
@@ -165,10 +158,20 @@
     fetch("https://docs.google.com/spreadsheets/d/"+sheetId+"/gviz/tq?tqx=out:csv&sheet=Products")
         .then(res => res.text()).then(csv => {
             const data = parseCSV(csv).slice(1);
-            allProducts = data.map(cols => ({ brand: cols[0], name: cols[1], cat: cols[2], price: cols[3], img: formatDriveUrl(cols[5]) })).filter(p => p.name);
+            // 抓取：0:品牌, 1:名稱, 2:類別, 3:價格, 4:描述(E欄), 5:圖片
+            allProducts = data.map(cols => ({ 
+                brand: cols[0], 
+                name: cols[1], 
+                cat: cols[2], 
+                price: cols[3], 
+                desc: cols[4] || '', 
+                img: formatDriveUrl(cols[5]) 
+            })).filter(p => p.name);
+            
             const brands = [...new Set(allProducts.map(p => p.brand))].filter(Boolean);
             brands.forEach(b => document.getElementById('filter-brand').innerHTML += '<option value="'+b+'">'+b+'</option>');
             updateFilters();
+            checkHash();
         }).finally(() => {
             const loader = document.getElementById('loader');
             if(loader) { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 500); }
@@ -191,14 +194,22 @@
         const grid = document.getElementById('product-grid');
         grid.innerHTML = '';
         filtered.forEach(p => {
-            grid.innerHTML += `<div class="card"><img class="card-img" src="${p.img}" onerror="this.src='logo.jpg'"><div class="card-body"><span class="tag">${p.brand} | ${p.cat}</span><div class="card-title">${p.name}</div><div class="card-price">$${p.price || '洽詢'}</div></div></div>`;
+            grid.innerHTML += `
+                <div class="card">
+                    <img class="card-img" src="${p.img}" onerror="this.src='logo.jpg'">
+                    <div class="card-body">
+                        <span class="tag">${p.brand} | ${p.cat}</span>
+                        <div class="card-title">${p.name}</div>
+                        <div class="card-desc">${p.desc}</div>
+                        <div class="card-price">$${p.price || '洽詢'}</div>
+                    </div>
+                </div>`;
         });
     }
 
     document.getElementById('filter-brand').addEventListener('change', updateFilters);
     document.getElementById('filter-category').addEventListener('change', applyFilters);
     document.getElementById('search-input').addEventListener('input', applyFilters);
-    // 監聽網址 hash 變化（按上一頁也會生效）
     window.addEventListener('hashchange', checkHash);
 </script>
 </body>
