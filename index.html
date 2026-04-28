@@ -51,7 +51,7 @@
     <div class="nav-container">
         <a href="#" onclick="showPage('about')" class="nav-logo">
             <img id="nav-logo-img" src="logo.jpg" alt="Logo">
-            <span id="nav-site-title">原點匹克球|官方網站</span>
+            <span id="nav-site-title">原點匹克球</span>
         </a>
         <div class="menu">
             <a onclick="showPage('about')" id="nav-about" class="active">關於原點</a>
@@ -81,16 +81,16 @@
         <section class="section" style="text-align: center;">
             <h2>聯絡我們</h2>
             <p>對課程或器材有興趣？歡迎聯絡我們！</p>
-            <a id="line-btn" href="#" class="btn-line" target="_blank">💬 加入 LINE 官方帳號</a>
+            <a id="line-btn" href="#" class="btn-line" target="_blank">💬 點我加入 LINE 官方帳號</a>
         </section>
     </div>
 </div>
 <footer>
-    <div id="footer-text">© 原點匹克球 | 從原點出發，開始你的第一拍。</div>
+    <div id="footer-text">從原點出發，開始你的第一拍；從匹克球開始，愛上運動。</div>
     <div class="footer-info">
         <span>地址：花蓮縣花蓮市林森路249巷2弄19號</span>
         <span>統一編號：95208851</span>
-        <span>創辦人兼總教練：簡君翰 | 聯絡電話：0972-995470</span>
+        <span>創辦人兼總教練：簡君翰 | 電話：0972-995470</span>
     </div>
 </footer>
 <script>
@@ -129,6 +129,7 @@
             data.forEach(cols => { if(cols[0]) settings[cols[0]] = cols[1]; });
             if(settings.SiteTitle) { document.getElementById('nav-site-title').innerText = settings.SiteTitle; document.getElementById('page-title').innerText = settings.SiteTitle; }
             if(settings.LogoURL) document.getElementById('nav-logo-img').src = formatDriveUrl(settings.LogoURL);
+            if(settings.FaviconURL) document.getElementById('favicon').href = formatDriveUrl(settings.FaviconURL);
             if(settings.AboutContent) document.getElementById('about-text').innerText = settings.AboutContent;
             if(settings.CourseContent) document.getElementById('course-text').innerText = settings.CourseContent;
             if(settings.ContactLink) document.getElementById('line-btn').href = settings.ContactLink;
@@ -163,9 +164,4 @@
             grid.innerHTML += `<div class="card"><img class="card-img" src="${p.img}" onerror="this.src='logo.jpg'"><div class="card-body"><span class="tag">${p.brand} | ${p.cat}</span><div class="card-title">${p.name}</div><div class="card-price">$${p.price || '洽詢'}</div></div></div>`;
         });
     }
-    document.getElementById('filter-brand').addEventListener('change', updateFilters);
-    document.getElementById('filter-category').addEventListener('change', applyFilters);
-    document.getElementById('search-input').addEventListener('input', applyFilters);
-</script>
-</body>
-</html>
+    document.
