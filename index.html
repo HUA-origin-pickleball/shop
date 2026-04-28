@@ -3,70 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">原點匹克球 | 官方網站</title>
-    <meta property="og:title" content="原點匹克球 | 官方網站">
-    <meta property="og:description" content="從原點出發，開始你的第一拍；從匹克球開始，愛上運動。">
-    <meta property="og:image" content="logo.jpg">
-    <meta property="og:type" content="website">
+    <title id="page-title">原點匹克球|官方網站</title>
     <link id="favicon" rel="icon" href="logo.jpg" type="image/x-icon">
     <style>
         :root { --main: #2c3e50; --green: #4a6741; --orange: #e67e22; --bg: #f8f9fa; }
         body { font-family: "PingFang TC", "Microsoft JhengHei", sans-serif; margin: 0; background: var(--bg); color: #333; overflow-x: hidden; }
-        
         #loader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; display: flex; justify-content: center; align-items: center; z-index: 9999; transition: opacity 0.5s; }
         .spinner { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid var(--green); border-radius: 50%; animation: spin 1s linear infinite; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
         nav { background: white; padding: 12px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
         .nav-container { max-width: 1100px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .nav-logo { height: 45px; display: flex; align-items: center; text-decoration: none; color: var(--main); font-weight: bold; }
+        .nav-logo { height: 40px; display: flex; align-items: center; text-decoration: none; color: var(--main); font-weight: bold; }
         .nav-logo img { height: 100%; margin-right: 10px; border-radius: 5px; }
-        .menu a { text-decoration: none; color: var(--main); font-weight: 500; margin-left: 20px; font-size: 0.95em; cursor: pointer; transition: 0.3s; padding: 5px 0; }
+        .menu { display: flex; gap: 15px; }
+        .menu a { text-decoration: none; color: var(--main); font-weight: 500; font-size: 0.95em; cursor: pointer; transition: 0.3s; padding: 5px 0; }
         .menu a:hover, .menu a.active { color: var(--green); border-bottom: 2px solid var(--green); }
-
-        .container { max-width: 1100px; margin: 0 auto; padding: 40px 20px; min-height: 70vh; }
-        .page-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        @media (max-width: 600px) {
+            .nav-container { flex-direction: column; gap: 10px; padding: 10px; }
+            .menu { width: 100%; justify-content: space-around; padding-bottom: 5px; }
+            .menu a { margin: 0; font-size: 0.9em; }
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 20px; min-height: 60vh; }
+        .page-content { display: none; animation: fadeIn 0.3s ease-in-out; }
         .page-content.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .section { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        h2 { border-left: 6px solid var(--green); padding-left: 15px; color: var(--main); margin-bottom: 25px; }
-        .content-box { line-height: 1.8; color: #555; white-space: pre-line; word-break: break-all; }
-
-        /* 篩選與搜尋列 */
-        .filter-bar { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 30px; background: white; padding: 20px; border-radius: 12px; border: 1px solid #eee; align-items: center; }
-        select, .search-input { padding: 10px 15px; border-radius: 8px; border: 1px solid #ddd; outline: none; min-width: 140px; }
-        .search-input { flex-grow: 1; }
-
-        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 25px; }
-        .card { background: white; border-radius: 12px; overflow: hidden; border: 1px solid #eee; transition: 0.3s; display: flex; flex-direction: column; }
-        .card:hover { transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-        .card-img { width: 100%; height: 220px; object-fit: contain; background: #fff; padding: 15px; box-sizing: border-box; }
-        .card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; }
-        .tag { font-size: 0.75em; color: var(--green); font-weight: bold; margin-bottom: 8px; }
-        .card-title { font-size: 1.1em; color: var(--main); font-weight: 600; line-height: 1.4; margin-bottom: 15px; height: 2.8em; overflow: hidden; }
-        .card-price { color: var(--orange); font-size: 1.3em; font-weight: bold; margin-top: auto; }
-
-        .btn-line { display: block; width: fit-content; margin: 30px auto; background: #00b900; color: white; padding: 15px 45px; text-decoration: none; border-radius: 50px; font-weight: bold; font-size: 1.1em; transition: 0.3s; }
-        .btn-line:hover { background: #009800; transform: scale(1.05); }
-        footer { text-align: center; padding: 50px 20px; color: #888; background: #fff; border-top: 1px solid #eee; margin-top: 40px; }
-        
-        #back-to-top { position: fixed; bottom: 30px; right: 30px; background: var(--main); color: white; width: 45px; height: 45px; border-radius: 50%; display: none; justify-content: center; align-items: center; cursor: pointer; z-index: 99; opacity: 0.7; }
-        #back-to-top:hover { opacity: 1; }
-
-        @media (max-width: 768px) { .menu { display: none; } .section { padding: 25px; } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .section { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        h2 { border-left: 6px solid var(--green); padding-left: 15px; color: var(--main); margin-bottom: 20px; font-size: 1.4em; }
+        .content-box { line-height: 1.8; color: #444; white-space: pre-line; word-break: break-all; }
+        .filter-bar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; background: white; padding: 15px; border-radius: 10px; border: 1px solid #eee; }
+        select, .search-input { padding: 10px; border-radius: 8px; border: 1px solid #ddd; outline: none; font-size: 14px; flex: 1; min-width: 110px; }
+        .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; }
+        .card { background: white; border-radius: 10px; overflow: hidden; border: 1px solid #eee; display: flex; flex-direction: column; }
+        .card-img { width: 100%; height: 160px; object-fit: contain; background: #fff; padding: 10px; box-sizing: border-box; }
+        .card-body { padding: 12px; flex-grow: 1; }
+        .tag { font-size: 11px; color: var(--green); font-weight: bold; }
+        .card-title { font-size: 14px; color: var(--main); font-weight: 600; margin: 5px 0; height: 2.8em; overflow: hidden; }
+        .card-price { color: var(--orange); font-size: 16px; font-weight: bold; }
+        .btn-line { display: inline-block; background: #00b900; color: white; padding: 12px 30px; text-decoration: none; border-radius: 50px; font-weight: bold; margin-top: 15px; }
+        footer { text-align: center; padding: 40px 20px; color: #666; background: #fff; border-top: 1px solid #eee; margin-top: 40px; font-size: 0.9em; line-height: 1.6; }
+        .footer-info { margin-top: 15px; color: #888; font-size: 0.85em; }
+        .footer-info span { display: block; margin-bottom: 5px; }
     </style>
 </head>
 <body>
-
 <div id="loader"><div class="spinner"></div></div>
-<div id="back-to-top" onclick="window.scrollTo({top:0, behavior:'smooth'})">↑</div>
-
 <nav>
     <div class="nav-container">
         <a href="#" onclick="showPage('about')" class="nav-logo">
-            <img id="nav-logo-img" src="logo.jpg" alt="Logo" onerror="this.src='logo.jpg'">
-            <span id="nav-site-title">原點匹克球|官方網站</span>
+            <img id="nav-logo-img" src="logo.jpg" alt="Logo">
+            <span id="nav-site-title">原點匹克球</span>
         </a>
         <div class="menu">
             <a onclick="showPage('about')" id="nav-about" class="active">關於原點</a>
@@ -76,49 +61,41 @@
         </div>
     </div>
 </nav>
-
 <div class="container">
     <div id="page-about" class="page-content active">
-        <section class="section">
-            <h2 id="about-title">品牌故事</h2>
-            <div id="about-text" class="content-box">讀取中...</div>
-        </section>
+        <section class="section"><h2>品牌故事</h2><div id="about-text" class="content-box">讀取中...</div></section>
     </div>
-
     <div id="page-courses" class="page-content">
-        <section class="section">
-            <h2>課程介紹</h2>
-            <div id="course-text" class="content-box">課程內容規劃中，敬請期待...</div>
-        </section>
+        <section class="section"><h2>課程介紹</h2><div id="course-text" class="content-box">讀取中...</div></section>
     </div>
-
     <div id="page-products" class="page-content">
         <h2>商品一覽</h2>
         <div class="filter-bar">
-            <select id="filter-brand"><option value="all">所有品牌</option></select>
-            <select id="filter-category"><option value="all">所有類別</option></select>
-            <input type="text" id="search-input" class="search-input" placeholder="搜尋產品名稱...">
+            <select id="filter-brand"><option value="all">品牌</option></select>
+            <select id="filter-category"><option value="all">類別</option></select>
+            <input type="text" id="search-input" class="search-input" placeholder="搜尋名稱...">
         </div>
         <div id="product-grid" class="product-grid"></div>
     </div>
-
     <div id="page-contact" class="page-content">
-        <section class="section" style="text-align: center; padding: 60px 20px;">
-            <h2 style="border:none; padding:0;">聯絡我們</h2>
-            <p style="font-size: 1.1em; color: #666;">對商品或課程有疑問？歡迎直接透過 LINE 聯絡我們！</p>
-            <a id="line-btn" href="#" class="btn-line" target="_blank">💬 點我加入 LINE 官方帳號</a>
-            <p style="margin-top: 20px; color: #999;">歡迎公司行號、機關團體、社區、協會洽詢各類合作。</p>
+        <section class="section" style="text-align: center;">
+            <h2>聯絡我們</h2>
+            <p>對課程或器材有興趣？歡迎聯絡我們！</p>
+            <a id="line-btn" href="#" class="btn-line" target="_blank">💬 加入 LINE 官方帳號</a>
         </section>
     </div>
 </div>
-
-<footer id="footer-text"></footer>
-
+<footer>
+    <div id="footer-text">© 原點匹克球 | 從原點出發，開始你的第一拍。</div>
+    <div class="footer-info">
+        <span>實體店面：花蓮縣花蓮市林森路249巷2弄19號</span>
+        <span>統一編號：95208851</span>
+        <span>負責人：簡君翰 | 電話：0972-995470</span>
+    </div>
+</footer>
 <script>
     const sheetId = '11Uc9hJpgaeci-zsmDi1FQZBgl7f1r_vpVaNeb1Y_Dos';
     let allProducts = [];
-
-    // 分頁切換
     function showPage(pageId) {
         document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
         document.querySelectorAll('.menu a').forEach(a => a.classList.remove('active'));
@@ -126,140 +103,69 @@
         if(document.getElementById('nav-' + pageId)) document.getElementById('nav-' + pageId).classList.add('active');
         window.scrollTo(0, 0);
     }
-
-    // CSV 解析引擎
     function parseCSV(csv) {
-        const result = [];
-        let row = []; let col = ''; let inQuotes = false;
+        const result = []; let row = []; let col = ''; let inQuotes = false;
         for (let i = 0; i < csv.length; i++) {
-            const char = csv[i]; const nextChar = csv[i + 1];
-            if (char === '"' && inQuotes && nextChar === '"') { col += '"'; i++; }
+            const char = csv[i]; const next = csv[i+1];
+            if (char === '"' && inQuotes && next === '"') { col += '"'; i++; }
             else if (char === '"') inQuotes = !inQuotes;
             else if (char === ',' && !inQuotes) { row.push(col.trim()); col = ''; }
             else if ((char === '\r' || char === '\n') && !inQuotes) {
                 if (col !== '' || row.length > 0) { row.push(col.trim()); result.push(row); }
-                row = []; col = ''; if (char === '\r' && nextChar === '\n') i++;
+                row = []; col = ''; if (char === '\r' && next === '\n') i++;
             } else col += char;
         }
         if (col !== '' || row.length > 0) { row.push(col.trim()); result.push(row); }
         return result;
     }
-
-    // Drive 圖片代碼修復：使用 Template Literals 改正
     const formatDriveUrl = (url) => {
         if (!url || typeof url !== 'string') return 'logo.jpg';
-        const driveRegex = /(?:\/d\/|id=)([\w-]+)/;
-        const match = url.match(driveRegex);
-        if (match && match[1]) {
-            return `https://lh3.googleusercontent.com/u/0/d/${match[1]}`;
-        }
-        return url;
+        const match = url.match(/(?:\/d\/|id=)([\w-]+)/);
+        return match ? "https://lh3.googleusercontent.com/d/" + match[1] : url;
     };
-
-    // 抓取 Settings
-    fetch(`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=Settings`)
+    fetch("https://docs.google.com/spreadsheets/d/"+sheetId+"/gviz/tq?tqx=out:csv&sheet=Settings")
         .then(res => res.text()).then(csv => {
-            const data = parseCSV(csv);
-            const settings = {};
+            const data = parseCSV(csv); const settings = {};
             data.forEach(cols => { if(cols[0]) settings[cols[0]] = cols[1]; });
-            if(settings.SiteTitle) {
-                document.getElementById('nav-site-title').innerText = settings.SiteTitle;
-                document.getElementById('page-title').innerText = settings.SiteTitle;
-            }
+            if(settings.SiteTitle) { document.getElementById('nav-site-title').innerText = settings.SiteTitle; document.getElementById('page-title').innerText = settings.SiteTitle; }
             if(settings.LogoURL) document.getElementById('nav-logo-img').src = formatDriveUrl(settings.LogoURL);
-            if(settings.FaviconURL) document.getElementById('favicon').href = formatDriveUrl(settings.FaviconURL);
             if(settings.AboutContent) document.getElementById('about-text').innerText = settings.AboutContent;
             if(settings.CourseContent) document.getElementById('course-text').innerText = settings.CourseContent;
             if(settings.ContactLink) document.getElementById('line-btn').href = settings.ContactLink;
-            document.getElementById('footer-text').innerHTML = `© 原點匹克球 | 從原點出發，開始你的第一拍；從匹克球開始，愛上運動。`;
         });
-
-    // 抓取 Products
-    fetch(`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=Products`)
+    fetch("https://docs.google.com/spreadsheets/d/"+sheetId+"/gviz/tq?tqx=out:csv&sheet=Products")
         .then(res => res.text()).then(csv => {
             const data = parseCSV(csv).slice(1);
-            allProducts = data.map(cols => ({
-                brand: cols[0], name: cols[1], cat: cols[2], price: cols[3], img: formatDriveUrl(cols[5]) 
-            })).filter(p => p.name);
-            
-            // 初始品牌選單
+            allProducts = data.map(cols => ({ brand: cols[0], name: cols[1], cat: cols[2], price: cols[3], img: formatDriveUrl(cols[5]) })).filter(p => p.name);
             const brands = [...new Set(allProducts.map(p => p.brand))].filter(Boolean);
-            const brandSelect = document.getElementById('filter-brand');
-            brands.forEach(b => brandSelect.innerHTML += `<option value="${b}">${b}</option>`);
-            
-            // 初次更新連動選單與渲染
-            updateFilterOptions();
+            brands.forEach(b => document.getElementById('filter-brand').innerHTML += '<option value="'+b+'">'+b+'</option>');
+            updateFilters();
         }).finally(() => {
             const loader = document.getElementById('loader');
-            if(loader) { loader.style.opacity = '0'; setTimeout(() => { loader.style.display = 'none'; }, 500); }
+            if(loader) { loader.style.opacity = '0'; setTimeout(() => loader.style.display = 'none', 500); }
         });
-
-    // 連動選單邏輯
-    function updateFilterOptions() {
-        const brandSelect = document.getElementById('filter-brand');
+    function updateFilters() {
+        const brand = document.getElementById('filter-brand').value;
+        const cats = [...new Set(allProducts.filter(p => brand === 'all' || p.brand === brand).map(p => p.cat))].filter(Boolean);
         const catSelect = document.getElementById('filter-category');
-        const selectedBrand = brandSelect.value;
-
-        // 篩選出該品牌才有的類別
-        const availableCats = [...new Set(
-            allProducts
-                .filter(p => selectedBrand === 'all' || p.brand === selectedBrand)
-                .map(p => p.cat)
-        )].filter(Boolean);
-
         catSelect.innerHTML = '<option value="all">所有類別</option>';
-        availableCats.forEach(c => {
-            catSelect.innerHTML += `<option value="${c}">${c}</option>`;
-        });
-
+        cats.forEach(c => catSelect.innerHTML += '<option value="'+c+'">'+c+'</option>');
         applyFilters();
     }
-
-    // 綜合過濾（品牌 + 類別 + 搜尋關鍵字）
     function applyFilters() {
         const b = document.getElementById('filter-brand').value;
         const c = document.getElementById('filter-category').value;
         const q = document.getElementById('search-input').value.toLowerCase();
-
-        const filtered = allProducts.filter(p => {
-            const matchBrand = (b === 'all' || p.brand === b);
-            const matchCat = (c === 'all' || p.cat === c);
-            const matchQuery = p.name.toLowerCase().includes(q);
-            return matchBrand && matchCat && matchQuery;
-        });
-        renderProducts(filtered);
-    }
-
-    function renderProducts(list) {
+        const filtered = allProducts.filter(p => (b === 'all' || p.brand === b) && (c === 'all' || p.cat === c) && p.name.toLowerCase().includes(q));
         const grid = document.getElementById('product-grid');
         grid.innerHTML = '';
-        list.forEach(p => {
-            grid.innerHTML += `
-                <div class="card">
-                    <img class="card-img" src="${p.img}" onerror="this.src='logo.jpg'">
-                    <div class="card-body">
-                        <span class="tag">${p.brand} | ${p.cat}</span>
-                        <div class="card-title">${p.name}</div>
-                        <div class="card-price">$${p.price || '洽詢'}</div>
-                    </div>
-                </div>`;
+        filtered.forEach(p => {
+            grid.innerHTML += `<div class="card"><img class="card-img" src="${p.img}" onerror="this.src='logo.jpg'"><div class="card-body"><span class="tag">${p.brand} | ${p.cat}</span><div class="card-title">${p.name}</div><div class="card-price">$${p.price || '洽詢'}</div></div></div>`;
         });
     }
-
-    // 事件監聽
-    document.getElementById('filter-brand').addEventListener('change', updateFilterOptions);
+    document.getElementById('filter-brand').addEventListener('change', updateFilters);
     document.getElementById('filter-category').addEventListener('change', applyFilters);
     document.getElementById('search-input').addEventListener('input', applyFilters);
-
-    // 回到頂部按鈕顯示邏輯
-    window.onscroll = function() {
-        const btn = document.getElementById('back-to-top');
-        if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
-            btn.style.display = "flex";
-        } else {
-            btn.style.display = "none";
-        }
-    };
 </script>
 </body>
 </html>
