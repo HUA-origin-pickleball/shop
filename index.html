@@ -29,7 +29,6 @@
         .page-content.active { display: block; animation: fadeIn 0.4s; }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* 卡片設計 */
         .info-card { background: white; border-radius: 15px; padding: 35px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); margin-bottom: 30px; border: 1px solid #eee; }
         .info-card h2 { color: var(--green); margin-top: 0; margin-bottom: 20px; font-size: 1.8em; border-left: 6px solid var(--green); padding-left: 15px; }
         .content-box { white-space: pre-line; color: #444; font-size: 1.05em; }
@@ -45,14 +44,12 @@
         .dot { width: 10px; height: 10px; background: rgba(255,255,255,0.4); border-radius: 50%; cursor: pointer; }
         .dot.active { background: white; }
 
-        /* 商品篩選器 */
+        /* 商品篩選與卡片 */
         .product-layout { display: grid; grid-template-columns: 240px 1fr; gap: 30px; }
         .filter-sidebar { background: white; padding: 20px; border-radius: 15px; height: fit-content; position: sticky; top: 100px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
         .filter-group { margin-bottom: 20px; }
         .filter-group label { display: block; font-weight: bold; margin-bottom: 8px; color: var(--green); font-size: 0.9em; }
         .filter-group select, .search-input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 8px; }
-
-        /* 商品卡片 */
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
         .card { background: white; border-radius: 12px; overflow: hidden; border: 1px solid #eee; cursor: pointer; transition: 0.3s; }
         .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
@@ -63,6 +60,14 @@
         .card-desc { font-size: 13px; color: #666; height: 3em; overflow: hidden; margin-bottom: 10px; }
         .card-price { color: var(--orange); font-weight: 800; font-size: 18px; }
 
+        /* 聯絡我們：社群按鈕 */
+        .social-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin: 30px 0; }
+        .social-btn { display: flex; align-items: center; gap: 10px; padding: 15px 30px; border-radius: 12px; text-decoration: none; color: white; font-weight: bold; transition: 0.3s; min-width: 160px; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .social-btn:hover { transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+        .btn-line { background-color: #00b900; }
+        .btn-fb { background-color: #1877f2; }
+        .btn-ig { background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); }
+
         /* 彈窗 */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; padding: 20px; }
         .modal-content { background: white; max-width: 900px; width: 100%; border-radius: 20px; display: flex; overflow: hidden; position: relative; max-height: 90vh; }
@@ -71,19 +76,18 @@
         .modal-right { flex: 1; padding: 40px; background: #fafafa; overflow-y: auto; }
         .modal-close { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; color: #bbb; }
 
-        /* 地圖縮小 */
         .map-box { max-width: 700px; height: 300px; margin: 30px auto; border-radius: 15px; overflow: hidden; border: 1px solid #ddd; }
         .map-box iframe { width: 100%; height: 100%; border: 0; }
 
-        footer { background: #2d3436; color: white; padding: 50px 20px; text-align: center; font-size: 0.95em; }
-        .f-slogan { font-size: 1.5em; font-weight: bold; margin-bottom: 10px; display: block; }
-        .f-tax { font-size: 0.8em; color: #bdc3c7; margin-bottom: 5px; display: block; }
-        .f-info { margin-bottom: 5px; display: block; }
+        footer { background: #2d3436; color: white; padding: 60px 20px; text-align: center; }
+        .f-slogan { font-size: 1.6em; font-weight: bold; margin-bottom: 18px; display: block; color: #fff; }
+        .f-sub-info { font-size: 0.85em; color: #bdc3c7; margin-bottom: 6px; display: block; font-weight: 300; }
 
         @media (max-width: 800px) {
             .nav-container { flex-direction: column; gap: 10px; }
             .product-layout { grid-template-columns: 1fr; }
             .modal-content { flex-direction: column; }
+            .social-btn { width: 100%; }
         }
     </style>
 </head>
@@ -133,7 +137,7 @@
     <div class="container">
         <div class="product-layout">
             <aside class="filter-sidebar">
-                <div class="filter-group"><label>關鍵字</label><input type="text" id="search-input" class="search-input" oninput="renderProducts()"></div>
+                <div class="filter-group"><label>關鍵字</label><input type="text" id="search-input" class="search-input" oninput="renderProducts()" placeholder="搜尋產品..."></div>
                 <div class="filter-group"><label>品牌</label><select id="filter-brand" onchange="updateCategoryOptions()"><option value="all">所有品牌</option></select></div>
                 <div class="filter-group"><label>類別</label><select id="filter-category" onchange="renderProducts()"><option value="all">所有類別</option></select></div>
             </aside>
@@ -147,10 +151,20 @@
         <div class="info-card">
             <h2>聯絡我們</h2>
             <div id="contact-desc" class="content-box"></div>
-            <div id="biz-card-box" style="display:flex; justify-content:center; gap:15px; flex-wrap:wrap; margin-top:25px;"></div>
+            
+            <div class="social-container">
+                <a id="link-line" href="#" target="_blank" class="social-btn btn-line">
+                    <i class="fab fa-line" style="font-size:1.4em;"></i> LINE 官方帳號
+                </a>
+                <a id="link-fb" href="#" target="_blank" class="social-btn btn-fb">
+                    <i class="fab fa-facebook" style="font-size:1.4em;"></i> Facebook 粉絲專頁
+                </a>
+                <a id="link-ig" href="#" target="_blank" class="social-btn btn-ig">
+                    <i class="fab fa-instagram" style="font-size:1.4em;"></i> Instagram 追蹤
+                </a>
+            </div>
         </div>
         <div id="map-area" class="map-box" style="display:none;"></div>
-        <a id="line-btn" href="#" target="_blank" style="display:inline-block; background:#00b900; color:white; padding:18px 50px; text-decoration:none; border-radius:50px; font-weight:bold; font-size:1.1em; box-shadow:0 10px 20px rgba(0,185,0,0.2);">💬 加入 LINE 官方帳號</a>
     </div>
 </div>
 
@@ -165,7 +179,7 @@
                 <p><strong>產品規格：</strong><br><span id="m-spec"></span></p>
                 <p><strong>庫存狀況：</strong><span id="m-stock" style="color:var(--green); font-weight:bold;"></span></p>
                 <div style="background:#f0f4f8; padding:15px; border-radius:10px; margin-top:15px;">
-                    <strong>教練的話：</strong><br><span id="m-coach" style="font-style:italic;"></span>
+                    <strong>教練推薦語：</strong><br><span id="m-coach" style="font-style:italic;"></span>
                 </div>
             </div>
             <a href="#" id="m-line-link" target="_blank" style="display:block; text-align:center; background:var(--green); color:white; padding:15px; text-decoration:none; border-radius:10px; margin-top:25px; font-weight:bold;">私訊詢問 / 購買</a>
@@ -176,9 +190,9 @@
 <footer>
     <div class="container" style="min-height:auto; padding:0;">
         <span class="f-slogan" id="f-slogan"></span>
-        <span class="f-tax" id="f-tax"></span>
-        <span class="f-info" id="f-staff"></span>
-        <span class="f-info" id="f-addr"></span>
+        <span class="f-sub-info" id="f-tax"></span>
+        <span class="f-sub-info" id="f-staff"></span>
+        <span class="f-sub-info" id="f-addr"></span>
     </div>
 </footer>
 
@@ -210,35 +224,31 @@
         return result;
     }
 
-    // 路由導航功能 (處理分頁與錨點)
     function navigateTo(pageId) {
         document.querySelectorAll('.page-content').forEach(p => p.classList.remove('active'));
         document.querySelectorAll('.menu a').forEach(a => a.classList.remove('active'));
-        
         const target = document.getElementById('page-' + pageId);
         if(target) {
             target.classList.add('active');
             document.getElementById('btn-' + pageId).classList.add('active');
-            window.location.hash = pageId; // 更新網址錨點
+            window.location.hash = pageId;
             window.scrollTo(0,0);
         }
     }
 
-    // 監聽網址變化（或是重新整理時載入）
     window.addEventListener('load', () => {
         const hash = window.location.hash.replace('#', '');
         if(hash) navigateTo(hash);
-        else navigateTo('about'); // 預設首頁
+        else navigateTo('about');
     });
 
     fetch(`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=Settings`)
     .then(res => res.text()).then(csv => {
         const data = parseCSV(csv);
-        const s = {}; const base = []; const course = []; const cards = [];
+        const s = {}; const base = []; const course = [];
         data.forEach(r => {
             const k = r[0], v = r[1]; if(!k) return; s[k] = v;
             if(k.startsWith('HeroURL')) heroImgs.push(formatDriveUrl(v));
-            if(k.startsWith('BizCardImg')) cards.push(formatDriveUrl(v));
             if(k.startsWith('BaseImg')) { let i=k.replace('BaseImg',''); if(!base[i])base[i]={}; base[i].img=formatDriveUrl(v); }
             if(k.startsWith('BaseText')) { let i=k.replace('BaseText',''); if(!base[i])base[i]={}; base[i].text=v; }
             if(k.startsWith('CourseImg')) { let i=k.replace('CourseImg',''); if(!course[i])course[i]={}; course[i].img=formatDriveUrl(v); }
@@ -246,22 +256,22 @@
         });
 
         if(s.LogoURL) document.getElementById('nav-logo-img').src = formatDriveUrl(s.LogoURL);
-        
-        // 頁面內容
         document.getElementById('about-text').innerText = s.AboutContent || '';
         document.getElementById('philosophy-text').innerText = s.Philosophy || '';
         document.getElementById('coach-text').innerText = s.CoachIntro || '';
         document.getElementById('course-text').innerText = s.CourseContent || '';
         document.getElementById('contact-desc').innerText = s.ContactDesc || '';
-        document.getElementById('line-btn').href = s.ContactLink || '#';
         
-        // 頁尾四行
-        document.getElementById('f-slogan').innerText = s.FooterSlogan || '從原點出發，開始你的第一拍';
+        // 更新社群連結 (對應試算表 Key)
+        document.getElementById('link-line').href = s.ContactLink || '#';
+        document.getElementById('link-fb').href = s.FBLink || '#';
+        document.getElementById('link-ig').href = s.IGLink || '#';
+        
+        document.getElementById('f-slogan').innerText = s.FooterSlogan || '';
         document.getElementById('f-tax').innerText = s.BizInfo ? `統一編號：${s.BizInfo}` : '';
         document.getElementById('f-staff').innerText = s.StaffContact || '';
         document.getElementById('f-addr').innerText = s.Address || '';
 
-        // 輪播生成
         const sBox = document.getElementById('hero-slider');
         heroImgs.forEach((u, i) => {
             const d = document.createElement('div'); d.className = `slide ${i===0?'active':''}`; d.style.backgroundImage = `url('${u}')`;
@@ -275,7 +285,7 @@
         const renderRows = (arr, id) => arr.forEach(x => { if(x.img||x.text) document.getElementById(id).innerHTML += `<div style="margin-bottom:20px;"><img src="${x.img}" style="width:100%; border-radius:10px; height:250px; object-fit:cover; margin-bottom:15px;"><div class="content-box">${x.text}</div></div>`});
         renderRows(base, 'base-modules');
         renderRows(course, 'course-modules');
-        cards.forEach(u => { if(u) document.getElementById('biz-card-box').innerHTML += `<img src="${u}" style="height:180px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1);">`});
+        
         if(s.ContactMap) { const m = document.getElementById('map-area'); m.style.display = 'block'; m.innerHTML = s.ContactMap.includes('<iframe') ? s.ContactMap : `<iframe src="${s.ContactMap}"></iframe>`; }
     });
 
@@ -289,7 +299,6 @@
         dots.forEach((d, i) => d.classList.toggle('active', i === currentSlide));
     }
 
-    // 商品邏輯
     fetch(`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&sheet=Products`)
     .then(res => res.text()).then(csv => {
         const data = parseCSV(csv).slice(1);
@@ -334,7 +343,7 @@
         document.getElementById('m-spec').innerText = p.spec || '請洽詢';
         document.getElementById('m-stock').innerText = p.stock || '現貨供應';
         document.getElementById('m-coach').innerText = p.coach || '';
-        document.getElementById('m-line-link').href = document.getElementById('line-btn').href;
+        document.getElementById('m-line-link').href = document.getElementById('link-line').href;
         document.getElementById('product-modal').style.display = 'flex';
     }
     function closeModal() { document.getElementById('product-modal').style.display = 'none'; }
