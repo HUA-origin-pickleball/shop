@@ -60,8 +60,9 @@
         /* Academy Style Cards */
         .story-section { display: grid; grid-template-columns: 1fr; gap: 40px; margin-bottom: 60px; }
         .info-card { background: var(--white); padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid #f0f0f0; }
-        .info-card h2 { color: var(--primary); font-size: 2rem; margin-top: 0; position: relative; display: inline-block; }
-        .info-card h2::after { content: ''; display: block; width: 40px; height: 4px; background: var(--accent); margin-top: 8px; border-radius: 2px; }
+        /* 藍色標題樣式 */
+        .info-card h2 { color: #0056b3 !important; font-size: 1.5rem !important; }
+        .info-card h2::after { background: #0056b3 !important; width: 100% !important; }
         .content-text { white-space: pre-line; color: #444; font-size: 1.1rem; margin-top: 25px; }
 
         /* Boutique Product Grid */
@@ -126,7 +127,9 @@
 <div class="side-menu" id="sideMenu">
     <a onclick="navTo('about')">關於原點</a>
     <a onclick="navTo('courses')">教學服務</a>
-    <a onclick="navTo('products')">專業器材</a>
+    <a onclick="navTo('products')">商品一覽</a>
+    <a onclick="navTo('venue')">場地資訊</a>
+    <a onclick="navTo('partners')">合作夥伴</a>
     <a onclick="navTo('contact')">聯絡我們</a>
 </div>
 
@@ -134,12 +137,13 @@
     <div class="nav-container">
         <div onclick="navTo('about')" class="nav-logo">
             <img id="logo-img" src="logo.jpg" alt="Logo">
-            <span>官方網站</span>
         </div>
         <div class="menu">
             <a onclick="navTo('about')" id="nav-about">關於原點</a>
             <a onclick="navTo('courses')" id="nav-courses">教學服務</a>
-            <a onclick="navTo('products')" id="nav-products">專業器材</a>
+            <a onclick="navTo('products')" id="nav-products">商品一覽</a>
+            <a onclick="navTo('venue')" id="nav-venue">場地資訊</a>
+            <a onclick="navTo('partners')" id="nav-partners">合作夥伴</a>
             <a onclick="navTo('contact')" id="nav-contact">聯絡我們</a>
         </div>
         <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
@@ -147,7 +151,25 @@
 </nav>
 
 <div id="page-about" class="page active">
-    <div class="hero" id="hero-slider"></div>
+    <style>
+    /* 輪播圖專用樣式 */
+    .hero { position: relative; width: 100%; height: 500px; background: #222; overflow: hidden; }
+    .slider-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; border: none; padding: 15px 20px; cursor: pointer; z-index: 10; border-radius: 5px; transition: 0.3s; }
+    .slider-arrow:hover { background: rgba(0,0,0,0.6); }
+    .prev { left: 20px; }
+    .next { right: 20px; }
+    .slider-dots { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10; }
+    .dot { width: 12px; height: 12px; background: rgba(255,255,255,0.4); border-radius: 50%; cursor: pointer; transition: 0.3s; }
+    .dot.active { background: #fff; transform: scale(1.2); }
+</style>
+
+<div id="page-about" class="page active">
+    <div class="hero" id="hero-slider">
+        <button class="slider-arrow prev" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
+        <button class="slider-arrow next" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
+        <div class="slider-dots" id="hero-dots"></div>
+    </div>
+
     <div class="container">
         <div class="story-section">
             <div class="info-card">
@@ -155,20 +177,63 @@
                 <div id="text-about" class="content-text"></div>
             </div>
             <div class="info-card">
-                <h2>教學理念</h2>
+                <h2>核心價值</h2> 
                 <div id="text-philosophy" class="content-text"></div>
             </div>
             <div id="extra-about"></div>
         </div>
     </div>
-</div>
-
 <div id="page-courses" class="page">
+    <style>
+        .flex-row { display: flex; gap: 40px; align-items: center; }
+        .side-img { flex: 1; }
+        .side-text { flex: 1.5; }
+        .side-img img { width: 100%; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); object-fit: cover; }
+        
+        /* 手機版自動改為上下堆疊 */
+        @media (max-width: 900px) {
+            .flex-row { flex-direction: column !important; }
+            .row-reverse-mobile { flex-direction: column-reverse !important; }
+        }
+    </style>
+
     <div class="container">
         <div class="info-card">
-            <h2>教學服務與教練</h2>
-            <div id="course-content-area"></div>
-            <div id="text-course" class="content-text" style="border-top: 1px solid #eee; padding-top: 30px; margin-top: 30px;"></div>
+            <div class="flex-row row-reverse-mobile">
+                <div class="side-text">
+                    <h2>課程介紹</h2>
+                    <div id="text-course-intro" class="content-text"></div>
+                </div>
+                <div class="side-img">
+                    <img id="img-course-poster" src="logo.jpg" alt="課程海報">
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card">
+            <h2>課程費用</h2>
+            <div id="text-course-fees" class="content-text"></div>
+        </div>
+
+        <div class="info-card">
+            <div class="flex-row">
+                <div class="side-img">
+                    <img id="img-coach-portrait" src="logo.jpg" alt="教練照片">
+                </div>
+                <div class="side-text">
+                    <h2>教練介紹</h2>
+                    <div id="text-coach-intro" class="content-text"></div>
+                </div>
+            </div>
+        </div>
+        <div class="info-card">
+            <h2>球拍租借說明</h2>
+            <div id="text-equipment" class="content-text"></div>
+        </div>
+
+        <div class="info-card">
+            <h2>學員常見問題 (FAQ)</h2>
+            <div id="text-faq" class="content-text"></div>
         </div>
     </div>
 </div>
@@ -194,7 +259,10 @@
         </div>
     </div>
 </div>
-
+<div id="page-venue" class="page">
+    <div class="container" id="venue-list-container">
+        </div>
+</div>
 <div id="page-contact" class="page">
     <div class="container">
         <div class="info-card">
@@ -313,23 +381,54 @@ async function init() {
         document.getElementById('f-biz').innerText = S.BizInfo ? `統一編號：${S.BizInfo}` : '';
         document.getElementById('f-staff').innerText = S.StaffContact || '';
         document.getElementById('f-addr').innerText = S.Address || '';
+        // 教學服務分頁資料填入
+        document.getElementById('text-course-intro').innerText = S.CourseIntro || ''; // 課程介紹文字
+        document.getElementById('img-course-poster').src = fixUrl(S.CoursePoster);    // 課程海報圖片
+        document.getElementById('text-course-fees').innerText = S.CourseFees || '';   // 課程費用文字
+        document.getElementById('text-coach-intro').innerText = S.CoachIntro || '';   // 教練介紹文字
+        document.getElementById('img-coach-portrait').src = fixUrl(S.CoachImg);       // 教練照片圖片
 
-        // Hero Slider
+        // --- 替換開始：Hero 輪播圖增強版邏輯 ---
         const hBox = document.getElementById('hero-slider');
+        const dBox = document.getElementById('hero-dots'); // 這是對應 HTML 裡的圓點容器
+
         hero.forEach((u, i) => {
+            // 產生照片投影片
             const div = document.createElement('div');
             div.className = `slide ${i===0?'active':''}`;
             div.style.backgroundImage = `url('${u}')`;
             div.innerHTML = `<div class="hero-overlay"></div><div class="hero-text"><h1>${S.HeroTitle || '原點匹克球'}</h1></div>`;
             hBox.appendChild(div);
+
+            // 產生下方圓點
+            const dot = document.createElement('div');
+            dot.className = `dot ${i===0?'active':''}`;
+            dot.onclick = () => { slideIdx = i; updateSliderUI(); };
+            if(dBox) dBox.appendChild(dot);
         });
-        setInterval(() => {
+
+        // 定義更新畫面函式
+        window.updateSliderUI = function() {
+            const ss = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.dot');
+            if(!ss.length) return;
+            ss.forEach((s, i) => s.classList.toggle('active', i === slideIdx));
+            dots.forEach((d, i) => d.classList.toggle('active', i === slideIdx));
+        };
+
+        // 定義切換函式（給左右箭頭用）
+        window.changeSlide = function(n) {
             const ss = document.querySelectorAll('.slide');
             if(!ss.length) return;
-            ss[slideIdx].classList.remove('active');
-            slideIdx = (slideIdx + 1) % ss.length;
-            ss[slideIdx].classList.add('active');
+            slideIdx = (slideIdx + n + ss.length) % ss.length;
+            updateSliderUI();
+        };
+
+        // 自動輪播
+        setInterval(() => {
+            changeSlide(1);
         }, 5000);
+        // --- 替換結束 ---
 
         // Modules
         const drawMod = (arr, tid) => arr.forEach(m => {
@@ -342,7 +441,33 @@ async function init() {
         });
         drawMod(base, 'extra-about');
         drawMod(cour, 'course-content-area');
+// --- 場地資訊自動產生邏輯 ---
+        const venueContainer = document.getElementById('venue-list-container');
+        if (venueContainer) {
+            venueContainer.innerHTML = ''; // 清空
+            for (let i = 1; i <= 10; i++) {
+                const vName = S[`VenueName${i}`];
+                const vAddr = S[`VenueAddr${i}`];
+                const vDesc = S[`VenueDesc${i}`];
+                const vImg = S[`VenueImg${i}`];
 
+                if (!vName) continue; // 沒填名稱就跳過
+
+                venueContainer.innerHTML += `
+                    <div class="info-card" style="margin-bottom: 30px;">
+                        <div class="flex-row">
+                            <div class="side-img">
+                                <img src="${fixUrl(vImg)}" alt="${vName}">
+                            </div>
+                            <div class="side-text">
+                                <h2 style="color: #0056b3 !important;">${vName}</h2>
+                                <p><strong>地點：</strong>${vAddr || '請洽教練'}</p>
+                                <div class="content-text" style="margin-top:10px;">${vDesc || ''}</div>
+                            </div>
+                        </div>
+                    </div>`;
+            }
+        }
         // Map
         if(S.ContactMap) {
             document.getElementById('map-box').innerHTML = S.ContactMap.includes('<iframe') ? S.ContactMap : `<iframe src="${S.ContactMap}"></iframe>`;
@@ -405,6 +530,8 @@ function openModal(id) {
     document.getElementById('m-coach').innerText = p.coach || '這款球拍的手感非常紮實，特別適合追求控球與穩定度的球友！';
     document.getElementById('m-btn-buy').href = document.getElementById('link-line').href;
     document.getElementById('p-modal').style.display = 'flex';
+    document.getElementById('text-equipment').innerText = S.CourseNotes || ''; // 球拍租借說明
+    document.getElementById('text-faq').innerText = S.CourseFAQ || '';         // 學員常見問題 (FAQ)
 }
 
 function closeModal() { document.getElementById('p-modal').style.display = 'none'; }
