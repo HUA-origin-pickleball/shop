@@ -10,7 +10,7 @@
         :root {
             --primary: #4a6741;
             --accent: #e67e22;
-            --logo-blue: #153759;
+            --logo-blue: #153759; /* 更新標題色 */
             --bg-light: #f8faf9;
             --text-main: #2c3e50;
             --text-sub: #7f8c8d;
@@ -42,9 +42,9 @@
         .slide.active { opacity: 1; }
         .hero-overlay { position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.3); }
         .hero-text { position: relative; color: white; text-align: center; z-index: 5; }
-        .hero-text h1 { font-size: 3rem; margin: 0; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .hero-text h1 { font-size: 3rem; margin: 0; }
 
-        /* Titles & Decor */
+        /* Layout & Decor */
         .container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
         .page { display: none; }
         .page.active { display: block; animation: fadeIn 0.5s ease; }
@@ -54,22 +54,22 @@
         
         /* 標題與短粗線裝飾 */
         h2 { color: var(--logo-blue); font-size: 1.6rem; margin-bottom: 25px; position: relative; padding-bottom: 15px; }
-        h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 40px; height: 6px; background: var(--accent); border-radius: 10px; }
+        h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 45px; height: 6px; background: var(--accent); border-radius: 10px; }
 
         .content-text { white-space: pre-line; color: #444; }
         .flex-row { display: flex; gap: 40px; align-items: center; }
-        .side-img img { width: 100%; border-radius: 15px; object-fit: cover; }
+        .side-img img { width: 100%; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); object-fit: cover; }
 
         /* Shop Grid */
         .shop-layout { display: grid; grid-template-columns: 260px 1fr; gap: 40px; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
         .product-card { background: var(--white); border-radius: 15px; overflow: hidden; border: 1px solid #eee; cursor: pointer; transition: 0.3s; }
-        .product-card:hover { transform: translateY(-8px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .product-card:hover { transform: translateY(-8px); }
         .img-wrap { height: 200px; display: flex; align-items: center; justify-content: center; padding: 15px; }
         .img-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; }
         .card-info { padding: 15px; border-top: 1px solid #f9f9f9; }
         
-        /* 商品三行小字簡介 */
+        /* 商品簡介限制三行 */
         .p-desc-short { 
             font-size: 0.85rem; 
             color: #777; 
@@ -81,10 +81,9 @@
             line-height: 1.5;
         }
 
-        /* Contact Buttons */
+        /* Contact */
         .contact-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; }
         .contact-btn { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 18px; border-radius: 12px; text-decoration: none; color: white; font-weight: bold; margin-bottom: 20px; transition: 0.3s; }
-        .contact-btn:hover { opacity: 0.9; transform: scale(1.02); }
         .btn-line { background: #06c755; }
         .btn-fb { background: #1877f2; }
         .btn-ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
@@ -94,8 +93,7 @@
         /* Modal */
         .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); z-index: 3000; align-items: center; justify-content: center; padding: 20px; }
         .modal-box { background: white; width: 100%; max-width: 900px; border-radius: 20px; display: flex; overflow: hidden; position: relative; max-height: 90vh; }
-        .modal-img { flex: 1; padding: 30px; display: flex; align-items: center; justify-content: center; background: #fff; }
-        .modal-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .modal-img { flex: 1; padding: 30px; display: flex; align-items: center; justify-content: center; }
         .modal-details { flex: 1; padding: 40px; overflow-y: auto; background: #fdfdfd; }
 
         footer { background: #1a1a1a; color: #999; padding: 50px 20px; text-align: center; }
@@ -149,17 +147,22 @@
     <div class="container">
         <div class="shop-layout">
             <aside style="background:white; padding:20px; border-radius:15px; height:fit-content; border:1px solid #eee;">
-                <input type="text" id="search-box" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;" oninput="drawProducts()" placeholder="搜尋商品名稱...">
-                <select id="sel-brand" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;" onchange="updateCatOptions()"><option value="all">所有品牌</option></select>
-                <select id="sel-cat" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:5px;" onchange="drawProducts()"><option value="all">所有類別</option></select>
+                <input type="text" id="search-box" style="width:100%; padding:10px; margin-bottom:10px;" oninput="drawProducts()" placeholder="搜尋商品...">
+                <select id="sel-brand" style="width:100%; padding:10px; margin-bottom:10px;" onchange="updateCatOptions()"><option value="all">所有品牌</option></select>
+                <select id="sel-cat" style="width:100%; padding:10px;" onchange="drawProducts()"><option value="all">所有類別</option></select>
             </aside>
             <main id="product-list" class="product-grid"></main>
         </div>
     </div>
 </div>
 
-<div id="page-venue" class="page"><div class="container" id="venue-list-container"></div></div>
-<div id="page-partners" class="page"><div class="container" id="partner-list-container"></div></div>
+<div id="page-venue" class="page">
+    <div class="container" id="venue-list-container"></div>
+</div>
+
+<div id="page-partners" class="page">
+    <div class="container" id="partner-list-container"></div>
+</div>
 
 <div id="page-contact" class="page">
     <div class="container">
@@ -170,7 +173,7 @@
                     <a id="link-line" target="_blank" class="contact-btn btn-line"><i class="fab fa-line"></i> LINE 官方帳號</a>
                     <a id="link-fb" target="_blank" class="contact-btn btn-fb"><i class="fab fa-facebook-f"></i> Facebook</a>
                     <a id="link-ig" target="_blank" class="contact-btn btn-ig"><i class="fab fa-instagram"></i> Instagram</a>
-                    <p id="text-contact-desc" style="color:#666; font-size:0.9rem; margin-top:10px;"></p>
+                    <p id="text-contact-desc" style="color:#666; font-size:0.9rem;"></p>
                 </div>
                 <div id="map-box" class="map-wrapper"></div>
             </div>
@@ -180,18 +183,18 @@
 
 <div id="p-modal" class="modal" onclick="closeModal()">
     <div class="modal-box" onclick="event.stopPropagation()">
-        <div class="modal-img"><img id="m-img" src=""></div>
+        <div class="modal-img"><img id="m-img"></div>
         <div class="modal-details">
             <h2 id="m-name" style="margin-top:0;"></h2>
             <div id="m-price" style="font-size:1.5rem; color:var(--accent); font-weight:800; margin-bottom:15px;"></div>
-            <p><strong>產品規格：</strong><span id="m-spec"></span></p>
-            <div id="m-desc" style="white-space:pre-line; color:#555; margin-bottom:20px;"></div>
-            <a href="#" id="m-btn-buy" target="_blank" style="display:block; text-align:center; background:var(--primary); color:white; padding:15px; border-radius:10px; text-decoration:none; font-weight:bold;">詢問教練</a>
+            <p><strong>規格：</strong><span id="m-spec"></span></p>
+            <div id="m-desc" style="white-space:pre-line; color:#555;"></div>
+            <a href="#" id="m-btn-buy" target="_blank" style="display:block; text-align:center; background:var(--primary); color:white; padding:15px; border-radius:10px; text-decoration:none; margin-top:20px; font-weight:bold;">詢問購買</a>
         </div>
     </div>
 </div>
 
-<footer><div class="container"><strong id="f-slogan"></strong><p id="f-addr"></p><p>© 2026 原點匹克球. All Rights Reserved.</p></div></footer>
+<footer><div class="container"><strong id="f-slogan"></strong><p id="f-addr"></p><p>© 2026 原點匹克球</p></div></footer>
 
 <script>
 const SID = '11Uc9hJpgaeci-zsmDi1FQZBgl7f1r_vpVaNeb1Y_Dos';
@@ -200,10 +203,10 @@ let slideIdx = 0;
 
 const fixUrl = (url) => {
     if (!url || !url.startsWith('http')) return 'logo.jpg';
-    // 地圖網址跳過轉換
-    if (url.includes('maps.google.com')) return url; 
+    // 確保地圖網址不會被轉換成圖片 ID
+    if (url.includes('google.com/maps')) return url; 
     const m = url.match(/(?:\/d\/|id=)([\w-]+)/);
-    return m ? `https://lh3.googleusercontent.com/d/${m[1]}` : url;
+    return m ? `https://lh3.googleusercontent.com/d/$${m[1]}` : url;
 };
 
 function navTo(page) {
@@ -219,44 +222,44 @@ async function init() {
     try {
         const sRes = await fetch(`https://docs.google.com/spreadsheets/d/${SID}/gviz/tq?tqx=out:csv&sheet=Settings`);
         const sText = await sRes.text();
-        const sRows = sText.split('\n').map(r => r.split(',').map(c => c.replace(/^"|"$/g, '')));
+        // 修正 CSV 解析邏輯，確保不會因逗號換行出錯
+        const sRows = sText.split('\n').map(r => r.split(',').map(c => c.replace(/^"|"$/g, '').trim()));
         const S = {}; sRows.forEach(r => S[r[0]] = r[1]);
 
         if(S.FaviconURL) document.getElementById('favicon').href = fixUrl(S.FaviconURL);
         if(S.LogoURL) document.getElementById('logo-img').src = fixUrl(S.LogoURL);
         
-        document.getElementById('text-about').innerText = S.AboutContent;
-        document.getElementById('text-philosophy').innerText = S.Philosophy;
-        document.getElementById('text-course-intro').innerText = S.CourseIntro;
+        document.getElementById('text-about').innerText = S.AboutContent || '';
+        document.getElementById('text-philosophy').innerText = S.Philosophy || '';
+        document.getElementById('text-course-intro').innerText = S.CourseIntro || '';
         document.getElementById('img-course-poster').src = fixUrl(S.CoursePoster);
-        document.getElementById('text-course-fees').innerText = S.CourseFees;
+        document.getElementById('text-course-fees').innerText = S.CourseFees || '';
         document.getElementById('img-coach-portrait').src = fixUrl(S.CoachImg);
-        document.getElementById('text-coach-intro').innerText = S.CoachIntro;
-        document.getElementById('text-equipment').innerText = S.CourseNotes;
-        document.getElementById('text-faq').innerText = S.CourseFAQ;
-        document.getElementById('text-contact-desc').innerText = S.ContactDesc;
-        document.getElementById('link-line').href = S.ContactLink;
-        document.getElementById('link-fb').href = S.FBLink;
-        document.getElementById('link-ig').href = S.IGLink;
-        document.getElementById('f-slogan').innerText = S.FooterSlogan;
-        document.getElementById('f-addr').innerText = S.Address;
+        document.getElementById('text-coach-intro').innerText = S.CoachIntro || '';
+        document.getElementById('text-equipment').innerText = S.CourseNotes || '';
+        document.getElementById('text-faq').innerText = S.CourseFAQ || '';
+        document.getElementById('text-contact-desc').innerText = S.ContactDesc || '';
+        document.getElementById('link-line').href = S.ContactLink || '#';
+        document.getElementById('link-fb').href = S.FBLink || '#';
+        document.getElementById('link-ig').href = S.IGLink || '#';
+        document.getElementById('f-slogan').innerText = S.FooterSlogan || '';
+        document.getElementById('f-addr').innerText = S.Address || '';
 
-        // Slider 邏輯
+        // Slider 邏輯 (精確抓取 HeroURL 1-5)
         const hBox = document.getElementById('hero-slider');
         const heroKeys = ['HeroURL1','HeroURL2','HeroURL3','HeroURL4','HeroURL5'];
-        let hasSlide = false;
-        heroKeys.forEach((k, idx) => {
+        let slidesAdded = 0;
+        heroKeys.forEach(k => {
             if(S[k]){
                 const div = document.createElement('div');
-                div.className = `slide ${!hasSlide?'active':''}`;
+                div.className = `slide ${slidesAdded === 0 ? 'active' : ''}`;
                 div.style.backgroundImage = `url('${fixUrl(S[k])}')`;
                 div.innerHTML = `<div class="hero-overlay"></div><div class="hero-text"><h1>${S.HeroTitle || '原點匹克球'}</h1></div>`;
                 hBox.appendChild(div);
-                hasSlide = true;
+                slidesAdded++;
             }
         });
-
-        if(hasSlide){
+        if(slidesAdded > 1){
             setInterval(() => {
                 const ss = document.querySelectorAll('.slide');
                 ss[slideIdx].classList.remove('active');
@@ -266,19 +269,40 @@ async function init() {
         }
 
         // Map
-        if(S.ContactMap) document.getElementById('map-box').innerHTML = S.ContactMap;
+        if(S.ContactMap) {
+            document.getElementById('map-box').innerHTML = S.ContactMap.includes('<iframe') ? S.ContactMap : `<iframe src="${S.ContactMap}"></iframe>`;
+        }
 
-        // Venue & Partner
+        // Venue & Partner (恢復原本的列表渲染)
         const vCont = document.getElementById('venue-list-container');
-        for(let i=1;i<=10;i++){
+        for(let i=1; i<=10; i++){
             if(S[`VenueName${i}`]){
-                vCont.innerHTML += `<div class="info-card"><div class="flex-row"><div class="side-img"><img src="${fixUrl(S[`VenueImg${i}`])}"></div><div class="side-text"><h2>${S[`VenueName${i}`]}</h2><div class="content-text">${S[`VenueDesc${i}`]}</div></div></div></div>`;
+                vCont.innerHTML += `
+                <div class="info-card">
+                    <div class="flex-row">
+                        <div class="side-img"><img src="${fixUrl(S[`VenueImg${i}`])}"></div>
+                        <div class="side-text">
+                            <h2>${S[`VenueName${i}`]}</h2>
+                            <p><strong>地址：</strong>${S[`VenueAddr${i}`] || ''}</p>
+                            <div class="content-text">${S[`VenueDesc${i}`] || ''}</div>
+                        </div>
+                    </div>
+                </div>`;
             }
         }
         const pCont = document.getElementById('partner-list-container');
-        for(let i=1;i<=10;i++){
+        for(let i=1; i<=10; i++){
             if(S[`PartnerName${i}`]){
-                pCont.innerHTML += `<div class="info-card"><div class="flex-row"><div class="side-img"><img src="${fixUrl(S[`PartnerImg${i}`])}"></div><div class="side-text"><h2>${S[`PartnerName${i}`]}</h2><div class="content-text">${S[`PartnerDesc${i}`]}</div></div></div></div>`;
+                pCont.innerHTML += `
+                <div class="info-card">
+                    <div class="flex-row">
+                        <div class="side-img"><img src="${fixUrl(S[`PartnerImg${i}`])}"></div>
+                        <div class="side-text">
+                            <h2>${S[`PartnerName${i}`]}</h2>
+                            <div class="content-text">${S[`PartnerDesc${i}`] || ''}</div>
+                        </div>
+                    </div>
+                </div>`;
             }
         }
 
@@ -287,7 +311,7 @@ async function init() {
         const pText = await pRes.text();
         const pRows = pText.split('\n').slice(1);
         products = pRows.map((r, i) => {
-            const c = r.split(',').map(v => v.replace(/^"|"$/g, ''));
+            const c = r.split(',').map(v => v.replace(/^"|"$/g, '').trim());
             return { id:i, brand:c[0], name:c[1], cat:c[2], price:c[3], desc:c[4], img:fixUrl(c[5]), spec:c[6] };
         }).filter(p => p.name);
 
@@ -295,7 +319,7 @@ async function init() {
         brands.forEach(b => document.getElementById('sel-brand').innerHTML += `<option value="${b}">${b}</option>`);
         updateCatOptions();
 
-    } catch (e) { console.error("Init Error:", e); }
+    } catch (e) { console.error("Initialization failed:", e); }
     document.getElementById('loader').style.display = 'none';
 }
 
@@ -322,7 +346,7 @@ function drawProducts() {
                 <div style="font-size:0.7rem; color:var(--primary); font-weight:700;">${p.brand} | ${p.cat}</div>
                 <div style="font-weight:bold; height:2.4em; overflow:hidden;">${p.name}</div>
                 <div class="p-desc-short">${p.desc || ''}</div>
-                <div style="color:var(--accent); font-weight:800; font-size:1.1rem;">$${p.price}</div>
+                <div style="color:var(--accent); font-weight:800;">$${p.price}</div>
             </div>
         </div>`;
     });
@@ -333,7 +357,7 @@ function openModal(id) {
     document.getElementById('m-img').src = p.img;
     document.getElementById('m-name').innerText = p.name;
     document.getElementById('m-price').innerText = `$${p.price}`;
-    document.getElementById('m-spec').innerText = p.spec || '洽教練';
+    document.getElementById('m-spec').innerText = p.spec || '請洽詢教練';
     document.getElementById('m-desc').innerText = p.desc || '';
     document.getElementById('m-btn-buy').href = document.getElementById('link-line').href;
     document.getElementById('p-modal').style.display = 'flex';
