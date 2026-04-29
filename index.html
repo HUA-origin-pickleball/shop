@@ -98,7 +98,7 @@
     <div class="nav-container">
         <div onclick="navigateTo('about')" class="nav-logo">
             <img id="nav-logo-img" src="logo.jpg">
-            <span>原點匹克球</span>
+            <span>官方網站</span>
         </div>
         <div class="menu">
             <a onclick="navigateTo('about')" id="btn-about">關於原點</a>
@@ -326,7 +326,7 @@
                 <div class="card" onclick="openModal(${p.id})">
                     <img class="card-img" src="${p.img}">
                     <div class="card-body">
-                        <div class="card-tag">${p.brand} | ${p.cat}</div>
+                        <div style="font-size: 11px; color: #4a6741; font-weight: bold; margin-bottom: 5px;">${p.brand} | ${p.cat}</div>
                         <div class="card-title">${p.name}</div>
                         <div class="card-desc">${p.desc || ''}</div>
                         <div class="card-price">$${p.price || '洽詢'}</div>
