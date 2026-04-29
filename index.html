@@ -263,6 +263,10 @@
     <div class="container" id="venue-list-container">
         </div>
 </div>
+<div id="page-partners" class="page">
+    <div class="container" id="partner-list-container">
+        </div>
+</div>
 <div id="page-contact" class="page">
     <div class="container">
         <div class="info-card">
@@ -387,7 +391,8 @@ async function init() {
         document.getElementById('text-course-fees').innerText = S.CourseFees || '';   // 課程費用文字
         document.getElementById('text-coach-intro').innerText = S.CoachIntro || '';   // 教練介紹文字
         document.getElementById('img-coach-portrait').src = fixUrl(S.CoachImg);       // 教練照片圖片
-
+        document.getElementById('text-equipment').innerText = S.CourseNotes || ''; // 球拍租借說明
+        document.getElementById('text-faq').innerText = S.CourseFAQ || '';         // 學員常見問題 (FAQ)
         // --- 替換開始：Hero 輪播圖增強版邏輯 ---
         const hBox = document.getElementById('hero-slider');
         const dBox = document.getElementById('hero-dots'); // 這是對應 HTML 裡的圓點容器
@@ -468,6 +473,32 @@ async function init() {
                     </div>`;
             }
         }
+        const partnerContainer = document.getElementById('partner-list-container');
+        if (partnerContainer) {
+            partnerContainer.innerHTML = '';
+            for (let i = 1; i <= 10; i++) {
+                const pName = S[`PartnerName${i}`];
+                const pDesc = S[`PartnerDesc${i}`];
+                const pImg = S[`PartnerImg${i}`];
+                const pLink = S[`PartnerLink${i}`];
+
+                if (!pName) continue;
+
+                partnerContainer.innerHTML += `
+                    <div class="info-card" style="margin-bottom: 30px;">
+                        <div class="flex-row">
+                            <div class="side-img">
+                                <img src="${fixUrl(pImg)}" alt="${pName}">
+                            </div>
+                            <div class="side-text">
+                                <h2 style="color: #0056b3 !important;">${pName}</h2>
+                                <div class="content-text">${pDesc || ''}</div>
+                                ${pLink ? `<a href="${pLink}" target="_blank" style="display:inline-block; margin-top:15px; color:var(--primary); font-weight:bold;">了解更多 <i class="fas fa-external-link-alt"></i></a>` : ''}
+                            </div>
+                        </div>
+                    </div>`;
+            }
+        }
         // Map
         if(S.ContactMap) {
             document.getElementById('map-box').innerHTML = S.ContactMap.includes('<iframe') ? S.ContactMap : `<iframe src="${S.ContactMap}"></iframe>`;
@@ -530,8 +561,6 @@ function openModal(id) {
     document.getElementById('m-coach').innerText = p.coach || '這款球拍的手感非常紮實，特別適合追求控球與穩定度的球友！';
     document.getElementById('m-btn-buy').href = document.getElementById('link-line').href;
     document.getElementById('p-modal').style.display = 'flex';
-    document.getElementById('text-equipment').innerText = S.CourseNotes || ''; // 球拍租借說明
-    document.getElementById('text-faq').innerText = S.CourseFAQ || '';         // 學員常見問題 (FAQ)
 }
 
 function closeModal() { document.getElementById('p-modal').style.display = 'none'; }
