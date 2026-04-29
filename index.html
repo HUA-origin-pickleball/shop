@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>原點匹克球 | Origin Pickleball</title>
+    <link id="favicon" rel="icon" type="image/x-icon" href="">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         :root {
-            --primary: #4a6741; /* 專業森林綠 */
-            --accent: #e67e22;  /* 活力橘 */
-            --logo-blue: #0056b3; /* 你的 LOGO 藍色 */
+            --primary: #4a6741;
+            --accent: #e67e22;
+            --logo-blue: #153759;
             --bg-light: #f8faf9;
             --text-main: #2c3e50;
             --text-sub: #7f8c8d;
@@ -27,93 +28,82 @@
         /* Navigation */
         nav { background: var(--white); height: 70px; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 15px rgba(0,0,0,0.05); }
         .nav-container { max-width: 1200px; margin: 0 auto; height: 100%; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; }
-        .nav-logo { display: flex; align-items: center; cursor: pointer; text-decoration: none; color: var(--text-main); font-weight: 800; font-size: 1.2rem; }
-        .nav-logo img { height: 45px; margin-right: 12px; border-radius: 4px; }
+        .nav-logo { display: flex; align-items: center; cursor: pointer; }
+        .nav-logo img { height: 45px; border-radius: 4px; }
         
         .menu { display: flex; gap: 10px; }
         .menu a { text-decoration: none; color: var(--text-main); font-weight: 600; padding: 8px 16px; border-radius: 6px; transition: 0.3s; cursor: pointer; }
         .menu a:hover { background: #f0f4f0; color: var(--primary); }
         .menu a.active { background: var(--primary); color: white; }
 
-        .menu-toggle { display: none; font-size: 24px; cursor: pointer; }
-
-        /* Side Menu (Mobile) */
-        .side-menu { position: fixed; top: 0; right: -280px; width: 280px; height: 100%; background: white; z-index: 2001; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding: 80px 30px; display: flex; flex-direction: column; gap: 20px; box-shadow: -5px 0 20px rgba(0,0,0,0.1); }
-        .side-menu.active { right: 0; }
-        .side-menu a { text-decoration: none; color: var(--text-main); font-size: 1.2rem; font-weight: bold; padding: 10px 0; border-bottom: 1px solid #eee; }
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; }
-        .overlay.active { display: block; }
-
         /* Hero Slider */
         .hero { width: 100%; height: 500px; position: relative; overflow: hidden; background: #222; }
         .slide { position: absolute; width: 100%; height: 100%; opacity: 0; transition: 1s; background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; }
         .slide.active { opacity: 1; }
-        .hero-overlay { position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.35); }
+        .hero-overlay { position: absolute; width: 100%; height: 100%; background: rgba(0,0,0,0.3); }
         .hero-text { position: relative; color: white; text-align: center; z-index: 5; }
-        .hero-text h1 { font-size: 3rem; margin: 0; text-shadow: 0 2px 10px rgba(0,0,0,0.5); }
-        .slider-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.3); color: white; border: none; padding: 15px 20px; cursor: pointer; z-index: 10; border-radius: 5px; transition: 0.3s; }
-        .slider-arrow:hover { background: rgba(0,0,0,0.6); }
-        .prev { left: 20px; }
-        .next { right: 20px; }
-        .slider-dots { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10; }
-        .dot { width: 12px; height: 12px; background: rgba(255,255,255,0.4); border-radius: 50%; cursor: pointer; transition: 0.3s; }
-        .dot.active { background: #fff; transform: scale(1.2); }
+        .hero-text h1 { font-size: 3rem; margin: 0; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
 
-        /* Layout */
+        /* Titles & Decor */
         .container { max-width: 1100px; margin: 0 auto; padding: 60px 20px; }
         .page { display: none; }
         .page.active { display: block; animation: fadeIn 0.5s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Cards */
-        .story-section { display: grid; grid-template-columns: 1fr; gap: 40px; margin-bottom: 60px; }
-        .info-card { background: var(--white); padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid #f0f0f0; margin-bottom: 30px; }
-        .info-card h2 { color: var(--logo-blue) !important; font-size: 1.5rem !important; border-bottom: 2px solid var(--logo-blue); display: inline-block; padding-bottom: 5px; margin-bottom: 20px; }
-        .content-text { white-space: pre-line; color: #444; font-size: 1.1rem; }
+        .info-card { background: var(--white); padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); margin-bottom: 30px; }
+        
+        /* 標題與短粗線裝飾 */
+        h2 { color: var(--logo-blue); font-size: 1.6rem; margin-bottom: 25px; position: relative; padding-bottom: 15px; }
+        h2::after { content: ""; position: absolute; left: 0; bottom: 0; width: 40px; height: 6px; background: var(--accent); border-radius: 10px; }
 
+        .content-text { white-space: pre-line; color: #444; }
         .flex-row { display: flex; gap: 40px; align-items: center; }
-        .side-img { flex: 1; }
-        .side-text { flex: 1.5; }
-        .side-img img { width: 100%; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); object-fit: cover; }
+        .side-img img { width: 100%; border-radius: 15px; object-fit: cover; }
 
         /* Shop Grid */
         .shop-layout { display: grid; grid-template-columns: 260px 1fr; gap: 40px; }
-        .filter-bar { background: var(--white); padding: 25px; border-radius: 15px; height: fit-content; position: sticky; top: 100px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); }
-        .search-box, .filter-bar select { width: 100%; padding: 12px; border: 1px solid #eee; border-radius: 10px; margin-bottom: 10px; outline: none; }
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 25px; }
         .product-card { background: var(--white); border-radius: 15px; overflow: hidden; border: 1px solid #eee; cursor: pointer; transition: 0.3s; }
-        .product-card:hover { transform: translateY(-8px); box-shadow: 0 15px 35px rgba(0,0,0,0.1); }
-        .img-wrap { height: 180px; display: flex; align-items: center; justify-content: center; background: #fff; padding: 15px; }
+        .product-card:hover { transform: translateY(-8px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .img-wrap { height: 200px; display: flex; align-items: center; justify-content: center; padding: 15px; }
         .img-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .card-info { padding: 15px; }
-        .card-price { color: var(--accent); font-weight: 800; font-size: 1.2rem; }
+        .card-info { padding: 15px; border-top: 1px solid #f9f9f9; }
+        
+        /* 商品三行小字簡介 */
+        .p-desc-short { 
+            font-size: 0.85rem; 
+            color: #777; 
+            margin: 8px 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.5;
+        }
 
-        /* Contact */
+        /* Contact Buttons */
         .contact-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 30px; }
-        .contact-btn { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 20px; border-radius: 15px; text-decoration: none; color: white; font-weight: bold; }
+        .contact-btn { display: flex; align-items: center; justify-content: center; gap: 12px; padding: 18px; border-radius: 12px; text-decoration: none; color: white; font-weight: bold; margin-bottom: 20px; transition: 0.3s; }
+        .contact-btn:hover { opacity: 0.9; transform: scale(1.02); }
         .btn-line { background: #06c755; }
         .btn-fb { background: #1877f2; }
         .btn-ig { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        .map-wrapper { border-radius: 20px; overflow: hidden; height: 450px; }
+        .map-wrapper { border-radius: 20px; overflow: hidden; height: 450px; background: #eee; }
         .map-wrapper iframe { width: 100%; height: 100%; border: 0; }
 
         /* Modal */
         .modal { display: none; position: fixed; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.8); z-index: 3000; align-items: center; justify-content: center; padding: 20px; }
-        .modal-box { background: white; width: 100%; max-width: 950px; border-radius: 25px; display: flex; overflow: hidden; position: relative; max-height: 90vh; }
-        .modal-img { flex: 1; padding: 40px; display: flex; align-items: center; justify-content: center; }
+        .modal-box { background: white; width: 100%; max-width: 900px; border-radius: 20px; display: flex; overflow: hidden; position: relative; max-height: 90vh; }
+        .modal-img { flex: 1; padding: 30px; display: flex; align-items: center; justify-content: center; background: #fff; }
         .modal-img img { max-width: 100%; max-height: 100%; object-fit: contain; }
-        .modal-details { flex: 1; padding: 50px; background: #fafafa; overflow-y: auto; }
+        .modal-details { flex: 1; padding: 40px; overflow-y: auto; background: #fdfdfd; }
 
         footer { background: #1a1a1a; color: #999; padding: 50px 20px; text-align: center; }
-        footer strong { color: white; display: block; font-size: 1.2rem; margin-bottom: 10px; }
 
         @media (max-width: 900px) {
             .menu { display: none; }
-            .menu-toggle { display: block; }
             .shop-layout { grid-template-columns: 1fr; }
-            .flex-row { flex-direction: column !important; }
-            .contact-layout { grid-template-columns: 1fr; }
-            .modal-box { flex-direction: column; }
+            .flex-row, .contact-layout, .modal-box { flex-direction: column; }
         }
     </style>
 </head>
@@ -121,21 +111,9 @@
 
 <div id="loader"><div class="spinner"></div></div>
 
-<div class="overlay" onclick="toggleMenu()"></div>
-<div class="side-menu" id="sideMenu">
-    <a onclick="navTo('about')">關於原點</a>
-    <a onclick="navTo('courses')">教學服務</a>
-    <a onclick="navTo('products')">商品一覽</a>
-    <a onclick="navTo('venue')">場地資訊</a>
-    <a onclick="navTo('partners')">合作夥伴</a>
-    <a onclick="navTo('contact')">聯絡我們</a>
-</div>
-
 <nav>
     <div class="nav-container">
-        <div onclick="navTo('about')" class="nav-logo">
-            <img id="logo-img" src="logo.jpg" alt="Logo">
-        </div>
+        <div onclick="navTo('about')" class="nav-logo"><img id="logo-img" src=""></div>
         <div class="menu">
             <a onclick="navTo('about')" id="nav-about" class="active">關於原點</a>
             <a onclick="navTo('courses')" id="nav-courses">教學服務</a>
@@ -144,101 +122,55 @@
             <a onclick="navTo('partners')" id="nav-partners">合作夥伴</a>
             <a onclick="navTo('contact')" id="nav-contact">聯絡我們</a>
         </div>
-        <div class="menu-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
     </div>
 </nav>
 
 <div id="page-about" class="page active">
     <div class="hero" id="hero-slider">
-        <button class="slider-arrow prev" onclick="changeSlide(-1)"><i class="fas fa-chevron-left"></i></button>
-        <button class="slider-arrow next" onclick="changeSlide(1)"><i class="fas fa-chevron-right"></i></button>
-        <div class="slider-dots" id="hero-dots"></div>
+        <div class="slider-dots" id="hero-dots" style="position:absolute; bottom:20px; left:50%; transform:translateX(-50%); display:flex; gap:10px; z-index:10;"></div>
     </div>
     <div class="container">
-        <div class="story-section">
-            <div class="info-card">
-                <h2>品牌故事</h2>
-                <div id="text-about" class="content-text"></div>
-            </div>
-            <div class="info-card">
-                <h2>核心價值</h2> 
-                <div id="text-philosophy" class="content-text"></div>
-            </div>
-            <div id="extra-about"></div>
-        </div>
+        <div class="info-card"><h2>品牌故事</h2><div id="text-about" class="content-text"></div></div>
+        <div class="info-card"><h2>核心價值</h2><div id="text-philosophy" class="content-text"></div></div>
     </div>
 </div>
 
 <div id="page-courses" class="page">
     <div class="container">
-        <div class="info-card">
-            <div class="flex-row">
-                <div class="side-text">
-                    <h2>課程介紹</h2>
-                    <div id="text-course-intro" class="content-text"></div>
-                </div>
-                <div class="side-img">
-                    <img id="img-course-poster" src="logo.jpg">
-                </div>
-            </div>
-        </div>
-        <div class="info-card">
-            <h2>課程費用</h2>
-            <div id="text-course-fees" class="content-text"></div>
-        </div>
-        <div class="info-card">
-            <div class="flex-row">
-                <div class="side-img">
-                    <img id="img-coach-portrait" src="logo.jpg">
-                </div>
-                <div class="side-text">
-                    <h2>教練介紹</h2>
-                    <div id="text-coach-intro" class="content-text"></div>
-                </div>
-            </div>
-        </div>
-        <div class="info-card">
-            <h2>球拍租借說明</h2>
-            <div id="text-equipment" class="content-text"></div>
-        </div>
-        <div class="info-card">
-            <h2>常見問題 (FAQ)</h2>
-            <div id="text-faq" class="content-text"></div>
-        </div>
+        <div class="info-card"><div class="flex-row"><div class="side-text"><h2>課程介紹</h2><div id="text-course-intro" class="content-text"></div></div><div class="side-img"><img id="img-course-poster"></div></div></div>
+        <div class="info-card"><h2>課程費用</h2><div id="text-course-fees" class="content-text"></div></div>
+        <div class="info-card"><div class="flex-row"><div class="side-img"><img id="img-coach-portrait"></div><div class="side-text"><h2>教練介紹</h2><div id="text-coach-intro" class="content-text"></div></div></div></div>
+        <div class="info-card"><h2>球拍租借說明</h2><div id="text-equipment" class="content-text"></div></div>
+        <div class="info-card"><h2>常見問題 (FAQ)</h2><div id="text-faq" class="content-text"></div></div>
     </div>
 </div>
 
 <div id="page-products" class="page">
     <div class="container">
         <div class="shop-layout">
-            <aside class="filter-bar">
-                <input type="text" id="search-box" class="search-box" oninput="drawProducts()" placeholder="搜尋名稱...">
-                <select id="sel-brand" onchange="updateCatOptions()"><option value="all">所有品牌</option></select>
-                <select id="sel-cat" onchange="drawProducts()"><option value="all">所有類別</option></select>
+            <aside style="background:white; padding:20px; border-radius:15px; height:fit-content; border:1px solid #eee;">
+                <input type="text" id="search-box" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;" oninput="drawProducts()" placeholder="搜尋商品名稱...">
+                <select id="sel-brand" style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;" onchange="updateCatOptions()"><option value="all">所有品牌</option></select>
+                <select id="sel-cat" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:5px;" onchange="drawProducts()"><option value="all">所有類別</option></select>
             </aside>
             <main id="product-list" class="product-grid"></main>
         </div>
     </div>
 </div>
 
-<div id="page-venue" class="page">
-    <div class="container" id="venue-list-container"></div>
-</div>
-
-<div id="page-partners" class="page">
-    <div class="container" id="partner-list-container"></div>
-</div>
+<div id="page-venue" class="page"><div class="container" id="venue-list-container"></div></div>
+<div id="page-partners" class="page"><div class="container" id="partner-list-container"></div></div>
 
 <div id="page-contact" class="page">
     <div class="container">
         <div class="info-card">
             <h2>聯絡我們</h2>
-            <p id="text-contact-desc" style="text-align: center; margin-bottom: 40px; color: #666;"></p>
             <div class="contact-layout">
-                <div class="contact-card">
-                    <a id="link-line" href="#" target="_blank" class="contact-btn btn-line"><i class="fab fa-line"></i> LINE 官方帳號</a>
-                    <a id="link-fb" href="#" target="_blank" class="contact-btn btn-fb"><i class="fab fa-facebook-f"></i> Facebook 專頁</a>
-                    <a id="link-ig" href="#" target="_blank" class="contact-btn btn-ig"><i class="fab fa-instagram"></i> Instagram 追蹤</a>
+                <div>
+                    <a id="link-line" target="_blank" class="contact-btn btn-line"><i class="fab fa-line"></i> LINE 官方帳號</a>
+                    <a id="link-fb" target="_blank" class="contact-btn btn-fb"><i class="fab fa-facebook-f"></i> Facebook</a>
+                    <a id="link-ig" target="_blank" class="contact-btn btn-ig"><i class="fab fa-instagram"></i> Instagram</a>
+                    <p id="text-contact-desc" style="color:#666; font-size:0.9rem; margin-top:10px;"></p>
                 </div>
                 <div id="map-box" class="map-wrapper"></div>
             </div>
@@ -248,203 +180,136 @@
 
 <div id="p-modal" class="modal" onclick="closeModal()">
     <div class="modal-box" onclick="event.stopPropagation()">
-        <span onclick="closeModal()" style="position:absolute; top:20px; right:25px; font-size:30px; cursor:pointer;">×</span>
         <div class="modal-img"><img id="m-img" src=""></div>
         <div class="modal-details">
-            <h2 id="m-name"></h2>
-            <div id="m-price" style="font-size: 1.8rem; color: var(--accent); font-weight: 800; margin-bottom: 20px;"></div>
-            <p><strong>產品規格：</strong><br><span id="m-spec"></span></p>
-            <p><strong>庫存：</strong><span id="m-stock"></span></p>
-            <p><strong>教練推薦：</strong><br><span id="m-coach" style="font-style: italic;"></span></p>
-            <a href="#" id="m-btn-buy" target="_blank" style="display:block; text-align:center; background:var(--primary); color:white; padding:15px; border-radius:10px; text-decoration:none; font-weight:bold;">立即詢問</a>
+            <h2 id="m-name" style="margin-top:0;"></h2>
+            <div id="m-price" style="font-size:1.5rem; color:var(--accent); font-weight:800; margin-bottom:15px;"></div>
+            <p><strong>產品規格：</strong><span id="m-spec"></span></p>
+            <div id="m-desc" style="white-space:pre-line; color:#555; margin-bottom:20px;"></div>
+            <a href="#" id="m-btn-buy" target="_blank" style="display:block; text-align:center; background:var(--primary); color:white; padding:15px; border-radius:10px; text-decoration:none; font-weight:bold;">詢問教練</a>
         </div>
     </div>
 </div>
 
-<footer>
-    <div class="container">
-        <strong id="f-slogan"></strong>
-        <p id="f-biz"></p>
-        <p id="f-staff"></p>
-        <p id="f-addr"></p>
-        <p style="font-size: 0.7rem; margin-top: 30px;">© 2026 原點匹克球 Origin Pickleball. All Rights Reserved.</p>
-    </div>
-</footer>
+<footer><div class="container"><strong id="f-slogan"></strong><p id="f-addr"></p><p>© 2026 原點匹克球. All Rights Reserved.</p></div></footer>
 
 <script>
 const SID = '11Uc9hJpgaeci-zsmDi1FQZBgl7f1r_vpVaNeb1Y_Dos';
 let products = [];
 let slideIdx = 0;
 
-function toggleMenu() {
-    document.getElementById('sideMenu').classList.toggle('active');
-    document.querySelector('.overlay').classList.toggle('active');
-}
-
-function navTo(page) {
-    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.menu a').forEach(a => a.classList.remove('active'));
-    const target = document.getElementById('page-' + page);
-    if(target) target.classList.add('active');
-    const btn = document.getElementById('nav-' + page);
-    if(btn) btn.classList.add('active');
-    window.scrollTo({top: 0, behavior: 'smooth'});
-    if(document.getElementById('sideMenu').classList.contains('active')) toggleMenu();
-}
-
 const fixUrl = (url) => {
     if (!url || !url.startsWith('http')) return 'logo.jpg';
+    // 地圖網址跳過轉換
+    if (url.includes('maps.google.com')) return url; 
     const m = url.match(/(?:\/d\/|id=)([\w-]+)/);
     return m ? `https://lh3.googleusercontent.com/d/${m[1]}` : url;
 };
 
-function parseCSV(csv) {
-    const rows = []; let row = [], col = '', inQ = false;
-    for (let i = 0; i < csv.length; i++) {
-        let c = csv[i], next = csv[i+1];
-        if (c === '"' && inQ && next === '"') { col += '"'; i++; }
-        else if (c === '"') inQ = !inQ;
-        else if (c === ',' && !inQ) { row.push(col.trim()); col = ''; }
-        else if ((c === '\n' || c === '\r') && !inQ) {
-            if (col || row.length) { row.push(col.trim()); rows.push(row); }
-            row = []; col = ''; if(c==='\r' && next==='\n') i++;
-        } else col += c;
-    }
-    if (col || row.length) { row.push(col.trim()); rows.push(row); }
-    return rows;
+function navTo(page) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.menu a').forEach(a => a.classList.remove('active'));
+    document.getElementById('page-' + page).classList.add('active');
+    const btn = document.getElementById('nav-' + page);
+    if(btn) btn.classList.add('active');
+    window.scrollTo(0,0);
 }
 
 async function init() {
     try {
         const sRes = await fetch(`https://docs.google.com/spreadsheets/d/${SID}/gviz/tq?tqx=out:csv&sheet=Settings`);
-        const sData = parseCSV(await sRes.text());
-        const S = {}; let hero = [];
-        sData.forEach(r => {
-            const k = r[0], v = r[1]; if(!k) return; S[k] = v;
-            if(k.startsWith('HeroURL') && v) hero.push(fixUrl(v));
-        });
+        const sText = await sRes.text();
+        const sRows = sText.split('\n').map(r => r.split(',').map(c => c.replace(/^"|"$/g, '')));
+        const S = {}; sRows.forEach(r => S[r[0]] = r[1]);
 
-        // Apply Basic Settings
+        if(S.FaviconURL) document.getElementById('favicon').href = fixUrl(S.FaviconURL);
         if(S.LogoURL) document.getElementById('logo-img').src = fixUrl(S.LogoURL);
-        document.getElementById('text-about').innerText = S.AboutContent || '';
-        document.getElementById('text-philosophy').innerText = S.Philosophy || '';
-        document.getElementById('text-contact-desc').innerText = S.ContactDesc || '';
-        document.getElementById('link-line').href = S.ContactLink || '#';
-        document.getElementById('link-fb').href = S.FBLink || '#';
-        document.getElementById('link-ig').href = S.IGLink || '#';
-        document.getElementById('f-slogan').innerText = S.FooterSlogan || '';
-        document.getElementById('f-biz').innerText = S.BizInfo ? `統一編號：${S.BizInfo}` : '';
-        document.getElementById('f-staff').innerText = S.StaffContact || '';
-        document.getElementById('f-addr').innerText = S.Address || '';
-
-        // Course Tab Data
-        document.getElementById('text-course-intro').innerText = S.CourseIntro || '';
+        
+        document.getElementById('text-about').innerText = S.AboutContent;
+        document.getElementById('text-philosophy').innerText = S.Philosophy;
+        document.getElementById('text-course-intro').innerText = S.CourseIntro;
         document.getElementById('img-course-poster').src = fixUrl(S.CoursePoster);
-        document.getElementById('text-course-fees').innerText = S.CourseFees || '';
-        document.getElementById('text-coach-intro').innerText = S.CoachIntro || '';
+        document.getElementById('text-course-fees').innerText = S.CourseFees;
         document.getElementById('img-coach-portrait').src = fixUrl(S.CoachImg);
-        document.getElementById('text-equipment').innerText = S.CourseNotes || '';
-        document.getElementById('text-faq').innerText = S.CourseFAQ || '';
+        document.getElementById('text-coach-intro').innerText = S.CoachIntro;
+        document.getElementById('text-equipment').innerText = S.CourseNotes;
+        document.getElementById('text-faq').innerText = S.CourseFAQ;
+        document.getElementById('text-contact-desc').innerText = S.ContactDesc;
+        document.getElementById('link-line').href = S.ContactLink;
+        document.getElementById('link-fb').href = S.FBLink;
+        document.getElementById('link-ig').href = S.IGLink;
+        document.getElementById('f-slogan').innerText = S.FooterSlogan;
+        document.getElementById('f-addr').innerText = S.Address;
 
-        // Hero Logic
+        // Slider 邏輯
         const hBox = document.getElementById('hero-slider');
-        const dBox = document.getElementById('hero-dots');
-        hero.forEach((u, i) => {
-            const div = document.createElement('div');
-            div.className = `slide ${i===0?'active':''}`;
-            div.style.backgroundImage = `url('${u}')`;
-            div.innerHTML = `<div class="hero-overlay"></div><div class="hero-text"><h1>${S.HeroTitle || '原點匹克球'}</h1></div>`;
-            hBox.appendChild(div);
-            const dot = document.createElement('div');
-            dot.className = `dot ${i===0?'active':''}`;
-            dot.onclick = () => { slideIdx = i; updateSliderUI(); };
-            dBox.appendChild(dot);
+        const heroKeys = ['HeroURL1','HeroURL2','HeroURL3','HeroURL4','HeroURL5'];
+        let hasSlide = false;
+        heroKeys.forEach((k, idx) => {
+            if(S[k]){
+                const div = document.createElement('div');
+                div.className = `slide ${!hasSlide?'active':''}`;
+                div.style.backgroundImage = `url('${fixUrl(S[k])}')`;
+                div.innerHTML = `<div class="hero-overlay"></div><div class="hero-text"><h1>${S.HeroTitle || '原點匹克球'}</h1></div>`;
+                hBox.appendChild(div);
+                hasSlide = true;
+            }
         });
 
-        window.updateSliderUI = function() {
-            const ss = document.querySelectorAll('.slide');
-            const dots = document.querySelectorAll('.dot');
-            ss.forEach((s, i) => s.classList.toggle('active', i === slideIdx));
-            dots.forEach((d, i) => d.classList.toggle('active', i === slideIdx));
-        };
-        window.changeSlide = function(n) {
-            const ss = document.querySelectorAll('.slide');
-            if(!ss.length) return;
-            slideIdx = (slideIdx + n + ss.length) % ss.length;
-            updateSliderUI();
-        };
-        setInterval(() => changeSlide(1), 5000);
-
-        // Venue Cards
-        const venueContainer = document.getElementById('venue-list-container');
-        for (let i = 1; i <= 10; i++) {
-            const vName = S[`VenueName${i}`];
-            if (!vName) continue;
-            venueContainer.innerHTML += `
-                <div class="info-card">
-                    <div class="flex-row">
-                        <div class="side-img"><img src="${fixUrl(S[`VenueImg${i}`])}"></div>
-                        <div class="side-text">
-                            <h2>${vName}</h2>
-                            <p><strong>地點：</strong>${S[`VenueAddr${i}`] || ''}</p>
-                            <div class="content-text">${S[`VenueDesc${i}`] || ''}</div>
-                        </div>
-                    </div>
-                </div>`;
+        if(hasSlide){
+            setInterval(() => {
+                const ss = document.querySelectorAll('.slide');
+                ss[slideIdx].classList.remove('active');
+                slideIdx = (slideIdx + 1) % ss.length;
+                ss[slideIdx].classList.add('active');
+            }, 5000);
         }
 
-        // Partner Cards
-        const partnerContainer = document.getElementById('partner-list-container');
-        for (let i = 1; i <= 10; i++) {
-            const pName = S[`PartnerName${i}`];
-            if (!pName) continue;
-            partnerContainer.innerHTML += `
-                <div class="info-card">
-                    <div class="flex-row">
-                        <div class="side-img"><img src="${fixUrl(S[`PartnerImg${i}`])}"></div>
-                        <div class="side-text">
-                            <h2>${pName}</h2>
-                            <div class="content-text">${S[`PartnerDesc${i}`] || ''}</div>
-                            ${S[`PartnerLink${i}`] ? `<a href="${S[`PartnerLink${i}`]}" target="_blank" style="color:var(--primary); font-weight:bold;">了解更多</a>` : ''}
-                        </div>
-                    </div>
-                </div>`;
+        // Map
+        if(S.ContactMap) document.getElementById('map-box').innerHTML = S.ContactMap;
+
+        // Venue & Partner
+        const vCont = document.getElementById('venue-list-container');
+        for(let i=1;i<=10;i++){
+            if(S[`VenueName${i}`]){
+                vCont.innerHTML += `<div class="info-card"><div class="flex-row"><div class="side-img"><img src="${fixUrl(S[`VenueImg${i}`])}"></div><div class="side-text"><h2>${S[`VenueName${i}`]}</h2><div class="content-text">${S[`VenueDesc${i}`]}</div></div></div></div>`;
+            }
+        }
+        const pCont = document.getElementById('partner-list-container');
+        for(let i=1;i<=10;i++){
+            if(S[`PartnerName${i}`]){
+                pCont.innerHTML += `<div class="info-card"><div class="flex-row"><div class="side-img"><img src="${fixUrl(S[`PartnerImg${i}`])}"></div><div class="side-text"><h2>${S[`PartnerName${i}`]}</h2><div class="content-text">${S[`PartnerDesc${i}`]}</div></div></div></div>`;
+            }
         }
 
-        // Product Logic
+        // Products
         const pRes = await fetch(`https://docs.google.com/spreadsheets/d/${SID}/gviz/tq?tqx=out:csv&sheet=Products`);
-        const pData = parseCSV(await pRes.text()).slice(1);
-        products = pData.map((r, i) => ({
-            id: i, brand: r[0], name: r[1], cat: r[2], price: r[3], desc: r[4], img: fixUrl(r[5]), spec: r[6], stock: r[7], coach: r[8]
-        })).filter(p => p.name);
+        const pText = await pRes.text();
+        const pRows = pText.split('\n').slice(1);
+        products = pRows.map((r, i) => {
+            const c = r.split(',').map(v => v.replace(/^"|"$/g, ''));
+            return { id:i, brand:c[0], name:c[1], cat:c[2], price:c[3], desc:c[4], img:fixUrl(c[5]), spec:c[6] };
+        }).filter(p => p.name);
 
         const brands = [...new Set(products.map(p => p.brand))].filter(Boolean);
         brands.forEach(b => document.getElementById('sel-brand').innerHTML += `<option value="${b}">${b}</option>`);
         updateCatOptions();
 
-        if(S.ContactMap) {
-            document.getElementById('map-box').innerHTML = S.ContactMap.includes('<iframe') ? S.ContactMap : `<iframe src="${S.ContactMap}"></iframe>`;
-        }
-
-    } catch (e) {
-        console.error("載入失敗", e);
-    } finally {
-        document.getElementById('loader').style.display = 'none';
-    }
+    } catch (e) { console.error("Init Error:", e); }
+    document.getElementById('loader').style.display = 'none';
 }
 
 function updateCatOptions() {
     const b = document.getElementById('sel-brand').value;
+    const cats = [...new Set(products.filter(p => b==='all' || p.brand===b).map(p => p.cat))].filter(Boolean);
     const s = document.getElementById('sel-cat');
     s.innerHTML = '<option value="all">所有類別</option>';
-    const cats = b === 'all' ? products.map(p => p.cat) : products.filter(p => p.brand === b).map(p => p.cat);
-    [...new Set(cats)].filter(Boolean).forEach(c => s.innerHTML += `<option value="${c}">${c}</option>`);
+    cats.forEach(c => s.innerHTML += `<option value="${c}">${c}</option>`);
     drawProducts();
 }
 
 function drawProducts() {
-    const b = document.getElementById('sel-brand').value;
-    const c = document.getElementById('sel-cat').value;
+    const b = document.getElementById('sel-brand').value, c = document.getElementById('sel-cat').value;
     const q = document.getElementById('search-box').value.toLowerCase();
     const g = document.getElementById('product-list');
     g.innerHTML = '';
@@ -455,8 +320,9 @@ function drawProducts() {
             <div class="img-wrap"><img src="${p.img}"></div>
             <div class="card-info">
                 <div style="font-size:0.7rem; color:var(--primary); font-weight:700;">${p.brand} | ${p.cat}</div>
-                <div style="font-weight:bold; margin:5px 0;">${p.name}</div>
-                <div class="card-price">$${p.price || '洽詢'}</div>
+                <div style="font-weight:bold; height:2.4em; overflow:hidden;">${p.name}</div>
+                <div class="p-desc-short">${p.desc || ''}</div>
+                <div style="color:var(--accent); font-weight:800; font-size:1.1rem;">$${p.price}</div>
             </div>
         </div>`;
     });
@@ -466,14 +332,12 @@ function openModal(id) {
     const p = products.find(x => x.id === id);
     document.getElementById('m-img').src = p.img;
     document.getElementById('m-name').innerText = p.name;
-    document.getElementById('m-price').innerText = `$${p.price || '洽詢'}`;
-    document.getElementById('m-spec').innerText = p.spec || '請洽詢教練';
-    document.getElementById('m-stock').innerText = p.stock || '現貨供應中';
-    document.getElementById('m-coach').innerText = p.coach || '專業教練推薦！';
+    document.getElementById('m-price').innerText = `$${p.price}`;
+    document.getElementById('m-spec').innerText = p.spec || '洽教練';
+    document.getElementById('m-desc').innerText = p.desc || '';
     document.getElementById('m-btn-buy').href = document.getElementById('link-line').href;
     document.getElementById('p-modal').style.display = 'flex';
 }
-
 function closeModal() { document.getElementById('p-modal').style.display = 'none'; }
 
 init();
