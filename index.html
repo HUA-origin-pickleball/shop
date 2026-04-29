@@ -315,7 +315,7 @@ footer p{font-size:.85rem;line-height:2;margin-bottom:4px;}
 <div id="page-venue" class="page">
   <div class="container">
     <div class="card card-sm" style="margin-bottom:32px;">
-      <h2>合作場地資訊</h2>
+      <h2>場地資訊</h2>
       <p style="color:var(--sub);font-size:.95rem;">以下為原點匹克球目前合作的教學場地，詳細時段請透過 LINE 洽詢。</p>
     </div>
     <div id="venue-list"></div>
@@ -384,11 +384,11 @@ footer p{font-size:.85rem;line-height:2;margin-bottom:4px;}
 <footer>
   <div class="footer-inner">
     <img id="footer-logo" class="footer-logo" src="" alt="" onerror="this.style.display='none'">
-    <strong id="f-slogan"></strong>
+    <strong id="f-slogan" style="font-size:1.15rem;line-height:1.6;display:block;color:#ddd;margin-bottom:14px;"></strong>
     <hr class="footer-divider">
+    <p id="f-biz"></p>
     <p id="f-staff"></p>
     <p id="f-addr"></p>
-    <p id="f-biz"></p>
     <p style="margin-top:16px;font-size:.78rem;">© 2026 原點匹克球 Origin Pickleball. All Rights Reserved.</p>
   </div>
 </footer>
@@ -597,11 +597,6 @@ async function init(){
     document.title=`${siteTitle} | Origin Pickleball`;
     $('nav-brand').textContent=siteTitle;
 
-    if(S.FaviconURL) $('favicon').href=driveThumb(S.FaviconURL);
-    const logoUrl=driveThumb(S.LogoURL);
-    if(logoUrl){$('logo-img').src=logoUrl;$('footer-logo').src=logoUrl;}
-    else{$('logo-img').style.display='none';}
-
     // ── 關於 ──
     $('text-about').textContent=S.AboutContent||'';
     $('text-philosophy').textContent=S.Philosophy||'';
@@ -734,6 +729,16 @@ async function init(){
     }
     if(!pCount) $('partner-empty').style.display='block';
 
+    // ── Logo & Favicon（確保抓到）──
+    const logoUrl2=driveThumb(S.LogoURL||'');
+    if(logoUrl2){
+      $('logo-img').src=logoUrl2;
+      $('logo-img').style.display='block';
+      $('footer-logo').src=logoUrl2;
+    }
+    const favUrl=driveThumb(S.FaviconURL||'');
+    if(favUrl) $('favicon').href=favUrl;
+
     // ── 聯絡 ──
     lineHref=S.ContactLink||'#';
     $('link-line').href=lineHref;
@@ -750,16 +755,40 @@ async function init(){
     $('text-biz-info').innerHTML=biz?`<div><i class="fas fa-building" style="color:var(--primary);margin-right:6px;"></i>統編：${biz}</div>`:'';
     $('text-contact-desc').innerHTML=cdesc?`<div style="margin-top:8px;">${cdesc}</div>`:'';
 
+    // ── 地圖：強制用 srcdoc 方式注入避免 CSP 問題 ──
     if(S.ContactMap){
       const mb=$('map-box');
-      mb.innerHTML=S.ContactMap.includes('<iframe')?S.ContactMap:`<iframe src="${S.ContactMap}" allowfullscreen loading="lazy"></iframe>`;
+      if(S.ContactMap.trim().startsWith('<iframe')){
+        // 取出 src 屬性，重新建立乾淨的 iframe
+        const srcMatch=S.ContactMap.match(/src=["']([^"']+)["']/);
+        if(srcMatch){
+          const ifr=document.createElement('iframe');
+          ifr.src=srcMatch[1];
+          ifr.setAttribute('allowfullscreen','');
+          ifr.setAttribute('loading','lazy');
+          ifr.setAttribute('referrerpolicy','no-referrer-when-downgrade');
+          ifr.style.cssText='width:100%;height:100%;border:0;display:block;';
+          mb.innerHTML='';
+          mb.appendChild(ifr);
+        } else {
+          mb.innerHTML=S.ContactMap;
+        }
+      } else {
+        const ifr=document.createElement('iframe');
+        ifr.src=S.ContactMap;
+        ifr.setAttribute('allowfullscreen','');
+        ifr.setAttribute('loading','lazy');
+        ifr.style.cssText='width:100%;height:100%;border:0;display:block;';
+        mb.innerHTML='';
+        mb.appendChild(ifr);
+      }
     }
 
     // ── Footer ──
     $('f-slogan').textContent=S.FooterSlogan||'';
+    $('f-biz').textContent=S.BizInfo?`統編：${S.BizInfo}`:'';
     $('f-staff').textContent=S.StaffContact||'';
     $('f-addr').textContent=S.Address||'';
-    $('f-biz').textContent=S.BizInfo?`統編：${S.BizInfo}`:'';
 
     // ── Products ──
     const pRes=await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Products`);
