@@ -238,15 +238,15 @@ footer p{font-size:.85rem;line-height:2;margin-bottom:4px;}
       <h2>品牌故事</h2>
       <div id="text-about" class="content-text"></div>
       <!-- Feature icons -->
+    </div>
+    <div class="card">
+      <h2>核心價值</h2>
+      <div id="text-philosophy" class="content-text"></div>
       <div class="feat-grid">
         <div class="feat-item"><div class="feat-icon"><i class="fas fa-table-tennis-paddle-ball"></i></div><h4>專業教學</h4><p>由認證教練帶領，系統化課程設計</p></div>
         <div class="feat-item"><div class="feat-icon"><i class="fas fa-store"></i></div><h4>器材選購</h4><p>精選品牌球拍、球具，一站購足</p></div>
         <div class="feat-item"><div class="feat-icon"><i class="fas fa-map-marker-alt"></i></div><h4>花蓮在地</h4><p>深耕花蓮，推廣全民匹克球運動</p></div>
       </div>
-    </div>
-    <div class="card">
-      <h2>核心價值</h2>
-      <div id="text-philosophy" class="content-text"></div>
     </div>
     <!-- 店面介紹圖文區塊 -->
     <div id="base-section"></div>
@@ -435,12 +435,14 @@ const parseCSVLine = line => {
 const pages = ['about','courses','products','venue','partners','contact'];
 function navTo(p) {
   pages.forEach(x => {
-    $('page-'+x).classList.toggle('active', x===p);
+    const pageEl = $('page-'+x);
+    if(pageEl) pageEl.classList.toggle('active', x===p);
     const d=$('nav-'+x), m=$('mnav-'+x);
     if(d) d.classList.toggle('active',x===p);
     if(m) m.classList.toggle('active',x===p);
   });
   window.scrollTo({top:0,behavior:'smooth'});
+  window.location.hash = p;
 }
 function toggleMenu() {
   $('hbg').classList.toggle('open');
@@ -595,8 +597,19 @@ async function init(){
       }
       const val=sc<0?rest:rest.slice(0,sc);
       S2[key]=val.replace(/^"|"$/g,'').trim();
+      // 在 init() 的最後執行
+    // 檢查網址有沒有 # 標籤 (例如 #products)
+    const currentHash = location.hash.replace('#', '');
+    
+    // 如果有標籤，且該標籤在我們的頁面清單內，就跳到那一頁
+    if (currentHash && pages.includes(currentHash)) {
+      navTo(currentHash);
+    } else {
+      // 如果沒標籤（第一次進入），則維持預設的關於頁面
+      navTo('about');
     });
     Object.assign(S,S2);
+    
 
     // ── 基礎設定 ──
     const siteTitle=S.SiteTitle||'原點匹克球 | Origin Pickleball 官方網站';
@@ -815,6 +828,11 @@ async function init(){
     const loader=$('loader');
     loader.classList.add('hide');
     setTimeout(()=>loader.style.display='none',600);
+    // 讓網頁刷新後能停留在原本的分頁
+    const hash = window.location.hash.replace('#', '');
+    if (hash && pages.includes(hash)) {
+      navTo(hash);
+    }
   }
 }
 
