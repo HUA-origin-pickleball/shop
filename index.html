@@ -598,7 +598,7 @@ async function init(){
     $('nav-brand').textContent=siteTitle;
 
     // ── 關於 ──
-    $('text-about').textContent=S.AboutContent||'';
+    $('text-about').innerText = S.AboutContent || '';
     $('text-philosophy').textContent=S.Philosophy||'';
 
     // ── 店面介紹圖文 ──
