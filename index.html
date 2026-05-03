@@ -558,7 +558,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 async function init(){
   try{
     // ─── Settings ───
-    const sRes=await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Settings`);
+    const sRes = await fetch(`https://docs.google.com/spreadsheets/d/1s1_nGNy8ZYKoCh0Bu5SJpbkVVSRIzytWyJlUYjT8AJ4/gviz/tq?tqx=out:csv&sheet=Settings`);
     const sText=await sRes.text();
     // 自訂 CSV 解析（欄位可能含逗號）
     const S={};
@@ -791,7 +791,7 @@ async function init(){
     $('f-addr').textContent=S.Address||'';
 
     // ── Products ──
-    const pRes=await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=Products`);
+    const pRes = await fetch(`https://docs.google.com/spreadsheets/d/1s1_nGNy8ZYKoCh0Bu5SJpbkVVSRIzytWyJlUYjT8AJ4/gviz/tq?tqx=out:csv&sheet=Products`);
     const pText=await pRes.text();
     const pRows=pText.split('\n').slice(1);
     products=pRows.map((r,i)=>{
