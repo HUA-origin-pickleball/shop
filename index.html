@@ -628,8 +628,10 @@ async function init(){
     }
 
     // ── Hero ──
-    const heroUrls=['HeroURL1','HeroURL2','HeroURL3','HeroURL4','HeroURL5'].map(k=>S[k]).filter(Boolean);
-    buildSlider(heroUrls, S.HeroTitle||siteTitle, S.HeroSub||'');
+    const allHeroUrls = Object.keys(S)
+    .filter(key => key.startsWith('HeroURL'))
+    .map(key => S[key]);
+    buildSlider(allHeroUrls, S.HeroTitle, S.HeroSub);
 
     // ── 課程 ──
     // 課程介紹
