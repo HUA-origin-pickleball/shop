@@ -564,60 +564,23 @@ async function init(){
     const sText=await sRes.text();
     // 自訂 CSV 解析（欄位可能含逗號）
     const S = {};
-    // 使用正則表達式來切分「列」，這會忽略被雙引號包住的換行符號
-    const rows = sText.match(/(".*?"|[^"\r\n]+)+(?=[ \t]*(\r\n|\n|\r|$))/g) || [];
+    const rows = sText.split('\n');
     
     rows.forEach(row => {
+      if (!row.trim()) return;
       const cols = parseCSVLine(row);
       if (cols[0]) {
-        // 去除引號並存入 S
         S[cols[0]] = cols[1] ? cols[1].replace(/^"|"$/g, '').trim() : '';
       }
     });
 
-    // 重新解析：第0欄=key, 第1欄=value（值可能含逗號，用簡單 split 保留正確值）
-    // 更健壯的重解析
-    const S2={};
-    sText.split('\n').forEach(row=>{
-      if(!row.trim()) return;
-      // 找第一個逗號（在引號外）
-      let inQ=false, firstComma=-1;
-      for(let i=0;i<row.length;i++){
-        if(row[i]==='"') inQ=!inQ;
-        if(row[i]===','&&!inQ){firstComma=i;break;}
-      }
-      if(firstComma<0) return;
-      const key=row.slice(0,firstComma).replace(/^"|"$/g,'').trim();
-      // 值取到下一個未引號逗號前（第二欄）
-      const rest=row.slice(firstComma+1);
-      inQ=false; let sc=-1;
-      for(let i=0;i<rest.length;i++){
-        if(rest[i]==='"') inQ=!inQ;
-        if(rest[i]===','&&!inQ){sc=i;break;}
-      }
-      const val=sc<0?rest:rest.slice(0,sc);
-      S2[key]=val.replace(/^"|"$/g,'').trim();
-      // 在 init() 的最後執行
-    // 檢查網址有沒有 # 標籤 (例如 #products)
-    const currentHash = location.hash.replace('#', '');
-    
-    // 如果有標籤，且該標籤在我們的頁面清單內，就跳到那一頁
-    if (currentHash && pages.includes(currentHash)) {
-      navTo(currentHash);
-    } else {
-      // 如果沒標籤（第一次進入），則維持預設的關於頁面
-      navTo('about');
-    });
-    Object.assign(S,S2);
-    
-
     // ── 基礎設定 ──
-    const siteTitle=S.SiteTitle||'原點匹克球 | Origin Pickleball 官方網站';
-    document.title=`${siteTitle} | Origin Pickleball`;
-    $('nav-brand').textContent=siteTitle;
+    const siteTitle = S.SiteTitle || '原點匹克球 | Origin Pickleball 官方網站';
+    document.title = siteTitle;
+    $('nav-brand').textContent = siteTitle;
 
-    // ── 關於 ──
-    $('text-about').innerText = S.AboutContent || ''; // 從 textContent 改成 innerText
+    // ── 關於內容 (使用 innerText 確保換行顯示) ──
+    $('text-about').innerText = S.AboutContent || ''; 
     $('text-philosophy').innerText = S.Philosophy || '';
 
     // ── 店面介紹圖文 ──
@@ -647,8 +610,13 @@ async function init(){
     }
 
     // ── Hero ──
-    const heroUrls=['HeroURL1','HeroURL2','HeroURL3','HeroURL4','HeroURL5'].map(k=>S[k]).filter(Boolean);
-    buildSlider(heroUrls, S.HeroTitle||siteTitle, S.HeroSub||'');
+    const heroUrls = Object.keys(S)
+      .filter(k => k.startsWith('HeroURL'))
+      .sort((a, b) => a.localeCompare(b, undefined, {numeric: true}))
+      .map(k => S[k])
+      .filter(Boolean);
+      
+    buildSlider(heroUrls, S.HeroTitle || siteTitle, S.HeroSub || '');
 
     // ── 課程 ──
     // 課程介紹
@@ -822,16 +790,19 @@ async function init(){
     brands.forEach(b=>$('sel-brand').innerHTML+=`<option value="${b}">${b}</option>`);
     updateCatOptions();
 
-  }catch(e){
-    console.error('Init error:',e);
-  }finally{
-    const loader=$('loader');
+  } catch (e) {
+    console.error('Init error:', e);
+  } finally {
+    const loader = $('loader');
     loader.classList.add('hide');
-    setTimeout(()=>loader.style.display='none',600);
-    // 讓網頁刷新後能停留在原本的分頁
-    const hash = window.location.hash.replace('#', '');
-    if (hash && pages.includes(hash)) {
-      navTo(hash);
+    setTimeout(() => loader.style.display = 'none', 600);
+
+    // ── 新增：處理網頁刷新的固定錨點 ──
+    const currentHash = location.hash.replace('#', '');
+    if (currentHash && pages.includes(currentHash)) {
+      navTo(currentHash);
+    } else {
+      navTo('about');
     }
   }
 }
