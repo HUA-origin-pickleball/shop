@@ -13,13 +13,12 @@ body{font-family:"PingFang TC","Microsoft JhengHei",sans-serif;background:#f4f6f
 img{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
 button{cursor:pointer;border:none;background:none;font-family:inherit}
-
 :root{
   --g:#4a6741;--gd:#3a5232;--acc:#e67e22;--navy:#153759;
   --bg:#f4f6f4;--white:#fff;--sub:#6b7c8d;--border:#e8eae8;
   --r:14px;--r-sm:8px;
   --sh:0 4px 20px rgba(0,0,0,.07);--sh-md:0 8px 32px rgba(0,0,0,.1);
-  --nh:62px;
+  --nh:66px;
 }
 
 /* ── Loader ── */
@@ -31,11 +30,16 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 /* ── Nav ── */
 nav{background:var(--white);height:var(--nh);position:sticky;top:0;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,.06)}
 .nav-in{max-width:1200px;margin:0 auto;height:100%;display:flex;justify-content:space-between;align-items:center;padding:0 20px;gap:12px}
+
+/* Logo区域 */
 .nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;cursor:pointer;text-decoration:none}
-.nav-logo-img{height:38px;width:auto;object-fit:contain;display:block}
-.nav-logo-text{display:flex;flex-direction:column;gap:1px}
-.nav-logo-label{font-size:.6rem;font-weight:600;color:var(--sub);letter-spacing:.12em;text-transform:uppercase;line-height:1}
-#nav-brand{font-weight:800;font-size:.95rem;color:var(--navy);white-space:nowrap;line-height:1.2}
+.nav-logo-img-wrap{width:42px;height:42px;border-radius:10px;overflow:hidden;background:#f0f0f0;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.nav-logo-img-wrap img{width:100%;height:100%;object-fit:contain}
+.nav-logo-divider{width:1px;height:28px;background:var(--border);flex-shrink:0}
+.nav-logo-text{display:flex;flex-direction:column;gap:2px}
+.nav-logo-en{font-size:.58rem;font-weight:700;color:var(--sub);letter-spacing:.14em;text-transform:uppercase;line-height:1}
+.nav-logo-zh{font-size:.92rem;font-weight:900;color:var(--navy);line-height:1.2;white-space:nowrap}
+
 .nav-links{display:flex;gap:2px}
 .nav-links a{padding:7px 9px;border-radius:7px;font-weight:600;font-size:.82rem;color:#2c3e50;cursor:pointer;white-space:nowrap;transition:.2s}
 .nav-links a:hover{background:#eef3ee;color:var(--g)}
@@ -73,21 +77,21 @@ h2::after{content:"";position:absolute;left:0;bottom:0;width:32px;height:5px;bac
 .dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.4);transition:.3s;padding:0}
 .dot.active{background:#fff;width:22px;border-radius:4px}
 
-/* ── Philosophy (核心價值) ── */
+/* ── Philosophy ── */
 .phil-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:8px}
 .phil-item{display:flex;gap:16px;align-items:flex-start;background:var(--bg);border-radius:12px;padding:20px}
 .phil-icon{width:44px;height:44px;border-radius:10px;background:var(--g);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.1rem;flex-shrink:0}
 .phil-item h4{color:var(--navy);font-size:.95rem;margin-bottom:4px}
 .phil-item p{font-size:.83rem;color:var(--sub);line-height:1.55}
 
-/* ── 3大服務 ── */
+/* ── Services ── */
 .service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:4px}
 .sv-card{background:var(--bg);border-radius:14px;padding:28px 20px;text-align:center;transition:.25s;cursor:pointer;border:2px solid transparent}
 .sv-card:hover{border-color:var(--g);background:#eef3ee;transform:translateY(-3px)}
 .sv-icon{width:56px;height:56px;border-radius:14px;background:linear-gradient(135deg,var(--g),#6a9a5f);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.4rem;margin:0 auto 14px}
 .sv-card h4{color:var(--navy);font-size:1rem;margin-bottom:6px}
 .sv-card p{font-size:.83rem;color:var(--sub);line-height:1.55}
-.sv-card .sv-link{display:inline-flex;align-items:center;gap:5px;margin-top:12px;color:var(--g);font-weight:700;font-size:.82rem}
+.sv-link{display:inline-flex;align-items:center;gap:5px;margin-top:12px;color:var(--g);font-weight:700;font-size:.82rem}
 
 /* ── Flex row ── */
 .flex-row{display:flex;gap:32px;align-items:flex-start}
@@ -95,46 +99,52 @@ h2::after{content:"";position:absolute;left:0;bottom:0;width:32px;height:5px;bac
 .side-img{flex:1;min-width:0}
 .side-img img{width:100%;border-radius:12px;object-fit:cover;max-height:300px}
 .side-text{flex:1.6;min-width:0}
-.biz-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
-.biz-card{border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08)}
-.biz-card img{width:100%;object-fit:cover}
 
-/* ── Course Cards (新設計) ── */
+/* ── Biz cards (名片 lightbox) ── */
+.biz-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.biz-card{border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08);cursor:zoom-in;position:relative;transition:.25s}
+.biz-card:hover{transform:translateY(-4px);box-shadow:var(--sh-md)}
+.biz-card img{width:100%;object-fit:cover;display:block}
+.biz-card::after{content:"\f00e";font-family:"Font Awesome 6 Free";font-weight:900;position:absolute;bottom:8px;right:10px;color:rgba(255,255,255,.85);font-size:.85rem;text-shadow:0 1px 4px rgba(0,0,0,.5);pointer-events:none}
+
+/* Lightbox */
+.lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:4000;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
+.lb.open{display:flex}
+.lb img{max-width:min(90vw,900px);max-height:90vh;object-fit:contain;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.lb-close{position:absolute;top:16px;right:20px;color:#fff;font-size:1.6rem;opacity:.7;cursor:pointer;transition:.2s;background:none;border:none}
+.lb-close:hover{opacity:1}
+
+/* ── Course Cards ── */
 .ccard{background:var(--white);border-radius:16px;box-shadow:var(--sh);margin-bottom:24px;overflow:hidden}
 .ccard-inner{display:grid;grid-template-columns:1fr 1fr;min-height:280px}
-/* 左側：文字 */
-.ccard-info{padding:28px 30px;display:flex;flex-direction:column;justify-content:space-between}
-.ccard-header{margin-bottom:12px}
+.ccard-info{padding:28px 30px;display:flex;flex-direction:column}
 .ccard-title{font-size:1.1rem;font-weight:800;color:var(--navy);margin-bottom:4px}
 .ccard-dur{font-size:.75rem;color:var(--sub);display:flex;align-items:center;gap:5px;margin-bottom:10px}
-.ccard-desc{font-size:.87rem;color:#444;line-height:1.7;white-space:pre-wrap;word-break:break-word}
+.ccard-desc{font-size:.87rem;color:#444;line-height:1.7;white-space:pre-wrap;word-break:break-word;flex:1}
 .ccard-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
 .ctag{background:#eef3ee;color:var(--g);font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:20px}
-/* 費用表格 */
 .price-table{width:100%;border-collapse:collapse;margin-top:14px;font-size:.84rem}
 .price-table th{background:var(--g);color:#fff;padding:7px 10px;text-align:center;font-weight:700}
 .price-table td{padding:7px 10px;text-align:center;border-bottom:1px solid var(--border)}
 .price-table tr:last-child td{border-bottom:none}
 .price-table tr:nth-child(even) td{background:#f8faf8}
-.price-table .price-val{color:var(--acc);font-weight:800}
-/* 右側：圖片輪播 */
+.price-val{color:var(--acc);font-weight:800}
 .ccard-imgs{position:relative;overflow:hidden;background:#eee}
-.ccard-imgs .img-slide{position:absolute;inset:0;opacity:0;transition:opacity .6s;background-size:cover;background-position:center}
-.ccard-imgs .img-slide.active{opacity:1}
-.ccard-imgs .c-arr{position:absolute;top:50%;transform:translateY(-50%);z-index:3;background:rgba(0,0,0,.35);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;transition:.2s}
-.ccard-imgs .c-arr:hover{background:rgba(0,0,0,.6)}
-.ccard-imgs .c-arr.cl{left:8px}
-.ccard-imgs .c-arr.cr{right:8px}
-.ccard-imgs .c-dots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:3}
-.ccard-imgs .c-dots span{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.5);transition:.3s}
-.ccard-imgs .c-dots span.active{background:#fff;width:14px;border-radius:3px}
+.img-slide{position:absolute;inset:0;opacity:0;transition:opacity .6s;background-size:cover;background-position:center}
+.img-slide.active{opacity:1}
+.c-arr{position:absolute;top:50%;transform:translateY(-50%);z-index:3;background:rgba(0,0,0,.35);color:#fff;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;transition:.2s}
+.c-arr:hover{background:rgba(0,0,0,.6)}
+.c-arr.cl{left:8px}.c-arr.cr{right:8px}
+.c-dots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:3}
+.c-dots span{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.5);transition:.3s}
+.c-dots span.active{background:#fff;width:14px;border-radius:3px}
 .c-no-img{width:100%;height:100%;min-height:240px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#f0f3f0;color:#bbb;font-size:.85rem;gap:8px}
 
 /* ── FAQ ── */
 .faq-item{border-bottom:1px solid var(--border)}
 .faq-q{width:100%;text-align:left;padding:14px 4px;font-weight:700;font-size:.93rem;color:var(--navy);display:flex;justify-content:space-between;align-items:center;gap:10px}
-.faq-q .fi{transition:.3s;color:var(--g);font-size:.8rem;flex-shrink:0}
-.faq-q.open .fi{transform:rotate(180deg)}
+.faq-q .fqi{transition:.3s;color:var(--g);font-size:.8rem;flex-shrink:0}
+.faq-q.open .fqi{transform:rotate(180deg)}
 .faq-a{display:none;padding:0 4px 14px;font-size:.88rem;color:#555;line-height:1.75;white-space:pre-wrap;word-break:break-word}
 .faq-a.show{display:block}
 
@@ -158,7 +168,7 @@ h2::after{content:"";position:absolute;left:0;bottom:0;width:32px;height:5px;bac
 
 /* ── Shop ── */
 .shop-wrap{display:grid;grid-template-columns:230px 1fr;gap:28px}
-.filter-panel{background:var(--white);padding:18px;border-radius:var(--r);box-shadow:var(--sh);position:sticky;top:calc(var(--nh) + 12px);height:fit-content}
+.filter-panel{background:var(--white);padding:18px;border-radius:var(--r);box-shadow:var(--sh);position:sticky;top:calc(var(--nh)+12px);height:fit-content}
 .filter-panel label{display:block;font-size:.72rem;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.05em;margin:12px 0 4px}
 .filter-panel label:first-child{margin-top:0}
 .fi-input{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:var(--r-sm);font-size:.87rem;color:#2c3e50;background:#fff;outline:none;transition:.2s}
@@ -170,11 +180,9 @@ h2::after{content:"";position:absolute;left:0;bottom:0;width:32px;height:5px;bac
 .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px}
 .pgrid.v-list{grid-template-columns:1fr}
 .pgrid.v-2{grid-template-columns:1fr 1fr}
-
-/* Product card */
 .pc{background:var(--white);border-radius:12px;overflow:hidden;box-shadow:var(--sh);border:1.5px solid #f0f0f0;cursor:pointer;transition:.25s;display:flex;flex-direction:column}
 .pc:hover{transform:translateY(-4px);box-shadow:var(--sh-md);border-color:var(--g)}
-.pc-img{height:180px;display:flex;align-items:center;justify-content:center;padding:14px;background:#ffffff}
+.pc-img{height:180px;display:flex;align-items:center;justify-content:center;padding:14px;background:#fff}
 .pc-img img{max-width:100%;max-height:100%;object-fit:contain}
 .pc-body{padding:11px 13px;flex:1;display:flex;flex-direction:column}
 .pc-badge{font-size:.67rem;color:var(--g);font-weight:700;margin-bottom:2px}
@@ -185,37 +193,31 @@ h2::after{content:"";position:absolute;left:0;bottom:0;width:32px;height:5px;bac
 .stk-ok{background:#e8f5e9;color:#2e7d32}
 .stk-pre{background:#fff8e1;color:#f57f17}
 .stk-out{background:#fce4ec;color:#c62828;text-decoration:line-through}
-.empty{grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--sub)}
-.empty i{font-size:2.5rem;opacity:.25;display:block;margin-bottom:10px}
-
-/* List view */
 .pgrid.v-list .pc{flex-direction:row}
 .pgrid.v-list .pc-img{width:140px;min-width:140px;height:auto;min-height:120px;flex-shrink:0}
 .pgrid.v-list .pc-body{flex:1;padding:14px 16px}
 .pgrid.v-list .pc-desc{-webkit-line-clamp:3}
+.empty{grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--sub)}
+.empty i{font-size:2.5rem;opacity:.25;display:block;margin-bottom:10px}
 
-/* ── Modal ── */
+/* ── Modal gallery ── */
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:3000;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(3px)}
 .modal.open{display:flex}
 .mbox{background:#fff;width:100%;max-width:860px;border-radius:20px;display:flex;overflow:hidden;position:relative;max-height:92vh}
 .mcls{position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:50%;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:.95rem;color:#999;z-index:10;transition:.2s}
 .mcls:hover{background:#ddd;color:#333}
-/* Modal image gallery */
-.m-gallery{flex:1;position:relative;background:#fafafa;min-height:260px;display:flex;align-items:center;justify-content:center}
-.m-gallery .mg-slide{position:absolute;inset:0;opacity:0;transition:opacity .5s;display:flex;align-items:center;justify-content:center;padding:24px;background:#fff}
-.m-gallery .mg-slide.active{opacity:1;position:relative}
-.m-gallery .mg-slide img{max-width:100%;max-height:320px;object-fit:contain}
-.m-gallery .mg-arr{position:absolute;top:50%;transform:translateY(-50%);z-index:5;background:rgba(0,0,0,.12);color:#555;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:.2s}
-.m-gallery .mg-arr:hover{background:rgba(0,0,0,.25)}
-.m-gallery .mg-arr.ml{left:8px}
-.m-gallery .mg-arr.mr{right:8px}
-.m-gallery .mg-dots{position:absolute;bottom:10px;left:50%;transform:translateX(-50%);display:flex;gap:5px}
-.m-gallery .mg-dots span{width:6px;height:6px;border-radius:50%;background:rgba(0,0,0,.2);transition:.3s}
-.m-gallery .mg-dots span.active{background:var(--g);width:16px;border-radius:3px}
-.m-thumbs{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
-.m-thumb{width:48px;height:48px;border-radius:6px;object-fit:contain;border:2px solid transparent;cursor:pointer;background:#f5f5f5;padding:2px}
+.m-gallery{flex:1;position:relative;background:#fff;min-height:260px;display:flex;flex-direction:column}
+.mg-main{flex:1;position:relative;display:flex;align-items:center;justify-content:center;padding:20px;min-height:220px}
+.mg-slide{position:absolute;inset:0;opacity:0;transition:opacity .5s;display:flex;align-items:center;justify-content:center;padding:20px}
+.mg-slide.active{opacity:1;position:relative;min-height:220px}
+.mg-slide img{max-width:100%;max-height:280px;object-fit:contain}
+.mg-arr{position:absolute;top:50%;transform:translateY(-50%);z-index:5;background:rgba(0,0,0,.12);color:#555;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;transition:.2s}
+.mg-arr:hover{background:rgba(0,0,0,.25)}
+.mg-arr.ml{left:8px}.mg-arr.mr{right:8px}
+.mg-thumbs{display:flex;gap:6px;padding:10px 14px;border-top:1px solid var(--border);background:#fafafa;flex-wrap:wrap}
+.m-thumb{width:46px;height:46px;border-radius:6px;object-fit:contain;border:2px solid transparent;cursor:pointer;background:#f0f0f0;padding:2px;transition:.2s}
 .m-thumb.active{border-color:var(--g)}
-.m-det{flex:1.1;padding:28px 28px 28px 22px;overflow-y:auto}
+.m-det{flex:1.1;padding:28px;overflow-y:auto}
 .m-badge{font-size:.7rem;font-weight:800;color:var(--g);text-transform:uppercase;letter-spacing:.07em}
 .m-name{color:var(--navy);font-size:1.2rem;font-weight:800;margin:6px 0 2px;line-height:1.3}
 .m-price{font-size:1.45rem;color:var(--acc);font-weight:900;margin:6px 0 10px}
@@ -226,15 +228,21 @@ h2::after{content:"";position:absolute;left:0;bottom:0;width:32px;height:5px;bac
 .btn-line:hover{background:#05b34b}
 
 /* ── Contact ── */
-.contact-wrap{display:grid;grid-template-columns:1fr 1.25fr;gap:22px}
+.contact-wrap{display:grid;grid-template-columns:1fr 1.3fr;gap:22px;align-items:start}
+/* 左側社群按鈕 + 聯絡資訊卡片 */
 .cbtn{display:flex;align-items:center;gap:11px;padding:13px 16px;border-radius:10px;color:#fff;font-weight:700;margin-bottom:11px;font-size:.93rem;transition:.2s}
 .cbtn:hover{filter:brightness(1.08);transform:translateY(-2px)}
 .c-line{background:#06c755}.c-fb{background:#1877f2}
 .c-ig{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
-.cinfo{background:var(--bg);border-radius:10px;padding:14px 18px;font-size:.87rem;color:#555;line-height:2.1;margin-top:4px}
-.cinfo-row{display:flex;gap:8px;align-items:flex-start}
-.cinfo-row i{color:var(--g);width:14px;flex-shrink:0;margin-top:3px}
-.map-wrap{border-radius:var(--r);overflow:hidden;height:420px;border:1.5px solid var(--border)}
+/* 聯絡資訊 — 改為分開的 info row 卡片 */
+.contact-info-cards{display:flex;flex-direction:column;gap:10px;margin-top:14px}
+.ci-row{display:flex;align-items:center;gap:14px;background:var(--bg);border-radius:10px;padding:12px 16px}
+.ci-row-icon{width:36px;height:36px;border-radius:9px;background:var(--g);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.9rem;flex-shrink:0}
+.ci-row-body{min-width:0}
+.ci-row-label{font-size:.7rem;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1px}
+.ci-row-val{font-size:.9rem;color:#2c3e50;font-weight:600;word-break:break-word}
+/* 右側地圖 */
+.map-wrap{border-radius:var(--r);overflow:hidden;height:440px;border:1.5px solid var(--border)}
 .map-wrap iframe{width:100%;height:100%;border:0;display:block}
 
 /* ── Footer ── */
@@ -258,6 +266,8 @@ footer p{font-size:.82rem;line-height:1.95}
   .venue-map iframe{height:220px}
   .phil-grid{grid-template-columns:1fr}
   .service-grid{grid-template-columns:1fr}
+  .contact-wrap{grid-template-columns:1fr}
+  .map-wrap{height:280px}
 }
 @media(max-width:768px){
   :root{--nh:58px}
@@ -268,11 +278,9 @@ footer p{font-size:.82rem;line-height:1.95}
   .card{padding:20px 16px}
   .flex-row,.flex-row.rev{flex-direction:column;gap:18px}
   .side-img img{max-height:200px}
-  .contact-wrap{grid-template-columns:1fr}
-  .map-wrap{height:260px}
   .partner-card{flex-direction:column;align-items:flex-start}
   .mbox{flex-direction:column;max-height:95vh}
-  .m-gallery{min-height:220px}
+  .m-gallery{min-height:auto}
   .m-det{padding:18px}
   .pgrid{grid-template-columns:1fr 1fr;gap:11px}
   .pgrid.v-list{grid-template-columns:1fr}
@@ -289,17 +297,25 @@ footer p{font-size:.82rem;line-height:1.95}
   .hero-txt h1{font-size:1.35rem}
   .pgrid,.pgrid.v-2{grid-template-columns:1fr 1fr}
   .pgrid.v-list{grid-template-columns:1fr}
+  .nav-logo-en{display:none}
 }
 </style>
 </head>
 <body>
 <div id="loader"><div class="spin"></div></div>
 
+<!-- ══ NAV ══ -->
 <nav>
   <div class="nav-in">
     <div class="nav-logo" onclick="go('about')">
-      <img id="logo-img" src="" alt="" onerror="this.style.display='none'">
-      <span id="nav-brand">原點匹克球</span>
+      <div class="nav-logo-img-wrap">
+        <img id="logo-img" src="" alt="Logo" onerror="this.parentElement.style.background='#eef3ee'">
+      </div>
+      <div class="nav-logo-divider"></div>
+      <div class="nav-logo-text">
+        <span class="nav-logo-en">Official Website</span>
+        <span id="nav-brand" class="nav-logo-zh">原點匹克球</span>
+      </div>
     </div>
     <div class="nav-links">
       <a onclick="go('about')"    id="nl-about"    class="active">關於原點</a>
@@ -323,7 +339,7 @@ footer p{font-size:.82rem;line-height:1.95}
   </div>
 </nav>
 
-<!-- ABOUT -->
+<!-- ══ ABOUT ══ -->
 <div id="page-about" class="page active">
   <div class="hero" id="hero">
     <button class="hero-arr" id="hp" onclick="step(-1)"><i class="fas fa-chevron-left"></i></button>
@@ -363,12 +379,12 @@ footer p{font-size:.82rem;line-height:1.95}
       </div>
     </div>
     <div id="sec-base"></div>
+    <!-- 團隊介紹（名片） -->
     <div id="sec-biz"></div>
-    <div id="sec-staff"></div>
   </div>
 </div>
 
-<!-- COURSES -->
+<!-- ══ COURSES ══ -->
 <div id="page-courses" class="page">
   <div class="wrap">
     <div class="card" id="c-intro-card">
@@ -404,7 +420,7 @@ footer p{font-size:.82rem;line-height:1.95}
   </div>
 </div>
 
-<!-- PRODUCTS -->
+<!-- ══ PRODUCTS ══ -->
 <div id="page-products" class="page">
   <div class="wrap">
     <div class="shop-wrap">
@@ -430,7 +446,7 @@ footer p{font-size:.82rem;line-height:1.95}
   </div>
 </div>
 
-<!-- VENUE -->
+<!-- ══ VENUE ══ -->
 <div id="page-venue" class="page">
   <div class="wrap">
     <div class="card" style="padding:22px 28px;margin-bottom:24px">
@@ -444,7 +460,7 @@ footer p{font-size:.82rem;line-height:1.95}
   </div>
 </div>
 
-<!-- PARTNERS -->
+<!-- ══ PARTNERS ══ -->
 <div id="page-partners" class="page">
   <div class="wrap">
     <div class="card" style="padding:22px 28px;margin-bottom:22px">
@@ -458,30 +474,28 @@ footer p{font-size:.82rem;line-height:1.95}
   </div>
 </div>
 
-<!-- CONTACT -->
+<!-- ══ CONTACT ══ -->
 <div id="page-contact" class="page">
   <div class="wrap">
     <div class="card">
       <h2>聯絡我們</h2>
       <div class="contact-wrap">
+        <!-- 左側 -->
         <div>
           <a id="l-line" href="#" target="_blank" class="cbtn c-line"><i class="fab fa-line fa-lg"></i>LINE 官方帳號</a>
           <a id="l-fb"   href="#" target="_blank" class="cbtn c-fb"><i class="fab fa-facebook-f fa-lg"></i>Facebook 粉絲專頁</a>
           <a id="l-ig"   href="#" target="_blank" class="cbtn c-ig"><i class="fab fa-instagram fa-lg"></i>Instagram</a>
-          <div class="cinfo">
-            <div id="ci-staff" class="cinfo-row" style="display:none"><i class="fas fa-user"></i><span></span></div>
-            <div id="ci-addr"  class="cinfo-row" style="display:none"><i class="fas fa-location-dot"></i><span></span></div>
-            <div id="ci-biz"   class="cinfo-row" style="display:none"><i class="fas fa-building"></i><span></span></div>
-            <div id="ci-desc"  style="display:none;margin-top:6px;color:#666;font-size:.85rem;white-space:pre-wrap;word-break:break-word"></div>
-          </div>
+          <!-- 聯絡資訊 — 分行卡片 -->
+          <div class="contact-info-cards" id="contact-info-cards"></div>
         </div>
+        <!-- 右側地圖 -->
         <div id="map-box" class="map-wrap"></div>
       </div>
     </div>
   </div>
 </div>
 
-<!-- MODAL -->
+<!-- ══ PRODUCT MODAL ══ -->
 <div id="modal" class="modal" onclick="closeMod()">
   <div class="mbox" onclick="event.stopPropagation()">
     <button class="mcls" onclick="closeMod()"><i class="fas fa-times"></i></button>
@@ -496,6 +510,12 @@ footer p{font-size:.82rem;line-height:1.95}
       <a href="#" id="m-line" target="_blank" class="btn-line"><i class="fab fa-line"></i>LINE 訂購 / 詢問</a>
     </div>
   </div>
+</div>
+
+<!-- ══ LIGHTBOX (名片放大) ══ -->
+<div class="lb" id="lb" onclick="closeLB()">
+  <button class="lb-close" onclick="closeLB()"><i class="fas fa-times"></i></button>
+  <img id="lb-img" src="" alt="">
 </div>
 
 <footer>
@@ -518,7 +538,7 @@ let prods=[],lineHref='#',curView='g';
 let si=0,st=0,total=0;
 let modImgs=[],modIdx=0;
 
-/* ── CSV Parser (handles quoted multiline) ── */
+/* ── CSV ── */
 function parseCSV(t){
   const rows=[];let row=[],cur='',inQ=false;
   for(let i=0;i<t.length;i++){
@@ -534,12 +554,9 @@ function parseCSV(t){
 }
 function makeMap(rows){
   const m={};
-  // Settings sheet: col0=key, col1=value
   rows.forEach(r=>{
     const k=(r[0]||'').trim();
-    // skip section headers (start with 📌 or are empty)
-    if(!k||k.startsWith('📌')||k.startsWith('欄位名稱'))return;
-    // value = col1, unescape \n
+    if(!k||k.startsWith('📌')||k.startsWith('欄位'))return;
     m[k]=(r[1]||'').replace(/\\n/g,'\n');
   });
   return m;
@@ -551,13 +568,8 @@ function durl(u){
   const m=u.match(/(?:\/d\/|id=)([\w-]+)/);
   return m?`https://lh3.googleusercontent.com/d/${m[1]}`:u;
 }
-function setCIRow(id,txt){
-  const el=$(id);if(!el)return;
-  if(txt){el.querySelector('span').textContent=txt;el.style.display='flex';}
-  else el.style.display='none';
-}
 
-/* ── Navigation ── */
+/* ── Nav ── */
 function go(p,push=true){
   if(!PAGES.includes(p))p='about';
   PAGES.forEach(x=>{
@@ -572,13 +584,10 @@ function go(p,push=true){
 }
 window.addEventListener('popstate',e=>go((e.state&&e.state.p)||location.hash.slice(1)||'about',false));
 function restoreHash(){const h=location.hash.slice(1);if(PAGES.includes(h))go(h,false);}
-function toggleMenu(){
-  $('hbg').classList.toggle('open');
-  const m=$('mob-menu');m.style.display=m.style.display==='flex'?'none':'flex';
-}
+function toggleMenu(){$('hbg').classList.toggle('open');const m=$('mob-menu');m.style.display=m.style.display==='flex'?'none':'flex';}
 function cm(){$('hbg').classList.remove('open');$('mob-menu').style.display='none';}
 
-/* ── Hero Slider ── */
+/* ── Hero ── */
 function buildSlider(urls,title,sub){
   const box=$('hero'),de=$('hdots');
   box.querySelectorAll('.slide,.hero-ov,.hero-txt').forEach(e=>e.remove());
@@ -587,18 +596,15 @@ function buildSlider(urls,title,sub){
   total=valid.length;
   if(!total){$('hp').style.display=$('hn').style.display='none';return;}
   valid.forEach((u,i)=>{
-    const d=document.createElement('div');
-    d.className='slide'+(i===0?' active':'');
-    d.style.backgroundImage=`url('${durl(u)}')`;
-    box.insertBefore(d,$('hp'));
+    const d=document.createElement('div');d.className='slide'+(i===0?' active':'');
+    d.style.backgroundImage=`url('${durl(u)}')`;box.insertBefore(d,$('hp'));
   });
   const ov=document.createElement('div');ov.className='hero-ov';box.insertBefore(ov,$('hp'));
   const tx=document.createElement('div');tx.className='hero-txt';
   tx.innerHTML=`<h1>${title||'原點匹克球'}</h1>${sub?`<p>${sub}</p>`:''}`;
   box.insertBefore(tx,$('hp'));
   valid.forEach((_,i)=>{
-    const d=document.createElement('button');
-    d.className='dot'+(i===0?' active':'');
+    const d=document.createElement('button');d.className='dot'+(i===0?' active':'');
     d.onclick=()=>goSlide(i);de.appendChild(d);
   });
   $('hp').style.display=$('hn').style.display=total>1?'flex':'none';
@@ -616,92 +622,93 @@ function goSlide(n){
 }
 function step(d){goSlide((si+d+total)%total);}
 
-/* ── Course Cards ── */
-// parse "人數與每人費用：4人班1人$600 | 6人班1人$400" → table rows
-function parsePrices(text){
-  // match patterns like: 4人 $600 or 4人班1人$600 or 1人$1200
-  const rows=[];
-  const re=/([0-9]+人[班]?)(?:[^$]*)\$([0-9,]+)/g;
-  let m;
-  while((m=re.exec(text))!==null){
-    rows.push({n:m[1].replace('班',''),p:m[2]});
-  }
-  return rows;
+/* ── Lightbox (名片) ── */
+function openLB(src){$('lb-img').src=src;$('lb').classList.add('open');document.body.style.overflow='hidden';}
+function closeLB(){$('lb').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeLB();closeMod();}});
+
+/* ── Philosophy ── */
+function buildPhil(text){
+  const box=$('phil-grid');
+  const icons=['fas fa-award','fas fa-face-laugh-beam','fas fa-location-dot','fas fa-people-group','fas fa-star','fas fa-heart'];
+  const defaults=[
+    {icon:'fas fa-award',t:'專業',d:'PKing 輪堡國際認證教練與裁判，系統化教學讓你快速進步。'},
+    {icon:'fas fa-face-laugh-beam',t:'樂趣',d:'我們相信運動應該快樂，每堂課都讓你流汗又歡笑。'},
+    {icon:'fas fa-location-dot',t:'在地',d:'深耕花蓮，合作場地優質，服務在地社區與遠道旅人。'},
+    {icon:'fas fa-people-group',t:'全齡',d:'從兒童到樂齡，每個人都能找到屬於自己的節奏。'},
+  ];
+  if(!text){defaults.forEach(d=>{box.innerHTML+=`<div class="phil-item"><div class="phil-icon"><i class="${d.icon}"></i></div><div><h4>${d.t}</h4><p>${d.d}</p></div></div>`;});return;}
+  const items=text.split('●').filter(s=>s.trim());
+  if(items.length>=2){
+    items.forEach((item,i)=>{
+      const lines=item.trim().split('\n').filter(l=>l.trim());
+      const t=lines[0].trim(),d=lines.slice(1).join(' ').trim();
+      box.innerHTML+=`<div class="phil-item"><div class="phil-icon"><i class="${icons[i%icons.length]}"></i></div><div><h4>${t}</h4><p>${d}</p></div></div>`;
+    });
+  } else box.innerHTML=`<div style="grid-column:1/-1"><div class="prose">${text}</div></div>`;
 }
 
-function buildCourseGallery(el, imgUrls){
-  const valid=imgUrls.filter(Boolean).map(durl).filter(Boolean);
-  if(!valid.length){
-    el.innerHTML=`<div class="c-no-img"><i class="fas fa-image" style="font-size:2rem;opacity:.3"></i><span>尚無課程照片</span></div>`;
-    return;
-  }
+/* ── Course gallery ── */
+function buildCourseGallery(el,imgs){
+  const valid=imgs.filter(Boolean).map(durl).filter(Boolean);
+  if(!valid.length){el.innerHTML=`<div class="c-no-img"><i class="fas fa-image" style="font-size:2rem;opacity:.3"></i><span>尚無課程照片</span></div>`;return;}
   valid.forEach((u,i)=>{
-    const d=document.createElement('div');
-    d.className='img-slide'+(i===0?' active':'');
-    d.style.cssText=`position:absolute;inset:0;background:url('${u}') center/cover`;
-    el.appendChild(d);
+    const d=document.createElement('div');d.className='img-slide'+(i===0?' active':'');
+    d.style.cssText=`position:absolute;inset:0;background:url('${u}') center/cover`;el.appendChild(d);
   });
   if(valid.length>1){
-    el.innerHTML+=`
-    <button class="c-arr cl" onclick="stepCImg(this,-1)"><i class="fas fa-chevron-left"></i></button>
+    el.innerHTML+=`<button class="c-arr cl" onclick="stepCImg(this,-1)"><i class="fas fa-chevron-left"></i></button>
     <button class="c-arr cr" onclick="stepCImg(this,1)"><i class="fas fa-chevron-right"></i></button>
     <div class="c-dots">${valid.map((_,i)=>`<span class="${i===0?'active':''}"></span>`).join('')}</div>`;
   }
 }
 function stepCImg(btn,dir){
   const box=btn.closest('.ccard-imgs');
-  const slides=[...box.querySelectorAll('.img-slide')];
-  const dots=[...box.querySelectorAll('.c-dots span')];
+  const slides=[...box.querySelectorAll('.img-slide')],dots=[...box.querySelectorAll('.c-dots span')];
   const cur=slides.findIndex(s=>s.classList.contains('active'));
   const nxt=(cur+dir+slides.length)%slides.length;
   slides[cur].classList.remove('active');slides[nxt].classList.add('active');
   if(dots.length){dots[cur].classList.remove('active');dots[nxt].classList.add('active');}
 }
 
-function buildCourses(courseContent, S){
-  const box=$('c-cards');
-  if(!courseContent){return;}
-  const items=courseContent.split('●').filter(s=>s.trim());
+/* ── Price parser ── */
+function parsePrices(text){
+  const rows=[];const re=/([0-9]+人)[班]?(?:[^$]*)\$([0-9,]+)/g;let m;
+  while((m=re.exec(text))!==null)rows.push({n:m[1],p:m[2]});
+  return rows;
+}
+
+/* ── Build courses ── */
+function buildCourses(content,S){
+  const box=$('c-cards');if(!content)return;
+  const items=content.split('●').filter(s=>s.trim());
   items.forEach((item,idx)=>{
-    const lines=item.trim().split('\n').filter(l=>l.trim());
-    if(!lines.length)return;
-    // Title + duration
+    const lines=item.trim().split('\n').filter(l=>l.trim());if(!lines.length)return;
     const rawTitle=lines[0];
     const durM=rawTitle.match(/[（(]([^）)]+)[）)]/);
     const dur=durM?durM[1]:'';
-    const title=rawTitle.replace(/[（(][^）)]+[）)]/,'').replace(/[-－]/g,'').trim();
-    // Separate desc lines from price lines
-    const descLines=[];const priceLines=[];let foundPrice=false;
+    const title=rawTitle.replace(/[（(][^）)]+[）)]/,'').replace(/[-－\s]+$/,'').trim();
+    const descLines=[],priceLines=[];let foundP=false;
     lines.slice(1).forEach(l=>{
-      if(l.match(/費用|元\/人|\$[0-9]|人班|人數/)){foundPrice=true;priceLines.push(l);}
-      else if(!foundPrice)descLines.push(l);
-      else descLines.push(l);// note lines after price
+      if(l.match(/費用|元\/人|\$[0-9]|人班|人數/)){foundP=true;priceLines.push(l);}
+      else if(!foundP)descLines.push(l);
     });
-    // Build price table
-    const allPriceText=priceLines.join(' ');
-    const priceRows=parsePrices(allPriceText);
+    const priceRows=parsePrices(priceLines.join(' '));
     let priceHTML='';
     if(priceRows.length){
       const ths=priceRows.map(r=>`<th>${r.n}</th>`).join('');
       const tds=priceRows.map(r=>`<td class="price-val">$${r.p}</td>`).join('');
-      priceHTML=`<table class="price-table" style="margin-top:14px"><thead><tr><th>人數</th>${ths}</tr></thead><tbody><tr><td>費用/人</td>${tds}</tr></tbody></table>`;
+      priceHTML=`<table class="price-table"><thead><tr><th>人數</th>${ths}</tr></thead><tbody><tr><td>費用/人</td>${tds}</tr></tbody></table>`;
     }
-    // Tags from CourseContent notes (lines in parentheses)
-    const tagMatches=[...item.matchAll(/[（(]([^）)$0-9][^）)]*)[）)]/g)].map(m=>m[1]);
-    const tagHTML=tagMatches.map(t=>`<span class="ctag">${t}</span>`).join('');
-
-    // Gather images: CourseN_Img1, CourseN_Img2 … or single Course{n}_Img
     const n=idx+1;
     const imgKeys=[`Course${n}_Img`,`Course${n}_Img1`,`Course${n}_Img2`,`Course${n}_Img3`,`Course${n}_Img4`];
     const imgs=imgKeys.map(k=>S[k]||'').filter(Boolean);
-
     const card=document.createElement('div');card.className='ccard';
     card.innerHTML=`<div class="ccard-inner">
       <div class="ccard-info">
-        <div class="ccard-header">
+        <div>
           <div class="ccard-title">${title}</div>
           ${dur?`<div class="ccard-dur"><i class="fas fa-clock"></i>${dur}</div>`:''}
-          ${tagHTML?`<div class="ccard-tags">${tagHTML}</div>`:''}
           <div class="ccard-desc">${descLines.filter(l=>!l.match(/費用|人數/)).join('\n')}</div>
         </div>
         ${priceHTML}
@@ -709,11 +716,11 @@ function buildCourses(courseContent, S){
       <div class="ccard-imgs" id="cimg-${idx}"></div>
     </div>`;
     box.appendChild(card);
-    buildCourseGallery($(`cimg-${idx}`), imgs);
+    buildCourseGallery($(`cimg-${idx}`),imgs);
   });
 }
 
-/* ── FAQ accordion ── */
+/* ── FAQ ── */
 function buildFAQ(text){
   const box=$('c-faq');
   const parts=text.split(/\n?Q[：:]/g).filter(s=>s.trim());
@@ -722,41 +729,22 @@ function buildFAQ(text){
     const lines=part.split(/\n?A[：:]/);
     const q=lines[0].trim(),a=(lines[1]||'').trim();
     const item=document.createElement('div');item.className='faq-item';
-    item.innerHTML=`<button class="faq-q" onclick="toggleFAQ(this)"><span>Q：${q}</span><i class="fas fa-chevron-down fi"></i></button>
-    <div class="faq-a">${a}</div>`;
+    item.innerHTML=`<button class="faq-q" onclick="toggleFAQ(this)"><span>Q：${q}</span><i class="fas fa-chevron-down fqi"></i></button><div class="faq-a">${a}</div>`;
     box.appendChild(item);
   });
 }
 function toggleFAQ(btn){btn.classList.toggle('open');btn.nextElementSibling.classList.toggle('show');}
 
-/* ── Philosophy ── */
-function buildPhil(text){
-  const box=$('phil-grid');
-  if(!text){
-    // default icons
-    const defaults=[
-      {icon:'fas fa-award',t:'專業',d:'PKing 輪堡國際認證教練與裁判，系統化教學讓你快速進步。'},
-      {icon:'fas fa-face-laugh-beam',t:'樂趣',d:'我們相信運動應該快樂，每堂課都讓你流汗又歡笑。'},
-      {icon:'fas fa-location-dot',t:'在地',d:'深耕花蓮，合作場地優質，服務在地社區與遠道旅人。'},
-      {icon:'fas fa-people-group',t:'全齡',d:'從兒童到樂齡，每個人都能找到屬於自己的節奏。'},
-    ];
-    defaults.forEach(d=>{
-      box.innerHTML+=`<div class="phil-item"><div class="phil-icon"><i class="${d.icon}"></i></div><div><h4>${d.t}</h4><p>${d.d}</p></div></div>`;
-    });
-    return;
-  }
-  // parse ● blocks
-  const items=text.split('●').filter(s=>s.trim());
-  const icons=['fas fa-award','fas fa-face-laugh-beam','fas fa-location-dot','fas fa-people-group','fas fa-star','fas fa-heart'];
-  if(items.length>=2){
-    items.forEach((item,i)=>{
-      const lines=item.trim().split('\n').filter(l=>l.trim());
-      const t=lines[0].trim(),d=lines.slice(1).join(' ').trim();
-      box.innerHTML+=`<div class="phil-item"><div class="phil-icon"><i class="${icons[i%icons.length]}"></i></div><div><h4>${t}</h4><p>${d}</p></div></div>`;
-    });
-  } else {
-    box.innerHTML=`<div style="grid-column:1/-1"><div class="prose">${text}</div></div>`;
-  }
+/* ── Contact info cards ── */
+function addCICard(container,icon,label,val){
+  if(!val)return;
+  container.innerHTML+=`<div class="ci-row">
+    <div class="ci-row-icon"><i class="${icon}"></i></div>
+    <div class="ci-row-body">
+      <div class="ci-row-label">${label}</div>
+      <div class="ci-row-val">${val}</div>
+    </div>
+  </div>`;
 }
 
 /* ── Products ── */
@@ -768,16 +756,8 @@ function initVT(){
   if(!mob&&(curView==='1'||curView==='2'))curView='g';
   applyV();
 }
-function sv(v){
-  curView=v;
-  ['g','l','1','2'].forEach(x=>{const b=$('v'+x);if(b)b.classList.toggle('on',x===v);});
-  applyV();
-}
-function applyV(){
-  const g=$('pgrid');g.classList.remove('v-list','v-2');
-  if(curView==='l')g.classList.add('v-list');
-  if(curView==='2')g.classList.add('v-2');
-}
+function sv(v){curView=v;['g','l','1','2'].forEach(x=>{const b=$('v'+x);if(b)b.classList.toggle('on',x===v);});applyV();}
+function applyV(){const g=$('pgrid');g.classList.remove('v-list','v-2');if(curView==='l')g.classList.add('v-list');if(curView==='2')g.classList.add('v-2');}
 function updateCats(){
   const b=$('sb').value;
   const cats=[...new Set(prods.filter(p=>b==='all'||p.brand===b).map(p=>p.cat))].filter(Boolean);
@@ -795,7 +775,7 @@ function drawProds(){
   list.forEach(p=>{
     const sc=stkCls(p.stock);
     g.innerHTML+=`<div class="pc" onclick="openMod(${p.id})">
-      <div class="pc-img"><img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 80%22%3E%3Crect width=%22100%22 height=%2280%22 fill=%22%23ffffff%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23ccc%22 font-size=%2210%22%3ENo Image%3C/text%3E%3C/svg%3E'"></div>
+      <div class="pc-img"><img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 80%22%3E%3Crect width=%22100%22 height=%2280%22 fill=%22%23fff%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23ccc%22 font-size=%2210%22%3ENo Image%3C/text%3E%3C/svg%3E'"></div>
       <div class="pc-body">
         <div class="pc-badge">${p.brand}${p.brand&&p.cat?' · ':''}${p.cat}</div>
         <div class="pc-name">${p.name}</div>
@@ -808,27 +788,25 @@ function drawProds(){
   applyV();
 }
 
-/* ── Modal with image gallery ── */
+/* ── Modal ── */
 function buildModGallery(imgs){
   const gal=$('m-gallery');gal.innerHTML='';
-  if(!imgs.length){gal.innerHTML='<div style="display:flex;align-items:center;justify-content:center;color:#ccc;font-size:.85rem;padding:20px">無圖片</div>';return;}
+  if(!imgs.length){gal.innerHTML=`<div style="flex:1;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:.85rem;padding:20px">無圖片</div>`;return;}
+  const mainArea=document.createElement('div');mainArea.className='mg-main';
   imgs.forEach((u,i)=>{
-    const d=document.createElement('div');
-    d.className='mg-slide'+(i===0?' active':'');
-    d.innerHTML=`<img src="${u}" alt="">`;
-    gal.appendChild(d);
+    const d=document.createElement('div');d.className='mg-slide'+(i===0?' active':'');
+    d.innerHTML=`<img src="${u}" alt="" loading="lazy">`;mainArea.appendChild(d);
   });
   if(imgs.length>1){
-    gal.innerHTML+=`
-    <button class="mg-arr ml" onclick="stepMod(-1)"><i class="fas fa-chevron-left"></i></button>
-    <button class="mg-arr mr" onclick="stepMod(1)"><i class="fas fa-chevron-right"></i></button>
-    <div class="mg-dots">${imgs.map((_,i)=>`<span class="${i===0?'active':''}"></span>`).join('')}</div>`;
-    // thumbs
-    const tw=document.createElement('div');tw.className='m-thumbs';
+    mainArea.innerHTML+=`<button class="mg-arr ml" onclick="stepMod(-1)"><i class="fas fa-chevron-left"></i></button>
+    <button class="mg-arr mr" onclick="stepMod(1)"><i class="fas fa-chevron-right"></i></button>`;
+  }
+  gal.appendChild(mainArea);
+  if(imgs.length>1){
+    const tw=document.createElement('div');tw.className='mg-thumbs';
     imgs.forEach((u,i)=>{
-      const t=document.createElement('img');
-      t.src=u;t.className='m-thumb'+(i===0?' active':'');t.loading='lazy';
-      t.onclick=()=>goMod(i);tw.appendChild(t);
+      const t=document.createElement('img');t.src=u;t.className='m-thumb'+(i===0?' active':'');
+      t.loading='lazy';t.onclick=()=>goMod(i);tw.appendChild(t);
     });
     gal.appendChild(tw);
   }
@@ -836,33 +814,25 @@ function buildModGallery(imgs){
 }
 function goMod(n){
   modIdx=n;
-  const slides=[...document.querySelectorAll('.mg-slide')];
-  const dots=[...document.querySelectorAll('.mg-dots span')];
-  const thumbs=[...document.querySelectorAll('.m-thumb')];
-  slides.forEach((s,i)=>s.classList.toggle('active',i===n));
-  dots.forEach((d,i)=>d.classList.toggle('active',i===n));
-  thumbs.forEach((t,i)=>t.classList.toggle('active',i===n));
+  [...document.querySelectorAll('.mg-slide')].forEach((s,i)=>s.classList.toggle('active',i===n));
+  [...document.querySelectorAll('.m-thumb')].forEach((t,i)=>t.classList.toggle('active',i===n));
 }
 function stepMod(dir){goMod((modIdx+dir+modImgs.length)%modImgs.length);}
-
 function openMod(id){
   const p=prods.find(x=>x.id===id);if(!p)return;
-  // Gather all images: main + extras (img2, img3 ...)
   const imgs=[p.img,...(p.imgs||[])].filter(Boolean);
   buildModGallery(imgs);
   $('m-badge').textContent=`${p.brand}${p.brand&&p.cat?' · ':''}${p.cat}`;
   $('m-name').textContent=p.name;
   $('m-price').textContent=`$${p.price}`;
   const ms=$('m-stk'),sc=stkCls(p.stock);
-  if(p.stock){ms.textContent=p.stock;ms.className='m-stk '+sc;ms.style.display='inline-block';}
-  else ms.style.display='none';
+  if(p.stock){ms.textContent=p.stock;ms.className='m-stk '+sc;ms.style.display='inline-block';}else ms.style.display='none';
   $('m-spec').innerHTML=`<strong>規格：</strong>${p.spec||'請洽詢'}`;
   $('m-desc').textContent=p.desc;
   $('m-line').href=lineHref;
   $('modal').classList.add('open');document.body.style.overflow='hidden';
 }
 function closeMod(){$('modal').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeMod();});
 
 /* ── INIT ── */
 async function init(){
@@ -879,8 +849,9 @@ async function init(){
     $('nav-brand').textContent=title;
     if(S.FaviconURL)$('favicon').href=durl(S.FaviconURL);
     const logo=durl(S.LogoURL||'');
-    if(logo){$('logo-img').src=logo;$('foot-logo').src=logo;}
-    else $('logo-img').style.display='none';
+    const logoImg=$('logo-img');
+    if(logo){logoImg.src=logo;$('foot-logo').src=logo;}
+    else{logoImg.style.display='none';}
 
     // About
     $('t-about').textContent=S.AboutContent||'';
@@ -891,16 +862,20 @@ async function init(){
     for(let i=1;;i++){
       const img=S[`BaseImg${i}`],txt=S[`BaseText${i}`];
       if(img===undefined&&txt===undefined)break;
-      if(!txt||txt.trim()==='')continue;
+      if(!txt||!txt.trim())continue;
       bSec.innerHTML+=`<div class="card"><div class="flex-row ${i%2===0?'rev':''}">
         ${img?`<div class="side-img"><img src="${durl(img)}" alt="" loading="lazy"></div>`:''}
         <div class="side-text"><div class="prose">${txt}</div></div>
       </div></div>`;
     }
+
+    // 名片 / 團隊照（支援 lightbox 放大）
     let bc='';
-    for(let i=1;;i++){const img=S[`BizCardImg${i}`];if(!img)break;bc+=`<div class="biz-card"><img src="${durl(img)}" alt="" loading="lazy"></div>`;}
+    for(let i=1;;i++){const img=S[`BizCardImg${i}`];if(!img)break;
+      const u=durl(img);
+      bc+=`<div class="biz-card" onclick="openLB('${u}')"><img src="${u}" alt="名片${i}" loading="lazy"></div>`;
+    }
     if(bc)$('sec-biz').innerHTML=`<div class="card"><h2>團隊介紹</h2><div class="biz-grid">${bc}</div></div>`;
-    if(S.StaffContact)$('sec-staff').innerHTML=`<div class="card" style="padding:18px 24px"><div class="prose">${S.StaffContact}</div></div>`;
 
     // Hero
     const heroUrls=[];
@@ -914,27 +889,18 @@ async function init(){
         ${ciImg?`<div class="side-img"><img src="${ciImg}" alt="課程" loading="lazy"></div>`:''}
         <div class="side-text"><div class="prose">${ciTxt}</div></div>
       </div>`;
-    } else $('c-intro-card').style.display='none';
-
-    buildCourses(S.CourseContent, S);
-
+    }else $('c-intro-card').style.display='none';
+    buildCourses(S.CourseContent,S);
     const fees=S.CourseFees||'';
-    if(fees&&fees!=='（收費與報名說明）')$('t-fees').textContent=fees;
-    else $('c-fees-card').style.display='none';
-
+    if(fees)$('t-fees').textContent=fees;else $('c-fees-card').style.display='none';
     const cImg=durl(S.CoachImg||'');
     if(cImg){$('c-coach-img').src=cImg;$('c-coach-img-wrap').style.display='block';}
     const cTxt=S.CoachIntro||'';
-    if(cTxt&&cTxt!=='（教練簡介）')$('t-coach').textContent=cTxt;
-    else if(!cImg)$('c-coach-card').style.display='none';
-
+    if(cTxt)$('t-coach').textContent=cTxt;else if(!cImg)$('c-coach-card').style.display='none';
     const rent=S.CourseNotes||'';
-    if(rent&&rent!=='（球拍租借說明）')$('t-rent').textContent=rent;
-    else $('c-rent-card').style.display='none';
-
+    if(rent)$('t-rent').textContent=rent;else $('c-rent-card').style.display='none';
     const faq=S.CourseFAQ||'';
-    if(faq&&!faq.includes('（'))buildFAQ(faq);
-    else $('c-faq-card').style.display='none';
+    if(faq)buildFAQ(faq);else $('c-faq-card').style.display='none';
 
     // Venue
     const vList=$('venue-list');let vCnt=0;
@@ -949,8 +915,7 @@ async function init(){
       const mapSrc=raw.startsWith('<iframe')?(raw.match(/src=["']([^"']+)["']/)||[])[1]||'':raw;
       vList.innerHTML+=`<div class="venue-card">
         <div class="venue-top">
-          <div class="venue-info">
-            <h3>${name}</h3>
+          <div class="venue-info"><h3>${name}</h3>
             ${addr?`<div class="vrow"><i class="fas fa-location-dot"></i><span>${addr}</span></div>`:''}
             ${date?`<div class="vrow"><i class="fas fa-calendar-days"></i><span>${date}</span></div>`:''}
             ${time?`<div class="vrow"><i class="fas fa-clock"></i><span>${time}</span></div>`:''}
@@ -974,8 +939,7 @@ async function init(){
       const desc=S[`PartnerDesc${i}`]||'',img=S[`PartnerImg${i}`]||'',link=S[`PartnerLink${i}`]||'';
       pList.innerHTML+=`<div class="partner-card">
         ${img?`<img class="partner-logo" src="${durl(img)}" alt="${name}" loading="lazy">`:''}
-        <div>
-          <h3 style="color:var(--navy);margin-bottom:6px;font-size:1.05rem">${name}</h3>
+        <div><h3 style="color:var(--navy);margin-bottom:6px;font-size:1.05rem">${name}</h3>
           <div class="prose" style="font-size:.87rem;color:#555">${desc}</div>
           ${link?`<a href="${link}" target="_blank" class="partner-link"><i class="fas fa-arrow-up-right-from-square"></i> 前往官網</a>`:''}
         </div>
@@ -988,10 +952,12 @@ async function init(){
     $('l-line').href=lineHref;
     $('l-fb').href=S.FBLink||'#';
     $('l-ig').href=S.IGLink||'#';
-    setCIRow('ci-staff',S.StaffContact);
-    setCIRow('ci-addr',S.Address);
-    if(S.BizInfo){$('ci-biz').querySelector('span').textContent=`統編：${S.BizInfo}`;$('ci-biz').style.display='flex';}
-    if(S.ContactDesc){$('ci-desc').textContent=S.ContactDesc;$('ci-desc').style.display='block';}
+    const ciC=$('contact-info-cards');
+    addCICard(ciC,'fas fa-user','聯絡人',S.StaffContact);
+    addCICard(ciC,'fas fa-location-dot','地址',S.Address);
+    addCICard(ciC,'fas fa-building','統一編號',S.BizInfo?`${S.BizInfo}`:'');
+    addCICard(ciC,'fas fa-comment-dots','備註',S.ContactDesc);
+
     if(S.ContactMap){
       const mb=$('map-box'),raw=S.ContactMap.trim();
       const src=raw.startsWith('<iframe')?(raw.match(/src=["']([^"']+)["']/)||[])[1]||'':raw;
@@ -1007,7 +973,6 @@ async function init(){
     // Products
     const pRows=parseCSV(await pRes.text()).slice(1);
     prods=pRows.map((c,i)=>{
-      // F欄以後可能有額外圖片欄 (col8, col9...)
       const extraImgs=c.slice(8).map(u=>durl(u)).filter(Boolean);
       return{id:i,brand:c[0]||'',name:c[1]||'',cat:c[2]||'',price:c[3]||'',
         desc:c[4]||'',img:durl(c[5]||''),spec:c[6]||'',stock:c[7]||'',imgs:extraImgs};
@@ -1017,9 +982,7 @@ async function init(){
     updateCats();initVT();
 
   }catch(e){console.error('Init error:',e);}
-  finally{
-    const l=$('loader');l.classList.add('hide');setTimeout(()=>l.style.display='none',500);
-  }
+  finally{const l=$('loader');l.classList.add('hide');setTimeout(()=>l.style.display='none',500);}
 }
 window.addEventListener('resize',()=>{if($('page-products').classList.contains('active'))initVT();});
 init().then(restoreHash);
