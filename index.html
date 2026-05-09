@@ -31,9 +31,11 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 /* ── Nav ── */
 nav{background:var(--white);height:var(--nh);position:sticky;top:0;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,.06)}
 .nav-in{max-width:1200px;margin:0 auto;height:100%;display:flex;justify-content:space-between;align-items:center;padding:0 20px;gap:12px}
-.nav-logo{display:flex;align-items:center;gap:8px;flex-shrink:0;cursor:pointer}
-.nav-logo img{height:38px;width:auto;object-fit:contain}
-#nav-brand{font-weight:800;font-size:.95rem;color:var(--navy);white-space:nowrap}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;cursor:pointer;text-decoration:none}
+.nav-logo-img{height:38px;width:auto;object-fit:contain;display:block}
+.nav-logo-text{display:flex;flex-direction:column;gap:1px}
+.nav-logo-label{font-size:.6rem;font-weight:600;color:var(--sub);letter-spacing:.12em;text-transform:uppercase;line-height:1}
+#nav-brand{font-weight:800;font-size:.95rem;color:var(--navy);white-space:nowrap;line-height:1.2}
 .nav-links{display:flex;gap:2px}
 .nav-links a{padding:7px 9px;border-radius:7px;font-weight:600;font-size:.82rem;color:#2c3e50;cursor:pointer;white-space:nowrap;transition:.2s}
 .nav-links a:hover{background:#eef3ee;color:var(--g)}
@@ -94,19 +96,8 @@ h2::after{content:"";position:absolute;left:0;bottom:0;width:32px;height:5px;bac
 .side-img img{width:100%;border-radius:12px;object-fit:cover;max-height:300px}
 .side-text{flex:1.6;min-width:0}
 .biz-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
-.biz-card{border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08);cursor:pointer;transition:.25s;position:relative}
-.biz-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.14)}
+.biz-card{border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08)}
 .biz-card img{width:100%;object-fit:cover}
-.biz-card .biz-zoom{position:absolute;bottom:8px;right:8px;background:rgba(0,0,0,.45);color:#fff;border-radius:6px;padding:4px 8px;font-size:.72rem;display:flex;align-items:center;gap:4px;opacity:0;transition:.2s}
-.biz-card:hover .biz-zoom{opacity:1}
-
-/* ── Image Lightbox ── */
-.lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:4000;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(6px)}
-.lightbox.open{display:flex}
-.lb-inner{position:relative;max-width:90vw;max-height:90vh;display:flex;align-items:center;justify-content:center}
-.lb-inner img{max-width:90vw;max-height:88vh;object-fit:contain;border-radius:8px;box-shadow:0 8px 40px rgba(0,0,0,.6)}
-.lb-close{position:fixed;top:16px;right:20px;color:#fff;font-size:1.6rem;cursor:pointer;z-index:10;width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,.15);transition:.2s}
-.lb-close:hover{background:rgba(255,255,255,.3)}
 
 /* ── Course Cards (新設計) ── */
 .ccard{background:var(--white);border-radius:16px;box-shadow:var(--sh);margin-bottom:24px;overflow:hidden}
