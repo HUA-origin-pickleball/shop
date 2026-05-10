@@ -30,16 +30,13 @@ button{cursor:pointer;border:none;background:none;font-family:inherit}
 /* ── Nav ── */
 nav{background:var(--white);height:var(--nh);position:sticky;top:0;z-index:1000;box-shadow:0 2px 10px rgba(0,0,0,.06)}
 .nav-in{max-width:1200px;margin:0 auto;height:100%;display:flex;justify-content:space-between;align-items:center;padding:0 20px;gap:12px}
-
-/* Logo区域 */
-.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;cursor:pointer;text-decoration:none}
+.nav-logo{display:flex;align-items:center;gap:10px;flex-shrink:0;cursor:pointer}
 .nav-logo-img-wrap{width:42px;height:42px;border-radius:10px;overflow:hidden;background:#f0f0f0;flex-shrink:0;display:flex;align-items:center;justify-content:center}
 .nav-logo-img-wrap img{width:100%;height:100%;object-fit:contain}
 .nav-logo-divider{width:1px;height:28px;background:var(--border);flex-shrink:0}
 .nav-logo-text{display:flex;flex-direction:column;gap:2px}
 .nav-logo-en{font-size:.58rem;font-weight:700;color:var(--sub);letter-spacing:.14em;text-transform:uppercase;line-height:1}
 .nav-logo-zh{font-size:.92rem;font-weight:900;color:var(--navy);line-height:1.2;white-space:nowrap}
-
 .nav-links{display:flex;gap:2px}
 .nav-links a{padding:7px 9px;border-radius:7px;font-weight:600;font-size:.82rem;color:#2c3e50;cursor:pointer;white-space:nowrap;transition:.2s}
 .nav-links a:hover{background:#eef3ee;color:var(--g)}
@@ -62,20 +59,39 @@ h2{color:var(--navy);font-size:1.45rem;margin-bottom:20px;padding-bottom:12px;po
 h2::after{content:"";position:absolute;left:0;bottom:0;width:32px;height:5px;background:var(--acc);border-radius:4px}
 .prose{white-space:pre-wrap;word-break:break-word;color:#444;line-height:1.85;overflow-wrap:anywhere}
 
-/* ── Hero ── */
-.hero{width:100%;height:520px;position:relative;overflow:hidden;background:#1e2e1e;touch-action:pan-y}
-.slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;background-size:cover;background-position:center}
+/* ── Hero (方案A 文字沉底) ── */
+.hero{width:100%;position:relative;overflow:hidden;background:#1e2e1e;touch-action:pan-y}
+.hero-slides{height:480px;position:relative}
+.slide{position:absolute;inset:0;opacity:0;transition:opacity 1s ease;background-size:cover;background-position:center top}
 .slide.active{opacity:1}
-.hero-ov{position:absolute;inset:0;background:linear-gradient(160deg,rgba(0,0,0,.05),rgba(0,0,0,.52))}
-.hero-txt{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:20px 32px;z-index:3;pointer-events:none}
-.hero-txt h1{font-size:clamp(1.55rem,4.5vw,3rem);font-weight:900;text-shadow:0 2px 14px rgba(0,0,0,.55);margin-bottom:10px;word-break:keep-all;line-height:1.25;max-width:700px}
-.hero-txt p{font-size:clamp(.85rem,2vw,1.1rem);opacity:.92;text-shadow:0 1px 6px rgba(0,0,0,.4);max-width:500px;word-break:keep-all}
-.hero-arr{position:absolute;top:50%;transform:translateY(-50%);z-index:5;background:rgba(255,255,255,.2);color:#fff;width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.95rem;transition:.2s;backdrop-filter:blur(4px)}
-.hero-arr:hover{background:rgba(255,255,255,.38)}
+.hero-ov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 35%,rgba(0,0,0,.3) 60%,rgba(0,0,0,.72) 100%);pointer-events:none}
+.hero-txt{position:absolute;left:0;right:0;bottom:0;padding:32px 36px 28px;z-index:3;pointer-events:none}
+.hero-txt h1{font-size:clamp(1.4rem,4vw,2.6rem);font-weight:900;color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.6);margin-bottom:6px;word-break:keep-all;line-height:1.25;max-width:680px}
+.hero-txt p{font-size:clamp(.82rem,1.8vw,1rem);color:rgba(255,255,255,.88);text-shadow:0 1px 6px rgba(0,0,0,.5);max-width:500px;word-break:keep-all;line-height:1.55}
+.hero-arr{position:absolute;top:50%;transform:translateY(-50%);z-index:5;background:rgba(255,255,255,.18);color:#fff;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:.2s;backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,.2)}
+.hero-arr:hover{background:rgba(255,255,255,.34)}
 #hp{left:14px}#hn{right:14px}
-.hdots{position:absolute;bottom:16px;left:50%;transform:translateX(-50%);display:flex;gap:7px;z-index:5}
-.dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.4);transition:.3s;padding:0}
-.dot.active{background:#fff;width:22px;border-radius:4px}
+.hdots{position:absolute;bottom:10px;right:20px;display:flex;gap:6px;z-index:5}
+.dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.38);transition:.3s;padding:0}
+.dot.active{background:#fff;width:18px;border-radius:3px}
+
+/* ── 首頁公告跑馬燈 ── */
+.marquee-bar{background:var(--navy);color:#fff;padding:9px 0;overflow:hidden;position:relative}
+.marquee-inner{display:flex;gap:60px;white-space:nowrap;animation:marquee 28s linear infinite}
+.marquee-inner:hover{animation-play-state:paused}
+.marquee-item{display:inline-flex;align-items:center;gap:8px;font-size:.82rem;cursor:pointer;transition:opacity .2s}
+.marquee-item:hover{opacity:.75}
+.marquee-tag{background:var(--acc);border-radius:4px;padding:1px 6px;font-size:.68rem;font-weight:700}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* ── 首頁公告卡片區 ── */
+.news-preview-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:4px}
+.news-prev-card{background:var(--bg);border-radius:12px;padding:16px;cursor:pointer;transition:.2s;border:1.5px solid transparent}
+.news-prev-card:hover{border-color:var(--g);background:#eef3ee}
+.news-prev-tag{font-size:.68rem;font-weight:800;color:var(--g);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+.news-prev-title{font-size:.9rem;font-weight:700;color:var(--navy);margin-bottom:4px;line-height:1.4}
+.news-prev-date{font-size:.75rem;color:var(--sub)}
+.news-more-btn{display:inline-flex;align-items:center;gap:6px;margin-top:14px;color:var(--g);font-weight:700;font-size:.88rem;cursor:pointer}
 
 /* ── Philosophy ── */
 .phil-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:8px}
@@ -93,42 +109,117 @@ h2::after{content:"";position:absolute;left:0;bottom:0;width:32px;height:5px;bac
 .sv-card p{font-size:.83rem;color:var(--sub);line-height:1.55}
 .sv-link{display:inline-flex;align-items:center;gap:5px;margin-top:12px;color:var(--g);font-weight:700;font-size:.82rem}
 
+/* ── Google 評論 ── */
+.review-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px;margin-top:4px}
+.rv-card{background:var(--bg);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:10px}
+.rv-header{display:flex;align-items:center;gap:10px}
+.rv-avatar{width:40px;height:40px;border-radius:50%;background:var(--g);display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700;font-size:1rem;flex-shrink:0}
+.rv-name{font-weight:700;font-size:.9rem;color:var(--navy)}
+.rv-date{font-size:.75rem;color:var(--sub)}
+.rv-stars{color:#f4b400;font-size:.85rem;letter-spacing:1px}
+.rv-text{font-size:.86rem;color:#555;line-height:1.65}
+.rv-cta{display:flex;align-items:center;justify-content:center;gap:10px;background:#fff;border:2px solid var(--border);border-radius:12px;padding:14px 20px;cursor:pointer;transition:.2s;text-decoration:none;margin-top:8px}
+.rv-cta:hover{border-color:var(--g);background:#f0f5f0}
+.rv-cta-icon{width:32px;height:32px}
+.rv-cta-text{font-weight:700;font-size:.9rem;color:var(--navy)}
+.rv-cta-sub{font-size:.75rem;color:var(--sub)}
+.rv-summary{display:flex;align-items:center;gap:20px;background:var(--bg);border-radius:14px;padding:20px 24px;margin-bottom:20px}
+.rv-score{font-size:3rem;font-weight:900;color:var(--navy);line-height:1}
+.rv-score-right .rv-stars{font-size:1.1rem}
+.rv-score-right p{font-size:.8rem;color:var(--sub);margin-top:4px}
+
 /* ── Flex row ── */
 .flex-row{display:flex;gap:32px;align-items:flex-start}
 .flex-row.rev{flex-direction:row-reverse}
 .side-img{flex:1;min-width:0}
 .side-img img{width:100%;border-radius:12px;object-fit:cover;max-height:300px}
 .side-text{flex:1.6;min-width:0}
-
-/* ── Biz cards (名片 lightbox) ── */
 .biz-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
 .biz-card{border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.08);cursor:zoom-in;position:relative;transition:.25s}
 .biz-card:hover{transform:translateY(-4px);box-shadow:var(--sh-md)}
 .biz-card img{width:100%;object-fit:cover;display:block}
 .biz-card::after{content:"\f00e";font-family:"Font Awesome 6 Free";font-weight:900;position:absolute;bottom:8px;right:10px;color:rgba(255,255,255,.85);font-size:.85rem;text-shadow:0 1px 4px rgba(0,0,0,.5);pointer-events:none}
 
-/* Lightbox */
+/* ── Lightbox ── */
 .lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:4000;align-items:center;justify-content:center;padding:20px;cursor:zoom-out}
 .lb.open{display:flex}
 .lb img{max-width:min(90vw,900px);max-height:90vh;object-fit:contain;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
 .lb-close{position:absolute;top:16px;right:20px;color:#fff;font-size:1.6rem;opacity:.7;cursor:pointer;transition:.2s;background:none;border:none}
 .lb-close:hover{opacity:1}
 
+/* ── 最新消息頁 ── */
+.news-filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.nf-btn{padding:6px 14px;border-radius:20px;font-size:.82rem;font-weight:700;border:1.5px solid var(--border);color:var(--sub);transition:.2s;background:var(--white)}
+.nf-btn:hover,.nf-btn.active{background:var(--g);border-color:var(--g);color:#fff}
+.news-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px}
+.nc{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;transition:.25s;cursor:pointer}
+.nc:hover{transform:translateY(-4px);box-shadow:var(--sh-md)}
+.nc-img{height:180px;background:#eee;overflow:hidden;position:relative}
+.nc-img img{width:100%;height:100%;object-fit:cover}
+.nc-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;font-size:2.5rem;opacity:.2}
+.nc-body{padding:18px}
+.nc-tag{display:inline-block;font-size:.68rem;font-weight:800;padding:2px 8px;border-radius:20px;margin-bottom:8px}
+.tag-event{background:#fef3e2;color:#c67c00}
+.tag-course{background:#e8f5e9;color:#2e7d32}
+.tag-product{background:#e8eaf6;color:#3949ab}
+.tag-news{background:#fce4ec;color:#c62828}
+.nc-title{font-size:1rem;font-weight:800;color:var(--navy);margin-bottom:6px;line-height:1.4}
+.nc-date{font-size:.75rem;color:var(--sub);margin-bottom:8px;display:flex;align-items:center;gap:5px}
+.nc-excerpt{font-size:.84rem;color:#666;line-height:1.6;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+
+/* News detail modal */
+.news-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:3500;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+.news-modal.open{display:flex}
+.nm-box{background:#fff;width:100%;max-width:680px;border-radius:20px;max-height:90vh;overflow-y:auto;position:relative}
+.nm-img{width:100%;height:240px;object-fit:cover;display:block}
+.nm-body{padding:28px}
+.nm-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;font-size:1rem;color:#666;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+.nm-close:hover{background:#fff}
+.nm-tag{font-size:.72rem;font-weight:800;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:10px}
+.nm-title{font-size:1.3rem;font-weight:900;color:var(--navy);margin-bottom:6px;line-height:1.35}
+.nm-date{font-size:.78rem;color:var(--sub);margin-bottom:16px;display:flex;align-items:center;gap:5px}
+.nm-content{font-size:.9rem;color:#444;line-height:1.85;white-space:pre-wrap;word-break:break-word}
+
+/* ── 新手知識頁 ── */
+.guide-hero{background:linear-gradient(135deg,var(--navy) 0%,var(--g) 100%);border-radius:var(--r);padding:36px;color:#fff;margin-bottom:24px;position:relative;overflow:hidden}
+.guide-hero::before{content:"";position:absolute;right:-20px;top:-20px;width:180px;height:180px;border-radius:50%;background:rgba(255,255,255,.06)}
+.guide-hero h2{color:#fff;font-size:1.6rem;margin-bottom:8px}
+.guide-hero h2::after{background:rgba(255,255,255,.5)}
+.guide-hero p{opacity:.85;font-size:.92rem;max-width:500px}
+.guide-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.g-tab{padding:7px 16px;border-radius:20px;font-size:.84rem;font-weight:700;border:1.5px solid var(--border);color:var(--sub);transition:.2s;background:var(--white)}
+.g-tab:hover,.g-tab.active{background:var(--g);border-color:var(--g);color:#fff}
+.guide-section{display:none}.guide-section.active{display:block}
+/* 知識卡片 */
+.guide-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.gd-card{background:var(--white);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
+.gd-card-head{padding:20px 22px 12px;display:flex;align-items:center;gap:12px}
+.gd-icon{width:40px;height:40px;border-radius:10px;background:var(--g);display:flex;align-items:center;justify-content:center;color:#fff;font-size:1rem;flex-shrink:0}
+.gd-card h3{color:var(--navy);font-size:.97rem;font-weight:800}
+.gd-card-body{padding:0 22px 20px;font-size:.86rem;color:#555;line-height:1.72}
+/* 規則列表 */
+.rule-list{list-style:none;display:flex;flex-direction:column;gap:10px}
+.rule-list li{display:flex;gap:10px;align-items:flex-start;background:var(--bg);border-radius:10px;padding:12px 14px;font-size:.87rem;color:#444}
+.rule-num{width:24px;height:24px;border-radius:50%;background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:800;flex-shrink:0;margin-top:1px}
+/* 比較表 */
+.compare-table{width:100%;border-collapse:collapse;font-size:.85rem}
+.compare-table th{background:var(--navy);color:#fff;padding:10px 14px;text-align:left;font-weight:700}
+.compare-table td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top}
+.compare-table tr:last-child td{border-bottom:none}
+.compare-table tr:nth-child(even) td{background:#f8faf8}
+.compare-table .hl{color:var(--g);font-weight:700}
+
 /* ── Course Cards ── */
 .ccard{background:var(--white);border-radius:16px;box-shadow:var(--sh);margin-bottom:24px;overflow:hidden}
 .ccard-inner{display:grid;grid-template-columns:1fr 1fr;min-height:280px}
-.ccard-info{padding:28px 30px;display:flex;flex-direction:column}
-.ccard-title{font-size:1.1rem;font-weight:800;color:var(--navy);margin-bottom:4px}
+.ccard-info{padding:26px 28px;display:flex;flex-direction:column}
+.ccard-title{font-size:1.05rem;font-weight:800;color:var(--navy);margin-bottom:4px}
 .ccard-dur{font-size:.75rem;color:var(--sub);display:flex;align-items:center;gap:5px;margin-bottom:10px}
-.ccard-desc{font-size:.87rem;color:#444;line-height:1.7;white-space:pre-wrap;word-break:break-word;flex:1}
-.ccard-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
-.ctag{background:#eef3ee;color:var(--g);font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:20px}
-.price-table{width:100%;border-collapse:collapse;margin-top:14px;font-size:.84rem}
-.price-table th{background:var(--g);color:#fff;padding:7px 10px;text-align:center;font-weight:700}
-.price-table td{padding:7px 10px;text-align:center;border-bottom:1px solid var(--border)}
-.price-table tr:last-child td{border-bottom:none}
-.price-table tr:nth-child(even) td{background:#f8faf8}
-.price-val{color:var(--acc);font-weight:800}
+.ccard-desc{font-size:.86rem;color:#444;line-height:1.7;white-space:pre-wrap;word-break:break-word;flex:1}
+.price-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.price-pill{display:flex;flex-direction:column;align-items:center;background:var(--bg);border-radius:10px;padding:9px 14px;min-width:72px;border:1.5px solid var(--border)}
+.price-pill .pp-n{font-size:.72rem;font-weight:700;color:var(--sub);margin-bottom:3px;white-space:nowrap}
+.price-pill .pp-v{font-size:1rem;font-weight:900;color:var(--acc);white-space:nowrap}
 .ccard-imgs{position:relative;overflow:hidden;background:#eee}
 .img-slide{position:absolute;inset:0;opacity:0;transition:opacity .6s;background-size:cover;background-position:center}
 .img-slide.active{opacity:1}
@@ -200,14 +291,14 @@ h2::after{content:"";position:absolute;left:0;bottom:0;width:32px;height:5px;bac
 .empty{grid-column:1/-1;text-align:center;padding:50px 20px;color:var(--sub)}
 .empty i{font-size:2.5rem;opacity:.25;display:block;margin-bottom:10px}
 
-/* ── Modal gallery ── */
+/* ── Modal (商品) ── */
 .modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:3000;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(3px)}
 .modal.open{display:flex}
 .mbox{background:#fff;width:100%;max-width:860px;border-radius:20px;display:flex;overflow:hidden;position:relative;max-height:92vh}
 .mcls{position:absolute;top:12px;right:12px;width:28px;height:28px;border-radius:50%;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:.95rem;color:#999;z-index:10;transition:.2s}
 .mcls:hover{background:#ddd;color:#333}
 .m-gallery{flex:1;position:relative;background:#fff;min-height:260px;display:flex;flex-direction:column}
-.mg-main{flex:1;position:relative;display:flex;align-items:center;justify-content:center;padding:20px;min-height:220px}
+.mg-main{flex:1;position:relative;display:flex;align-items:center;justify-content:center;min-height:220px}
 .mg-slide{position:absolute;inset:0;opacity:0;transition:opacity .5s;display:flex;align-items:center;justify-content:center;padding:20px}
 .mg-slide.active{opacity:1;position:relative;min-height:220px}
 .mg-slide img{max-width:100%;max-height:280px;object-fit:contain}
@@ -229,19 +320,15 @@ h2::after{content:"";position:absolute;left:0;bottom:0;width:32px;height:5px;bac
 
 /* ── Contact ── */
 .contact-wrap{display:grid;grid-template-columns:1fr 1.3fr;gap:22px;align-items:start}
-/* 左側社群按鈕 + 聯絡資訊卡片 */
 .cbtn{display:flex;align-items:center;gap:11px;padding:13px 16px;border-radius:10px;color:#fff;font-weight:700;margin-bottom:11px;font-size:.93rem;transition:.2s}
 .cbtn:hover{filter:brightness(1.08);transform:translateY(-2px)}
 .c-line{background:#06c755}.c-fb{background:#1877f2}
 .c-ig{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
-/* 聯絡資訊 — 改為分開的 info row 卡片 */
 .contact-info-cards{display:flex;flex-direction:column;gap:10px;margin-top:14px}
 .ci-row{display:flex;align-items:center;gap:14px;background:var(--bg);border-radius:10px;padding:12px 16px}
 .ci-row-icon{width:36px;height:36px;border-radius:9px;background:var(--g);display:flex;align-items:center;justify-content:center;color:#fff;font-size:.9rem;flex-shrink:0}
-.ci-row-body{min-width:0}
 .ci-row-label{font-size:.7rem;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1px}
 .ci-row-val{font-size:.9rem;color:#2c3e50;font-weight:600;word-break:break-word}
-/* 右側地圖 */
 .map-wrap{border-radius:var(--r);overflow:hidden;height:440px;border:1.5px solid var(--border)}
 .map-wrap iframe{width:100%;height:100%;border:0;display:block}
 
@@ -268,16 +355,21 @@ footer p{font-size:.82rem;line-height:1.95}
   .service-grid{grid-template-columns:1fr}
   .contact-wrap{grid-template-columns:1fr}
   .map-wrap{height:280px}
+  .news-preview-grid{grid-template-columns:1fr 1fr}
 }
 @media(max-width:768px){
   :root{--nh:58px}
   .nav-links{display:none}
   .hbg{display:flex}
-  .hero{height:280px}
+  .hero-slides{height:300px}
+  .hero-txt{padding:20px 18px 16px}
+  .hdots{right:12px;bottom:6px}
   .wrap{padding:24px 14px}
   .card{padding:20px 16px}
   .flex-row,.flex-row.rev{flex-direction:column;gap:18px}
   .side-img img{max-height:200px}
+  .contact-wrap{grid-template-columns:1fr}
+  .map-wrap{height:260px}
   .partner-card{flex-direction:column;align-items:flex-start}
   .mbox{flex-direction:column;max-height:95vh}
   .m-gallery{min-height:auto}
@@ -292,25 +384,28 @@ footer p{font-size:.82rem;line-height:1.95}
   .venue-photos{height:200px}
   .venue-map{grid-column:auto}
   .venue-map iframe{height:200px}
+  .news-preview-grid{grid-template-columns:1fr}
+  .guide-grid{grid-template-columns:1fr}
+  .review-grid{grid-template-columns:1fr}
+  .compare-table{font-size:.78rem}
+  .nm-img{height:180px}
 }
 @media(max-width:420px){
   .hero-txt h1{font-size:1.35rem}
   .pgrid,.pgrid.v-2{grid-template-columns:1fr 1fr}
   .pgrid.v-list{grid-template-columns:1fr}
   .nav-logo-en{display:none}
+  .news-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 <div id="loader"><div class="spin"></div></div>
 
-<!-- ══ NAV ══ -->
 <nav>
   <div class="nav-in">
     <div class="nav-logo" onclick="go('about')">
-      <div class="nav-logo-img-wrap">
-        <img id="logo-img" src="" alt="Logo" onerror="this.parentElement.style.background='#eef3ee'">
-      </div>
+      <div class="nav-logo-img-wrap"><img id="logo-img" src="" alt="" onerror="this.parentElement.style.background='#eef3ee'"></div>
       <div class="nav-logo-divider"></div>
       <div class="nav-logo-text">
         <span class="nav-logo-en">Official Website</span>
@@ -319,21 +414,23 @@ footer p{font-size:.82rem;line-height:1.95}
     </div>
     <div class="nav-links">
       <a onclick="go('about')"    id="nl-about"    class="active">關於原點</a>
+      <a onclick="go('news')"     id="nl-news">最新消息</a>
       <a onclick="go('courses')"  id="nl-courses">教學服務</a>
       <a onclick="go('products')" id="nl-products">商品一覽</a>
       <a onclick="go('venue')"    id="nl-venue">場地資訊</a>
+      <a onclick="go('guide')"    id="nl-guide">新手指南</a>
       <a onclick="go('partners')" id="nl-partners">合作夥伴</a>
       <a onclick="go('contact')"  id="nl-contact">聯絡我們</a>
     </div>
-    <button class="hbg" id="hbg" onclick="toggleMenu()" aria-label="選單">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="hbg" id="hbg" onclick="toggleMenu()" aria-label="選單"><span></span><span></span><span></span></button>
   </div>
   <div class="mob-menu" id="mob-menu">
     <a onclick="go('about');cm()"    id="ml-about"    class="active">關於原點</a>
+    <a onclick="go('news');cm()"     id="ml-news">最新消息</a>
     <a onclick="go('courses');cm()"  id="ml-courses">教學服務</a>
     <a onclick="go('products');cm()" id="ml-products">商品一覽</a>
     <a onclick="go('venue');cm()"    id="ml-venue">場地資訊</a>
+    <a onclick="go('guide');cm()"    id="ml-guide">新手指南</a>
     <a onclick="go('partners');cm()" id="ml-partners">合作夥伴</a>
     <a onclick="go('contact');cm()"  id="ml-contact">聯絡我們</a>
   </div>
@@ -341,82 +438,84 @@ footer p{font-size:.82rem;line-height:1.95}
 
 <!-- ══ ABOUT ══ -->
 <div id="page-about" class="page active">
-  <div class="hero" id="hero">
-    <button class="hero-arr" id="hp" onclick="step(-1)"><i class="fas fa-chevron-left"></i></button>
-    <button class="hero-arr" id="hn" onclick="step(1)"><i class="fas fa-chevron-right"></i></button>
+  <!-- 跑馬燈公告 -->
+  <div class="marquee-bar" id="marquee-bar" style="display:none">
+    <div class="marquee-inner" id="marquee-inner"></div>
   </div>
-  <div class="hdots" id="hdots"></div>
+  <div class="hero" id="hero">
+    <div class="hero-slides" id="hero-slides">
+      <button class="hero-arr" id="hp" onclick="step(-1)"><i class="fas fa-chevron-left"></i></button>
+      <button class="hero-arr" id="hn" onclick="step(1)"><i class="fas fa-chevron-right"></i></button>
+    </div>
+    <div class="hdots" id="hdots"></div>
+  </div>
   <div class="wrap">
-    <div class="card">
-      <h2>品牌故事</h2>
-      <div id="t-about" class="prose"></div>
-    </div>
-    <div class="card">
-      <h2>核心價值</h2>
-      <div id="phil-grid" class="phil-grid"></div>
-    </div>
+    <div class="card"><h2>品牌故事</h2><div id="t-about" class="prose"></div></div>
+    <div class="card"><h2>核心價值</h2><div id="phil-grid" class="phil-grid"></div></div>
     <div class="card">
       <h2>我們提供</h2>
       <div class="service-grid">
-        <div class="sv-card" onclick="go('courses')">
-          <div class="sv-icon"><i class="fas fa-chalkboard-user"></i></div>
-          <h4>專業教學課程</h4>
-          <p>從零基礎到進階競技，四種課程方案，由認證教練全程帶領，讓你快速愛上匹克球。</p>
-          <span class="sv-link">查看課程 <i class="fas fa-arrow-right"></i></span>
-        </div>
-        <div class="sv-card" onclick="go('products')">
-          <div class="sv-icon"><i class="fas fa-store"></i></div>
-          <h4>專業器材選購</h4>
-          <p>代理多個頂級品牌，涵蓋球拍、匹克球、背包與配件，讓你一站備齊所有裝備。</p>
-          <span class="sv-link">瀏覽商品 <i class="fas fa-arrow-right"></i></span>
-        </div>
-        <div class="sv-card" onclick="go('venue')">
-          <div class="sv-icon"><i class="fas fa-location-dot"></i></div>
-          <h4>花蓮在地場館</h4>
-          <p>與在地優質室內場館合作，提供舒適、專業的練習環境，不受天氣影響隨時上場。</p>
-          <span class="sv-link">查看場地 <i class="fas fa-arrow-right"></i></span>
-        </div>
+        <div class="sv-card" onclick="go('courses')"><div class="sv-icon"><i class="fas fa-chalkboard-user"></i></div><h4>專業教學課程</h4><p>從零基礎到進階競技，四種課程方案，由認證教練全程帶領。</p><span class="sv-link">查看課程 <i class="fas fa-arrow-right"></i></span></div>
+        <div class="sv-card" onclick="go('products')"><div class="sv-icon"><i class="fas fa-store"></i></div><h4>專業器材選購</h4><p>代理及經銷多個知名品牌，涵蓋球拍、匹克球、背包與配件。</p><span class="sv-link">瀏覽商品 <i class="fas fa-arrow-right"></i></span></div>
+        <div class="sv-card" onclick="go('venue')"><div class="sv-icon"><i class="fas fa-location-dot"></i></div><h4>花蓮在地場館</h4><p>與在地優質室內場館合作，舒適專業的練習環境。</p><span class="sv-link">查看場地 <i class="fas fa-arrow-right"></i></span></div>
       </div>
     </div>
+    <!-- 首頁最新消息預覽 -->
+    <div class="card" id="news-preview-card" style="display:none">
+      <h2>最新消息</h2>
+      <div id="news-preview-grid" class="news-preview-grid"></div>
+      <div class="news-more-btn" onclick="go('news')">查看所有消息 <i class="fas fa-arrow-right"></i></div>
+    </div>
+    <!-- Google 評論 -->
+    <div class="card">
+      <h2>學員評價</h2>
+      <div class="rv-summary">
+        <div class="rv-score" id="rv-score">5.0</div>
+        <div class="rv-score-right">
+          <div class="rv-stars" id="rv-stars">★★★★★</div>
+          <p id="rv-count">Google 評論</p>
+        </div>
+      </div>
+      <div class="review-grid" id="review-grid"></div>
+      <a id="rv-link" href="#" target="_blank" class="rv-cta" style="margin-top:20px">
+        <img class="rv-cta-icon" src="https://www.gstatic.com/images/branding/product/2x/googleg_48dp.png" alt="Google">
+        <div><div class="rv-cta-text">在 Google 上查看所有評論</div><div class="rv-cta-sub">或留下你的評價，幫助更多人認識我們</div></div>
+        <i class="fas fa-arrow-right" style="margin-left:auto;color:var(--sub)"></i>
+      </a>
+    </div>
     <div id="sec-base"></div>
-    <!-- 團隊介紹（名片） -->
     <div id="sec-biz"></div>
+  </div>
+</div>
+
+<!-- ══ NEWS ══ -->
+<div id="page-news" class="page">
+  <div class="wrap">
+    <div class="card" style="padding:22px 28px;margin-bottom:24px">
+      <h2>最新消息</h2>
+      <p style="color:var(--sub);font-size:.9rem;margin:0">課程開班、活動公告、比賽資訊，第一手掌握原點最新動態。</p>
+    </div>
+    <div class="news-filter-bar" id="news-filter-bar">
+      <button class="nf-btn active" onclick="filterNews('all',this)">全部</button>
+      <button class="nf-btn" onclick="filterNews('event',this)">活動</button>
+      <button class="nf-btn" onclick="filterNews('course',this)">開班</button>
+      <button class="nf-btn" onclick="filterNews('product',this)">商品</button>
+      <button class="nf-btn" onclick="filterNews('news',this)">公告</button>
+    </div>
+    <div id="news-grid" class="news-grid"></div>
+    <div id="news-empty" style="display:none" class="card"><p style="text-align:center;color:var(--sub);padding:30px 0">暫無消息，敬請期待！</p></div>
   </div>
 </div>
 
 <!-- ══ COURSES ══ -->
 <div id="page-courses" class="page">
   <div class="wrap">
-    <div class="card" id="c-intro-card">
-      <h2>課程介紹</h2>
-      <div id="c-intro-content"></div>
-    </div>
-    <div class="card">
-      <h2>課程方案</h2>
-      <p style="color:var(--sub);font-size:.88rem;margin-bottom:20px">費用依報名人數計算，人數越多每人費用越划算！歡迎揪朋友一起來。</p>
-      <div id="c-cards"></div>
-    </div>
-    <div class="card" id="c-fees-card">
-      <h2>收費與報名說明</h2>
-      <div id="t-fees" class="prose"></div>
-    </div>
-    <div class="card" id="c-coach-card">
-      <h2>教練介紹</h2>
-      <div class="flex-row">
-        <div class="side-img" id="c-coach-img-wrap" style="display:none">
-          <img id="c-coach-img" src="" alt="教練" style="max-height:380px">
-        </div>
-        <div class="side-text"><div id="t-coach" class="prose"></div></div>
-      </div>
-    </div>
-    <div class="card" id="c-rent-card">
-      <h2>球拍租借說明</h2>
-      <div id="t-rent" class="prose"></div>
-    </div>
-    <div class="card" id="c-faq-card">
-      <h2>常見問題 FAQ</h2>
-      <div id="c-faq"></div>
-    </div>
+    <div class="card" id="c-intro-card"><h2>課程介紹</h2><div id="c-intro-content"></div></div>
+    <div class="card"><h2>課程方案</h2><p style="color:var(--sub);font-size:.88rem;margin-bottom:20px">費用依報名人數計算，人數越多每人費用越划算！歡迎揪朋友一起來。</p><div id="c-cards"></div></div>
+    <div class="card" id="c-fees-card"><h2>收費與報名說明</h2><div id="t-fees" class="prose"></div></div>
+    <div class="card" id="c-coach-card"><h2>教練介紹</h2><div class="flex-row"><div class="side-img" id="c-coach-img-wrap" style="display:none"><img id="c-coach-img" src="" alt="教練" style="max-height:380px"></div><div class="side-text"><div id="t-coach" class="prose"></div></div></div></div>
+    <div class="card" id="c-rent-card"><h2>球拍租借說明</h2><div id="t-rent" class="prose"></div></div>
+    <div class="card" id="c-faq-card"><h2>常見問題 FAQ</h2><div id="c-faq"></div></div>
   </div>
 </div>
 
@@ -435,10 +534,10 @@ footer p{font-size:.82rem;line-height:1.95}
       </aside>
       <div>
         <div class="view-bar">
-          <button class="vbtn on v-desktop" id="vg" onclick="sv('g')" title="格狀"><i class="fas fa-grip"></i></button>
-          <button class="vbtn v-desktop"    id="vl" onclick="sv('l')" title="列表"><i class="fas fa-list"></i></button>
-          <button class="vbtn on v-mobile" id="v1" onclick="sv('1')" title="單欄" style="display:none"><i class="fas fa-bars"></i></button>
-          <button class="vbtn v-mobile"    id="v2" onclick="sv('2')" title="雙欄" style="display:none"><i class="fas fa-grip"></i></button>
+          <button class="vbtn on v-desktop" id="vg" onclick="sv('g')"><i class="fas fa-grip"></i></button>
+          <button class="vbtn v-desktop"    id="vl" onclick="sv('l')"><i class="fas fa-list"></i></button>
+          <button class="vbtn on v-mobile" id="v1" onclick="sv('1')" style="display:none"><i class="fas fa-bars"></i></button>
+          <button class="vbtn v-mobile"    id="v2" onclick="sv('2')" style="display:none"><i class="fas fa-grip"></i></button>
         </div>
         <div id="pgrid" class="pgrid"></div>
       </div>
@@ -449,13 +548,116 @@ footer p{font-size:.82rem;line-height:1.95}
 <!-- ══ VENUE ══ -->
 <div id="page-venue" class="page">
   <div class="wrap">
-    <div class="card" style="padding:22px 28px;margin-bottom:24px">
-      <h2>場地資訊</h2>
-      <p style="color:var(--sub);font-size:.9rem;margin:0">以下為原點匹克球目前合作的教學場地，詳細課程時段請透過 LINE 洽詢。</p>
-    </div>
+    <div class="card" style="padding:22px 28px;margin-bottom:24px"><h2>場地資訊</h2><p style="color:var(--sub);font-size:.9rem;margin:0">以下為原點匹克球目前合作的教學場地，詳細課程時段請透過 LINE 洽詢。</p></div>
     <div id="venue-list"></div>
-    <div id="venue-empty" style="display:none" class="card">
-      <p style="text-align:center;color:var(--sub);padding:30px 0">場地資訊即將更新，敬請期待！</p>
+    <div id="venue-empty" style="display:none" class="card"><p style="text-align:center;color:var(--sub);padding:30px 0">場地資訊即將更新，敬請期待！</p></div>
+  </div>
+</div>
+
+<!-- ══ GUIDE (新手指南) ══ -->
+<div id="page-guide" class="page">
+  <div class="wrap">
+    <div class="guide-hero">
+      <h2>匹克球新手指南</h2>
+      <p>第一次接觸匹克球？這裡有你需要知道的一切，從規則到裝備，讓你快速上手，自信踏上球場。</p>
+    </div>
+    <div class="guide-tabs">
+      <button class="g-tab active" onclick="switchGuide('intro',this)"><i class="fas fa-circle-info"></i> 什麼是匹克球</button>
+      <button class="g-tab" onclick="switchGuide('rules',this)"><i class="fas fa-list-ol"></i> 基本規則</button>
+      <button class="g-tab" onclick="switchGuide('gear',this)"><i class="fas fa-table-tennis-paddle-ball"></i> 裝備選購</button>
+      <button class="g-tab" onclick="switchGuide('compare',this)"><i class="fas fa-right-left"></i> 與其他運動比較</button>
+      <button class="g-tab" onclick="switchGuide('tips',this)"><i class="fas fa-lightbulb"></i> 新手小技巧</button>
+    </div>
+
+    <!-- 什麼是匹克球 -->
+    <div id="guide-intro" class="guide-section active">
+      <div class="guide-grid">
+        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-history"></i></div><h3>起源與發展</h3></div><div class="gd-card-body">匹克球（Pickleball）於1965年在美國西雅圖誕生，最初是為了讓孩子們在後院打發時間而發明的混合球類運動。融合了羽毛球、桌球與網球的元素，規則簡單、場地小、上手快。如今已成為全美成長最快的運動之一，並迅速風靡全球。</div></div>
+        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-users"></i></div><h3>適合所有人</h3></div><div class="gd-card-body">匹克球沒有年齡限制，是真正的全齡運動。球速比網球慢，場地比羽球場小，體力負荷適中。從8歲的孩童到80歲的長輩都能愉快地打球。重要的是，你不需要任何球拍運動基礎，拿起球拍就能開始。</div></div>
+        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-heart-pulse"></i></div><h3>健康效益</h3></div><div class="gd-card-body">研究顯示，匹克球能有效提升心肺功能、改善手眼協調、增強反應力與下肢肌力。由於場地較小，移動距離適中，不會對膝關節造成過大負擔，特別適合想要維持活躍生活的中高齡族群。</div></div>
+        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-handshake"></i></div><h3>社交運動</h3></div><div class="gd-card-body">匹克球以雙打為主，需要隊友協作，是建立人際關係的絕佳運動。球場小、節奏快，一局只需15-20分鐘，非常適合利用午休或下班後與朋友或同事一起打。在花蓮，越來越多社區與學校也開始推廣匹克球。</div></div>
+      </div>
+    </div>
+
+    <!-- 基本規則 -->
+    <div id="guide-rules" class="guide-section">
+      <div class="card">
+        <h2>基本規則速覽</h2>
+        <ul class="rule-list">
+          <li><span class="rule-num">1</span>比賽分為單打（1v1）和雙打（2v2），雙打更為常見。</li>
+          <li><span class="rule-num">2</span>使用實心小球（匹克球）和類似桌球拍的硬質球拍。</li>
+          <li><span class="rule-num">3</span>採用「只有發球方得分」制，先達到11分（需領先2分）者獲勝。</li>
+          <li><span class="rule-num">4</span>發球必須低手揮拍（手腕以下），且球必須落在對角線的發球區。</li>
+          <li><span class="rule-num">5</span>「廚房規則」：網前2.13公尺的禁區（Non-Volley Zone，俗稱廚房）內不能在球落地前擊球。</li>
+          <li><span class="rule-num">6</span>「兩跳規則」：發球後，接球方必須讓球彈地才能回擊，發球方也必須等球彈地才能回，之後就可以隨意截擊。</li>
+          <li><span class="rule-num">7</span>球出界、落入球網、違反廚房規則或非法發球均視為失分。</li>
+        </ul>
+      </div>
+      <div class="card" style="margin-top:0">
+        <h2>場地說明</h2>
+        <div class="prose" style="margin-bottom:16px">標準匹克球場地尺寸為 6.1公尺×13.4公尺（約羽球場的一半大小），可在室內或室外場地設置。場地中央有網，網高中央約86公分，兩側約91公分。</div>
+        <div style="background:var(--bg);border-radius:10px;padding:16px;font-size:.85rem;color:#555;line-height:2">
+          📐 場地尺寸：6.1m × 13.4m<br>
+          🔶 禁區（廚房）：距網兩側各 2.13m<br>
+          🥅 網高（中央）：86 cm<br>
+          🎯 發球區：廚房線後方至底線
+        </div>
+      </div>
+    </div>
+
+    <!-- 裝備選購 -->
+    <div id="guide-gear" class="guide-section">
+      <div class="guide-grid">
+        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-table-tennis-paddle-ball"></i></div><h3>球拍選購重點</h3></div><div class="gd-card-body"><strong>重量：</strong>一般在170-220g之間。輕拍（170-190g）操控靈活，適合初學者或女性；重拍（200g以上）打擊力道更強，適合進階玩家。<br><br><strong>核心厚度：</strong>13-16mm適合控球，偏軟；16mm以上球感更佳，適合中高階。<br><br><strong>材質：</strong>碳纖維面板提供更多旋轉，玻璃纖維較柔和彈性好，初學者兩者都適合。</div></div>
+        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-circle-dot"></i></div><h3>球的選擇</h3></div><div class="gd-card-body"><strong>室外球：</strong>孔洞較小、較硬、較重，適合室外場地，耐磨損。<br><br><strong>室內球：</strong>孔洞較大、較輕、較軟，彈跳稍低，適合室內木地板場地。<br><br><strong>訓練球：</strong>靜音設計，適合住宅區或室內練習使用。<br><br>建議初學者先使用室內球或訓練球，球速較慢，更容易掌控。</div></div>
+        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-shoe-prints"></i></div><h3>服裝與鞋子</h3></div><div class="gd-card-body">穿著舒適的運動服即可，建議吸濕排汗材質。<br><br><strong>鞋子最重要：</strong>務必穿著專業的室內/室外運動鞋（依場地而定），需要良好的側向支撐力。避免使用跑步鞋，因為跑步鞋缺乏足夠的橫向穩定性，容易在快速移動時造成腳踝扭傷。<br><br>手套和護腕非必須，但有助於減輕手腕負擔。</div></div>
+        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-star"></i></div><h3>原點推薦入門組合</h3></div><div class="gd-card-body">想要快速上手又不想花太多錢試水溫？<br><br>✅ ANIVIIA 入門款球拍（市價 $1,500）<br>✅ DUOPRO 比賽用球 1顆<br>✅ 一般運動服裝<br>✅ 室內羽球鞋（若已有可直接使用）<br><br>參加我們的新手速成班，球拍費用已包含在課程費用內，可以先體驗再決定是否購買。<br><br><span style="color:var(--g);font-weight:700;cursor:pointer" onclick="go('products')">→ 瀏覽所有商品</span></div></div>
+      </div>
+    </div>
+
+    <!-- 比較表 -->
+    <div id="guide-compare" class="guide-section">
+      <div class="card">
+        <h2>匹克球 vs 其他運動</h2>
+        <div style="overflow-x:auto">
+          <table class="compare-table">
+            <thead><tr><th>比較項目</th><th class="hl">匹克球 ⭐</th><th>羽毛球</th><th>網球</th><th>桌球</th></tr></thead>
+            <tbody>
+              <tr><td>上手難度</td><td class="hl">★☆☆ 非常容易</td><td>★★☆ 普通</td><td>★★★ 較難</td><td>★★☆ 普通</td></tr>
+              <tr><td>體能需求</td><td class="hl">低〜中</td><td>中〜高</td><td>中〜高</td><td>低〜中</td></tr>
+              <tr><td>場地大小</td><td class="hl">6×13m（小）</td><td>6×13m</td><td>10×23m（大）</td><td>2.7×1.5m</td></tr>
+              <tr><td>適合年齡</td><td class="hl">全齡（8〜80+）</td><td>青少年〜中年</td><td>青少年〜成年</td><td>全齡</td></tr>
+              <tr><td>社交互動</td><td class="hl">★★★ 非常高</td><td>★★☆ 中</td><td>★★☆ 中</td><td>★☆☆ 較低</td></tr>
+              <tr><td>關節負擔</td><td class="hl">低</td><td>中〜高</td><td>高</td><td>低</td></tr>
+              <tr><td>入門花費</td><td class="hl">低（$1,500起）</td><td>低〜中</td><td>高</td><td>低</td></tr>
+              <tr><td>一局時間</td><td class="hl">15〜25 分鐘</td><td>15〜30 分鐘</td><td>30〜90 分鐘</td><td>15〜30 分鐘</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- 新手技巧 -->
+    <div id="guide-tips" class="guide-section">
+      <div class="guide-grid">
+        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-1"></i></div><h3>站在廚房線前</h3></div><div class="gd-card-body">匹克球最重要的戰術之一：盡快推進到禁區線（廚房線）前，從那裡你能以最短路徑覆蓋所有角度，並透過放小球（Dink）對抗對方。初學者最常見的錯誤是一直待在底線。</div></div>
+        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-2"></i></div><h3>軟打優先（Dink）</h3></div><div class="gd-card-body">Dink 是輕輕放在對方廚房區的短球，讓對方很難攻擊。匹克球不是力量遊戲，而是策略遊戲。學會耐心打軟球，讓對方先出錯，比盲目抽球更有效。</div></div>
+        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-3"></i></div><h3>第三球攻擊</h3></div><div class="gd-card-body">「第三球落點」（Third Shot Drop）是職業選手都在用的技術：發球後的第三拍，輕輕放一個弧線球讓它落在對方廚房區，這樣能避免被對方強攻，同時讓你有機會往前推進。</div></div>
+        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-4"></i></div><h3>眼睛看球，腳步到位</h3></div><div class="gd-card-body">初學者常常腳沒到位就揮拍。記住：先移動腳步讓球在你身前，再揮拍。保持半蹲預備姿勢（膝蓋微彎），重心略低，能讓你更快速地左右移動應對來球。</div></div>
+        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-5"></i></div><h3>溝通是雙打關鍵</h3></div><div class="gd-card-body">雙打時，清楚地跟隊友說「我的」或「你的」，避免兩人都撲過去或兩人都不動。中間來球通常由反手較強的那側（一般是右手玩家的正手位）負責。配合默契比技術更重要。</div></div>
+        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-6"></i></div><h3>多打少想</h3></div><div class="gd-card-body">匹克球上手真的很快，但要精進需要反覆練習。建議剛開始不要過度思考技術，先享受打球的樂趣，跟有經驗的人多打，比賽中自然會慢慢進步。參加我們的課程，教練會幫你找到適合自己的節奏。</div></div>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="card" style="text-align:center;padding:36px;background:linear-gradient(135deg,#eef3ee,#f4f6f4)">
+      <div style="font-size:2rem;margin-bottom:12px">🏓</div>
+      <h3 style="color:var(--navy);margin-bottom:8px;font-size:1.2rem">準備好下場了嗎？</h3>
+      <p style="color:var(--sub);font-size:.9rem;margin-bottom:20px">一堂新手速成班，讓你從零到能上場對打</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <button onclick="go('courses')" style="background:var(--g);color:#fff;padding:12px 24px;border-radius:10px;font-weight:700;font-size:.93rem">查看課程方案</button>
+        <a id="guide-line-btn" href="#" target="_blank" style="display:inline-flex;align-items:center;gap:8px;background:#06c755;color:#fff;padding:12px 24px;border-radius:10px;font-weight:700;font-size:.93rem"><i class="fab fa-line"></i>立即預約</a>
+      </div>
     </div>
   </div>
 </div>
@@ -463,32 +665,23 @@ footer p{font-size:.82rem;line-height:1.95}
 <!-- ══ PARTNERS ══ -->
 <div id="page-partners" class="page">
   <div class="wrap">
-    <div class="card" style="padding:22px 28px;margin-bottom:22px">
-      <h2>合作夥伴</h2>
-      <div id="t-partner-intro" class="prose" style="margin-top:-4px"></div>
-    </div>
+    <div class="card" style="padding:22px 28px;margin-bottom:22px"><h2>合作夥伴</h2><div id="t-partner-intro" class="prose" style="margin-top:-4px"></div></div>
     <div id="partner-list"></div>
-    <div id="partner-empty" style="display:none" class="card">
-      <p style="text-align:center;color:var(--sub);padding:30px 0">合作夥伴資訊即將更新，敬請期待！</p>
-    </div>
+    <div id="partner-empty" style="display:none" class="card"><p style="text-align:center;color:var(--sub);padding:30px 0">合作夥伴資訊即將更新，敬請期待！</p></div>
   </div>
 </div>
 
 <!-- ══ CONTACT ══ -->
 <div id="page-contact" class="page">
   <div class="wrap">
-    <div class="card">
-      <h2>聯絡我們</h2>
+    <div class="card"><h2>聯絡我們</h2>
       <div class="contact-wrap">
-        <!-- 左側 -->
         <div>
           <a id="l-line" href="#" target="_blank" class="cbtn c-line"><i class="fab fa-line fa-lg"></i>LINE 官方帳號</a>
           <a id="l-fb"   href="#" target="_blank" class="cbtn c-fb"><i class="fab fa-facebook-f fa-lg"></i>Facebook 粉絲專頁</a>
           <a id="l-ig"   href="#" target="_blank" class="cbtn c-ig"><i class="fab fa-instagram fa-lg"></i>Instagram</a>
-          <!-- 聯絡資訊 — 分行卡片 -->
           <div class="contact-info-cards" id="contact-info-cards"></div>
         </div>
-        <!-- 右側地圖 -->
         <div id="map-box" class="map-wrap"></div>
       </div>
     </div>
@@ -512,7 +705,21 @@ footer p{font-size:.82rem;line-height:1.95}
   </div>
 </div>
 
-<!-- ══ LIGHTBOX (名片放大) ══ -->
+<!-- ══ NEWS MODAL ══ -->
+<div class="news-modal" id="news-modal" onclick="closeNews()">
+  <div class="nm-box" onclick="event.stopPropagation()">
+    <button class="nm-close" onclick="closeNews()"><i class="fas fa-times"></i></button>
+    <img id="nm-img" class="nm-img" src="" alt="" style="display:none">
+    <div class="nm-body">
+      <div id="nm-tag" class="nm-tag"></div>
+      <div id="nm-title" class="nm-title"></div>
+      <div id="nm-date" class="nm-date"><i class="fas fa-calendar"></i><span></span></div>
+      <div id="nm-content" class="nm-content"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ LIGHTBOX ══ -->
 <div class="lb" id="lb" onclick="closeLB()">
   <button class="lb-close" onclick="closeLB()"><i class="fas fa-times"></i></button>
   <img id="lb-img" src="" alt="">
@@ -523,20 +730,18 @@ footer p{font-size:.82rem;line-height:1.95}
     <img id="foot-logo" class="foot-logo" src="" alt="" onerror="this.style.display='none'">
     <span id="f-slogan" class="foot-slogan"></span>
     <hr class="fd">
-    <p id="f-biz"></p>
-    <p id="f-staff"></p>
-    <p id="f-addr"></p>
+    <p id="f-biz"></p><p id="f-staff"></p><p id="f-addr"></p>
     <p style="margin-top:12px;font-size:.75rem">© 2026 原點匹克球 Origin Pickleball. All Rights Reserved.</p>
   </div>
 </footer>
 
 <script>
 const SID='1s1_nGNy8ZYKoCh0Bu5SJpbkVVSRIzytWyJlUYjT8AJ4';
-const PAGES=['about','courses','products','venue','partners','contact'];
+const PAGES=['about','news','courses','products','venue','guide','partners','contact'];
 const $=id=>document.getElementById(id);
 let prods=[],lineHref='#',curView='g';
-let si=0,st=0,total=0;
-let modImgs=[],modIdx=0;
+let si=0,st=0,total=0,modImgs=[],modIdx=0;
+let allNews=[];
 
 /* ── CSV ── */
 function parseCSV(t){
@@ -589,7 +794,7 @@ function cm(){$('hbg').classList.remove('open');$('mob-menu').style.display='non
 
 /* ── Hero ── */
 function buildSlider(urls,title,sub){
-  const box=$('hero'),de=$('hdots');
+  const box=$('hero-slides'),de=$('hdots');
   box.querySelectorAll('.slide,.hero-ov,.hero-txt').forEach(e=>e.remove());
   de.innerHTML='';
   const valid=urls.filter(u=>u&&u.startsWith('http'));
@@ -602,7 +807,7 @@ function buildSlider(urls,title,sub){
   const ov=document.createElement('div');ov.className='hero-ov';box.insertBefore(ov,$('hp'));
   const tx=document.createElement('div');tx.className='hero-txt';
   tx.innerHTML=`<h1>${title||'原點匹克球'}</h1>${sub?`<p>${sub}</p>`:''}`;
-  box.insertBefore(tx,$('hp'));
+  box.appendChild(tx);
   valid.forEach((_,i)=>{
     const d=document.createElement('button');d.className='dot'+(i===0?' active':'');
     d.onclick=()=>goSlide(i);de.appendChild(d);
@@ -610,8 +815,9 @@ function buildSlider(urls,title,sub){
   $('hp').style.display=$('hn').style.display=total>1?'flex':'none';
   if(total>1)startAuto();
   let tx0=0;
-  box.addEventListener('touchstart',e=>{tx0=e.touches[0].clientX;},{passive:true});
-  box.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx0;if(Math.abs(dx)>40)step(dx<0?1:-1);},{passive:true});
+  const hero=$('hero');
+  hero.addEventListener('touchstart',e=>{tx0=e.touches[0].clientX;},{passive:true});
+  hero.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx0;if(Math.abs(dx)>40)step(dx<0?1:-1);},{passive:true});
 }
 function startAuto(){clearInterval(st);st=setInterval(()=>goSlide((si+1)%total),5000);}
 function goSlide(n){
@@ -622,10 +828,112 @@ function goSlide(n){
 }
 function step(d){goSlide((si+d+total)%total);}
 
-/* ── Lightbox (名片) ── */
+/* ── Lightbox ── */
 function openLB(src){$('lb-img').src=src;$('lb').classList.add('open');document.body.style.overflow='hidden';}
 function closeLB(){$('lb').classList.remove('open');document.body.style.overflow='';}
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeLB();closeMod();}});
+
+/* ── News ── */
+const NEWS_TAGS={event:{cls:'tag-event',label:'活動'},course:{cls:'tag-course',label:'開班'},product:{cls:'tag-product',label:'商品'},news:{cls:'tag-news',label:'公告'}};
+function getTagInfo(t){return NEWS_TAGS[t]||{cls:'tag-news',label:'公告'};}
+
+function buildNewsFromSheet(rows){
+  // News sheet: A=日期, B=類型, C=標題, D=摘要, E=內容, F=圖片
+  allNews=rows.slice(1).map((c,i)=>({
+    id:i,date:c[0]||'',type:(c[1]||'news').toLowerCase(),
+    title:c[2]||'',excerpt:c[3]||'',content:c[4]||'',img:durl(c[5]||'')
+  })).filter(n=>n.title).reverse(); // 最新在前
+}
+
+function buildNewsGrid(list){
+  const g=$('news-grid');g.innerHTML='';
+  if(!list.length){$('news-empty').style.display='block';g.innerHTML='';return;}
+  $('news-empty').style.display='none';
+  list.forEach(n=>{
+    const ti=getTagInfo(n.type);
+    g.innerHTML+=`<div class="nc" onclick="openNews(${n.id})">
+      <div class="nc-img">${n.img?`<img src="${n.img}" alt="${n.title}" loading="lazy">`:`<div class="nc-img-placeholder"><i class="fas fa-newspaper"></i></div>`}</div>
+      <div class="nc-body">
+        <span class="nc-tag ${ti.cls}">${ti.label}</span>
+        <div class="nc-title">${n.title}</div>
+        <div class="nc-date"><i class="fas fa-calendar-days"></i>${n.date}</div>
+        <div class="nc-excerpt">${n.excerpt||n.content}</div>
+      </div>
+    </div>`;
+  });
+}
+function filterNews(type,btn){
+  document.querySelectorAll('.nf-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  buildNewsGrid(type==='all'?allNews:allNews.filter(n=>n.type===type));
+}
+function openNews(id){
+  const n=allNews.find(x=>x.id===id);if(!n)return;
+  const ti=getTagInfo(n.type);
+  const nm=$('nm-tag');nm.textContent=ti.label;nm.className='nm-tag '+ti.cls;
+  $('nm-title').textContent=n.title;
+  $('nm-date').querySelector('span').textContent=n.date;
+  $('nm-content').textContent=n.content||n.excerpt;
+  const img=$('nm-img');
+  if(n.img){img.src=n.img;img.style.display='block';}else img.style.display='none';
+  $('news-modal').classList.add('open');document.body.style.overflow='hidden';
+}
+function closeNews(){$('news-modal').classList.remove('open');document.body.style.overflow='';}
+
+// 首頁預覽（最新3則）
+function buildNewsPreview(){
+  if(!allNews.length)return;
+  const top=allNews.slice(0,3);
+  const g=$('news-preview-grid');g.innerHTML='';
+  top.forEach(n=>{
+    const ti=getTagInfo(n.type);
+    g.innerHTML+=`<div class="news-prev-card" onclick="openNews(${n.id})">
+      <div class="news-prev-tag">${ti.label}</div>
+      <div class="news-prev-title">${n.title}</div>
+      <div class="news-prev-date"><i class="fas fa-calendar-days" style="margin-right:4px"></i>${n.date}</div>
+    </div>`;
+  });
+  $('news-preview-card').style.display='block';
+
+  // 跑馬燈
+  const bar=$('marquee-bar'),inner=$('marquee-inner');
+  if(allNews.length){
+    const items=allNews.map(n=>`<span class="marquee-item" onclick="openNews(${n.id})"><span class="marquee-tag">${getTagInfo(n.type).label}</span>${n.title}</span>`).join('');
+    inner.innerHTML=items+items; // 複製一份讓動畫無縫
+    bar.style.display='block';
+  }
+}
+
+/* ── Google 評論（固定範例，填入 GoogleReviewURL 後可連結） ── */
+function buildReviews(S){
+  const url=S.GoogleReviewURL||'';
+  if(url)$('rv-link').href=url;
+
+  // 固定顯示的範例評論（可從試算表 Reviews 工作表讀取，這裡先用預設）
+  const reviews=[
+    {name:'陳小姐',initial:'陳',stars:5,date:'2025年12月',text:'從完全不會到能跟朋友打球，只上了兩堂課！教練很有耐心，解釋清楚，場地環境也很好。強烈推薦給想入門的朋友！'},
+    {name:'林先生',initial:'林',stars:5,date:'2025年11月',text:'買了球拍後不知道怎麼選，教練給了非常專業的建議，完全不會因為要賣東西就推薦貴的，真的很誠實。服務很好！'},
+    {name:'王媽媽',initial:'王',stars:5,date:'2026年1月',text:'帶小孩來上兒童班，孩子超喜歡！教練很懂得跟孩子互動，氛圍輕鬆歡樂。現在孩子每週都嚷嚷要來打匹克球。'},
+  ];
+  const rg=$('review-grid');rg.innerHTML='';
+  reviews.forEach(r=>{
+    const stars='★'.repeat(r.stars)+'☆'.repeat(5-r.stars);
+    rg.innerHTML+=`<div class="rv-card">
+      <div class="rv-header">
+        <div class="rv-avatar">${r.initial}</div>
+        <div><div class="rv-name">${r.name}</div><div class="rv-date">${r.date}</div></div>
+      </div>
+      <div class="rv-stars">${stars}</div>
+      <div class="rv-text">${r.text}</div>
+    </div>`;
+  });
+
+  // 評分統計（可從試算表填入）
+  const score=S.GoogleScore||'5.0',count=S.GoogleCount||'';
+  $('rv-score').textContent=parseFloat(score).toFixed(1);
+  const starsN=Math.round(parseFloat(score));
+  $('rv-stars').textContent='★'.repeat(starsN)+'☆'.repeat(5-starsN);
+  if(count)$('rv-count').textContent=`Google 地圖 ${count} 則評論`;
+}
 
 /* ── Philosophy ── */
 function buildPhil(text){
@@ -639,46 +947,36 @@ function buildPhil(text){
   ];
   if(!text){defaults.forEach(d=>{box.innerHTML+=`<div class="phil-item"><div class="phil-icon"><i class="${d.icon}"></i></div><div><h4>${d.t}</h4><p>${d.d}</p></div></div>`;});return;}
   const items=text.split('●').filter(s=>s.trim());
-  if(items.length>=2){
-    items.forEach((item,i)=>{
-      const lines=item.trim().split('\n').filter(l=>l.trim());
-      const t=lines[0].trim(),d=lines.slice(1).join(' ').trim();
-      box.innerHTML+=`<div class="phil-item"><div class="phil-icon"><i class="${icons[i%icons.length]}"></i></div><div><h4>${t}</h4><p>${d}</p></div></div>`;
-    });
-  } else box.innerHTML=`<div style="grid-column:1/-1"><div class="prose">${text}</div></div>`;
+  if(items.length>=2){items.forEach((item,i)=>{const lines=item.trim().split('\n').filter(l=>l.trim());const t=lines[0].trim(),d=lines.slice(1).join(' ').trim();box.innerHTML+=`<div class="phil-item"><div class="phil-icon"><i class="${icons[i%icons.length]}"></i></div><div><h4>${t}</h4><p>${d}</p></div></div>`;});}
+  else box.innerHTML=`<div style="grid-column:1/-1"><div class="prose">${text}</div></div>`;
 }
 
-/* ── Course gallery ── */
+/* ── Guide tabs ── */
+function switchGuide(id,btn){
+  document.querySelectorAll('.guide-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.g-tab').forEach(b=>b.classList.remove('active'));
+  $('guide-'+id).classList.add('active');btn.classList.add('active');
+}
+
+/* ── Courses ── */
 function buildCourseGallery(el,imgs){
   const valid=imgs.filter(Boolean).map(durl).filter(Boolean);
   if(!valid.length){el.innerHTML=`<div class="c-no-img"><i class="fas fa-image" style="font-size:2rem;opacity:.3"></i><span>尚無課程照片</span></div>`;return;}
-  valid.forEach((u,i)=>{
-    const d=document.createElement('div');d.className='img-slide'+(i===0?' active':'');
-    d.style.cssText=`position:absolute;inset:0;background:url('${u}') center/cover`;el.appendChild(d);
-  });
-  if(valid.length>1){
-    el.innerHTML+=`<button class="c-arr cl" onclick="stepCImg(this,-1)"><i class="fas fa-chevron-left"></i></button>
-    <button class="c-arr cr" onclick="stepCImg(this,1)"><i class="fas fa-chevron-right"></i></button>
-    <div class="c-dots">${valid.map((_,i)=>`<span class="${i===0?'active':''}"></span>`).join('')}</div>`;
-  }
+  valid.forEach((u,i)=>{const d=document.createElement('div');d.className='img-slide'+(i===0?' active':'');d.style.cssText=`position:absolute;inset:0;background:url('${u}') center/cover`;el.appendChild(d);});
+  if(valid.length>1){el.innerHTML+=`<button class="c-arr cl" onclick="stepCImg(this,-1)"><i class="fas fa-chevron-left"></i></button><button class="c-arr cr" onclick="stepCImg(this,1)"><i class="fas fa-chevron-right"></i></button><div class="c-dots">${valid.map((_,i)=>`<span class="${i===0?'active':''}"></span>`).join('')}</div>`;}
 }
 function stepCImg(btn,dir){
   const box=btn.closest('.ccard-imgs');
   const slides=[...box.querySelectorAll('.img-slide')],dots=[...box.querySelectorAll('.c-dots span')];
-  const cur=slides.findIndex(s=>s.classList.contains('active'));
-  const nxt=(cur+dir+slides.length)%slides.length;
+  const cur=slides.findIndex(s=>s.classList.contains('active')),nxt=(cur+dir+slides.length)%slides.length;
   slides[cur].classList.remove('active');slides[nxt].classList.add('active');
   if(dots.length){dots[cur].classList.remove('active');dots[nxt].classList.add('active');}
 }
-
-/* ── Price parser ── */
 function parsePrices(text){
   const rows=[];const re=/([0-9]+人)[班]?(?:[^$]*)\$([0-9,]+)/g;let m;
   while((m=re.exec(text))!==null)rows.push({n:m[1],p:m[2]});
   return rows;
 }
-
-/* ── Build courses ── */
 function buildCourses(content,S){
   const box=$('c-cards');if(!content)return;
   const items=content.split('●').filter(s=>s.trim());
@@ -689,62 +987,33 @@ function buildCourses(content,S){
     const dur=durM?durM[1]:'';
     const title=rawTitle.replace(/[（(][^）)]+[）)]/,'').replace(/[-－\s]+$/,'').trim();
     const descLines=[],priceLines=[];let foundP=false;
-    lines.slice(1).forEach(l=>{
-      if(l.match(/費用|元\/人|\$[0-9]|人班|人數/)){foundP=true;priceLines.push(l);}
-      else if(!foundP)descLines.push(l);
-    });
+    lines.slice(1).forEach(l=>{if(l.match(/費用|元\/人|\$[0-9]|人班|人數/)){foundP=true;priceLines.push(l);}else if(!foundP)descLines.push(l);});
     const priceRows=parsePrices(priceLines.join(' '));
     let priceHTML='';
     if(priceRows.length){
-      const ths=priceRows.map(r=>`<th>${r.n}</th>`).join('');
-      const tds=priceRows.map(r=>`<td class="price-val">$${r.p}</td>`).join('');
-      priceHTML=`<table class="price-table"><thead><tr><th>人數</th>${ths}</tr></thead><tbody><tr><td>費用/人</td>${tds}</tr></tbody></table>`;
+      const pills=priceRows.map(r=>`<div class="price-pill"><span class="pp-n">${r.n}</span><span class="pp-v">$${r.p}</span></div>`).join('');
+      priceHTML=`<div style="font-size:.75rem;color:var(--sub);margin-top:14px;margin-bottom:6px;font-weight:700;letter-spacing:.04em">費用 / 人</div><div class="price-list">${pills}</div>`;
     }
     const n=idx+1;
-    const imgKeys=[`Course${n}_Img`,`Course${n}_Img1`,`Course${n}_Img2`,`Course${n}_Img3`,`Course${n}_Img4`];
-    const imgs=imgKeys.map(k=>S[k]||'').filter(Boolean);
+    const imgs=[`Course${n}_Img`,`Course${n}_Img1`,`Course${n}_Img2`,`Course${n}_Img3`].map(k=>S[k]||'').filter(Boolean);
     const card=document.createElement('div');card.className='ccard';
-    card.innerHTML=`<div class="ccard-inner">
-      <div class="ccard-info">
-        <div>
-          <div class="ccard-title">${title}</div>
-          ${dur?`<div class="ccard-dur"><i class="fas fa-clock"></i>${dur}</div>`:''}
-          <div class="ccard-desc">${descLines.filter(l=>!l.match(/費用|人數/)).join('\n')}</div>
-        </div>
-        ${priceHTML}
-      </div>
-      <div class="ccard-imgs" id="cimg-${idx}"></div>
-    </div>`;
+    card.innerHTML=`<div class="ccard-inner"><div class="ccard-info"><div><div class="ccard-title">${title}</div>${dur?`<div class="ccard-dur"><i class="fas fa-clock"></i>${dur}</div>`:''}<div class="ccard-desc">${descLines.filter(l=>!l.match(/費用|人數/)).join('\n')}</div></div>${priceHTML}</div><div class="ccard-imgs" id="cimg-${idx}"></div></div>`;
     box.appendChild(card);
     buildCourseGallery($(`cimg-${idx}`),imgs);
   });
 }
-
-/* ── FAQ ── */
 function buildFAQ(text){
   const box=$('c-faq');
   const parts=text.split(/\n?Q[：:]/g).filter(s=>s.trim());
   if(!parts.length){box.innerHTML=`<div class="prose">${text}</div>`;return;}
-  parts.forEach(part=>{
-    const lines=part.split(/\n?A[：:]/);
-    const q=lines[0].trim(),a=(lines[1]||'').trim();
-    const item=document.createElement('div');item.className='faq-item';
-    item.innerHTML=`<button class="faq-q" onclick="toggleFAQ(this)"><span>Q：${q}</span><i class="fas fa-chevron-down fqi"></i></button><div class="faq-a">${a}</div>`;
-    box.appendChild(item);
-  });
+  parts.forEach(part=>{const lines=part.split(/\n?A[：:]/);const q=lines[0].trim(),a=(lines[1]||'').trim();const item=document.createElement('div');item.className='faq-item';item.innerHTML=`<button class="faq-q" onclick="toggleFAQ(this)"><span>Q：${q}</span><i class="fas fa-chevron-down fqi"></i></button><div class="faq-a">${a}</div>`;box.appendChild(item);});
 }
 function toggleFAQ(btn){btn.classList.toggle('open');btn.nextElementSibling.classList.toggle('show');}
 
 /* ── Contact info cards ── */
 function addCICard(container,icon,label,val){
   if(!val)return;
-  container.innerHTML+=`<div class="ci-row">
-    <div class="ci-row-icon"><i class="${icon}"></i></div>
-    <div class="ci-row-body">
-      <div class="ci-row-label">${label}</div>
-      <div class="ci-row-val">${val}</div>
-    </div>
-  </div>`;
+  container.innerHTML+=`<div class="ci-row"><div class="ci-row-icon"><i class="${icon}"></i></div><div><div class="ci-row-label">${label}</div><div class="ci-row-val">${val}</div></div></div>`;
 }
 
 /* ── Products ── */
@@ -753,8 +1022,7 @@ function initVT(){
   $('vg').style.display=mob?'none':'flex';$('vl').style.display=mob?'none':'flex';
   $('v1').style.display=mob?'flex':'none';$('v2').style.display=mob?'flex':'none';
   if(mob&&(curView==='g'||curView==='l'))curView='1';
-  if(!mob&&(curView==='1'||curView==='2'))curView='g';
-  applyV();
+  if(!mob&&(curView==='1'||curView==='2'))curView='g';applyV();
 }
 function sv(v){curView=v;['g','l','1','2'].forEach(x=>{const b=$('v'+x);if(b)b.classList.toggle('on',x===v);});applyV();}
 function applyV(){const g=$('pgrid');g.classList.remove('v-list','v-2');if(curView==='l')g.classList.add('v-list');if(curView==='2')g.classList.add('v-2');}
@@ -762,85 +1030,54 @@ function updateCats(){
   const b=$('sb').value;
   const cats=[...new Set(prods.filter(p=>b==='all'||p.brand===b).map(p=>p.cat))].filter(Boolean);
   const s=$('sc');s.innerHTML='<option value="all">所有類別</option>';
-  cats.forEach(c=>s.innerHTML+=`<option value="${c}">${c}</option>`);
-  drawProds();
+  cats.forEach(c=>s.innerHTML+=`<option value="${c}">${c}</option>`);drawProds();
 }
 function stkCls(s){if(!s)return'';if(s==='有貨')return'stk-ok';if(s==='售完')return'stk-out';return'stk-pre';}
 function drawProds(){
   const b=$('sb').value,c=$('sc').value,q=$('srch').value.toLowerCase();
   const list=prods.filter(p=>(b==='all'||p.brand===b)&&(c==='all'||p.cat===c)&&(p.name.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q)));
-  const g=$('pgrid');g.innerHTML='';
-  $('pcnt').textContent=`共 ${list.length} 件商品`;
+  const g=$('pgrid');g.innerHTML='';$('pcnt').textContent=`共 ${list.length} 件商品`;
   if(!list.length){g.innerHTML=`<div class="empty"><i class="fas fa-box-open"></i><p>找不到符合條件的商品</p></div>`;return;}
-  list.forEach(p=>{
-    const sc=stkCls(p.stock);
-    g.innerHTML+=`<div class="pc" onclick="openMod(${p.id})">
-      <div class="pc-img"><img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 80%22%3E%3Crect width=%22100%22 height=%2280%22 fill=%22%23fff%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23ccc%22 font-size=%2210%22%3ENo Image%3C/text%3E%3C/svg%3E'"></div>
-      <div class="pc-body">
-        <div class="pc-badge">${p.brand}${p.brand&&p.cat?' · ':''}${p.cat}</div>
-        <div class="pc-name">${p.name}</div>
-        <div class="pc-desc">${p.desc}</div>
-        <div class="pc-price">$${p.price}</div>
-        ${p.stock?`<span class="stk ${sc}">${p.stock}</span>`:''}
-      </div>
-    </div>`;
-  });
+  list.forEach(p=>{const sc=stkCls(p.stock);g.innerHTML+=`<div class="pc" onclick="openMod(${p.id})"><div class="pc-img"><img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 80%22%3E%3Crect width=%22100%22 height=%2280%22 fill=%22%23fff%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23ccc%22 font-size=%2210%22%3ENo Image%3C/text%3E%3C/svg%3E'"></div><div class="pc-body"><div class="pc-badge">${p.brand}${p.brand&&p.cat?' · ':''}${p.cat}</div><div class="pc-name">${p.name}</div><div class="pc-desc">${p.desc}</div><div class="pc-price">$${p.price}</div>${p.stock?`<span class="stk ${sc}">${p.stock}</span>`:''}</div></div>`;});
   applyV();
 }
-
-/* ── Modal ── */
 function buildModGallery(imgs){
   const gal=$('m-gallery');gal.innerHTML='';
   if(!imgs.length){gal.innerHTML=`<div style="flex:1;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:.85rem;padding:20px">無圖片</div>`;return;}
   const mainArea=document.createElement('div');mainArea.className='mg-main';
-  imgs.forEach((u,i)=>{
-    const d=document.createElement('div');d.className='mg-slide'+(i===0?' active':'');
-    d.innerHTML=`<img src="${u}" alt="" loading="lazy">`;mainArea.appendChild(d);
-  });
-  if(imgs.length>1){
-    mainArea.innerHTML+=`<button class="mg-arr ml" onclick="stepMod(-1)"><i class="fas fa-chevron-left"></i></button>
-    <button class="mg-arr mr" onclick="stepMod(1)"><i class="fas fa-chevron-right"></i></button>`;
-  }
+  imgs.forEach((u,i)=>{const d=document.createElement('div');d.className='mg-slide'+(i===0?' active':'');d.innerHTML=`<img src="${u}" alt="" loading="lazy">`;mainArea.appendChild(d);});
+  if(imgs.length>1)mainArea.innerHTML+=`<button class="mg-arr ml" onclick="stepMod(-1)"><i class="fas fa-chevron-left"></i></button><button class="mg-arr mr" onclick="stepMod(1)"><i class="fas fa-chevron-right"></i></button>`;
   gal.appendChild(mainArea);
-  if(imgs.length>1){
-    const tw=document.createElement('div');tw.className='mg-thumbs';
-    imgs.forEach((u,i)=>{
-      const t=document.createElement('img');t.src=u;t.className='m-thumb'+(i===0?' active':'');
-      t.loading='lazy';t.onclick=()=>goMod(i);tw.appendChild(t);
-    });
-    gal.appendChild(tw);
-  }
+  if(imgs.length>1){const tw=document.createElement('div');tw.className='mg-thumbs';imgs.forEach((u,i)=>{const t=document.createElement('img');t.src=u;t.className='m-thumb'+(i===0?' active':'');t.loading='lazy';t.onclick=()=>goMod(i);tw.appendChild(t);});gal.appendChild(tw);}
   modImgs=imgs;modIdx=0;
 }
-function goMod(n){
-  modIdx=n;
-  [...document.querySelectorAll('.mg-slide')].forEach((s,i)=>s.classList.toggle('active',i===n));
-  [...document.querySelectorAll('.m-thumb')].forEach((t,i)=>t.classList.toggle('active',i===n));
-}
+function goMod(n){modIdx=n;[...document.querySelectorAll('.mg-slide')].forEach((s,i)=>s.classList.toggle('active',i===n));[...document.querySelectorAll('.m-thumb')].forEach((t,i)=>t.classList.toggle('active',i===n));}
 function stepMod(dir){goMod((modIdx+dir+modImgs.length)%modImgs.length);}
 function openMod(id){
   const p=prods.find(x=>x.id===id);if(!p)return;
   const imgs=[p.img,...(p.imgs||[])].filter(Boolean);
   buildModGallery(imgs);
   $('m-badge').textContent=`${p.brand}${p.brand&&p.cat?' · ':''}${p.cat}`;
-  $('m-name').textContent=p.name;
-  $('m-price').textContent=`$${p.price}`;
+  $('m-name').textContent=p.name;$('m-price').textContent=`$${p.price}`;
   const ms=$('m-stk'),sc=stkCls(p.stock);
   if(p.stock){ms.textContent=p.stock;ms.className='m-stk '+sc;ms.style.display='inline-block';}else ms.style.display='none';
   $('m-spec').innerHTML=`<strong>規格：</strong>${p.spec||'請洽詢'}`;
-  $('m-desc').textContent=p.desc;
-  $('m-line').href=lineHref;
+  $('m-desc').textContent=p.desc;$('m-line').href=lineHref;
   $('modal').classList.add('open');document.body.style.overflow='hidden';
 }
 function closeMod(){$('modal').classList.remove('open');document.body.style.overflow='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMod();closeNews();closeLB();}});
 
 /* ── INIT ── */
 async function init(){
   try{
-    const [sRes,pRes]=await Promise.all([
+    const fetches=[
       fetch(`https://docs.google.com/spreadsheets/d/${SID}/gviz/tq?tqx=out:csv&sheet=Settings`),
       fetch(`https://docs.google.com/spreadsheets/d/${SID}/gviz/tq?tqx=out:csv&sheet=Products`)
-    ]);
+    ];
+    // News 工作表（可選）
+    const newsPromise=fetch(`https://docs.google.com/spreadsheets/d/${SID}/gviz/tq?tqx=out:csv&sheet=News`).catch(()=>null);
+    const [sRes,pRes]=await Promise.all(fetches);
     const S=makeMap(parseCSV(await sRes.text()));
 
     // Meta
@@ -849,15 +1086,13 @@ async function init(){
     $('nav-brand').textContent=title;
     if(S.FaviconURL)$('favicon').href=durl(S.FaviconURL);
     const logo=durl(S.LogoURL||'');
-    const logoImg=$('logo-img');
-    if(logo){logoImg.src=logo;$('foot-logo').src=logo;}
-    else{logoImg.style.display='none';}
+    if(logo){$('logo-img').src=logo;$('foot-logo').src=logo;}else $('logo-img').style.display='none';
 
     // About
     $('t-about').textContent=S.AboutContent||'';
     buildPhil(S.Philosophy||'');
 
-    // Base sections
+    // Base
     const bSec=$('sec-base');
     for(let i=1;;i++){
       const img=S[`BaseImg${i}`],txt=S[`BaseText${i}`];
@@ -868,120 +1103,76 @@ async function init(){
         <div class="side-text"><div class="prose">${txt}</div></div>
       </div></div>`;
     }
-
-    // 名片 / 團隊照（支援 lightbox 放大）
     let bc='';
-    for(let i=1;;i++){const img=S[`BizCardImg${i}`];if(!img)break;
-      const u=durl(img);
-      bc+=`<div class="biz-card" onclick="openLB('${u}')"><img src="${u}" alt="名片${i}" loading="lazy"></div>`;
-    }
+    for(let i=1;;i++){const img=S[`BizCardImg${i}`];if(!img)break;const u=durl(img);bc+=`<div class="biz-card" onclick="openLB('${u}')"><img src="${u}" alt="" loading="lazy"></div>`;}
     if(bc)$('sec-biz').innerHTML=`<div class="card"><h2>團隊介紹</h2><div class="biz-grid">${bc}</div></div>`;
 
     // Hero
-    const heroUrls=[];
-    for(let i=1;;i++){const u=S[`HeroURL${i}`];if(!u)break;heroUrls.push(u);}
+    const heroUrls=[];for(let i=1;;i++){const u=S[`HeroURL${i}`];if(!u)break;heroUrls.push(u);}
     buildSlider(heroUrls,S.HeroTitle||title,S.HeroSub||'');
+
+    // Reviews
+    buildReviews(S);
+
+    // Guide LINE btn
+    lineHref=S.ContactLink||'#';
+    const glb=$('guide-line-btn');if(glb)glb.href=lineHref;
 
     // Courses
     const ciImg=durl(S.CoursePoster||''),ciTxt=S.CourseIntro||'';
-    if(ciImg||ciTxt){
-      $('c-intro-content').innerHTML=`<div class="flex-row">
-        ${ciImg?`<div class="side-img"><img src="${ciImg}" alt="課程" loading="lazy"></div>`:''}
-        <div class="side-text"><div class="prose">${ciTxt}</div></div>
-      </div>`;
-    }else $('c-intro-card').style.display='none';
+    if(ciImg||ciTxt){$('c-intro-content').innerHTML=`<div class="flex-row">${ciImg?`<div class="side-img"><img src="${ciImg}" alt="課程" loading="lazy"></div>`:''}<div class="side-text"><div class="prose">${ciTxt}</div></div></div>`;}else $('c-intro-card').style.display='none';
     buildCourses(S.CourseContent,S);
-    const fees=S.CourseFees||'';
-    if(fees)$('t-fees').textContent=fees;else $('c-fees-card').style.display='none';
-    const cImg=durl(S.CoachImg||'');
-    if(cImg){$('c-coach-img').src=cImg;$('c-coach-img-wrap').style.display='block';}
-    const cTxt=S.CoachIntro||'';
-    if(cTxt)$('t-coach').textContent=cTxt;else if(!cImg)$('c-coach-card').style.display='none';
-    const rent=S.CourseNotes||'';
-    if(rent)$('t-rent').textContent=rent;else $('c-rent-card').style.display='none';
-    const faq=S.CourseFAQ||'';
-    if(faq)buildFAQ(faq);else $('c-faq-card').style.display='none';
+    const fees=S.CourseFees||'';if(fees)$('t-fees').textContent=fees;else $('c-fees-card').style.display='none';
+    const cImg=durl(S.CoachImg||'');if(cImg){$('c-coach-img').src=cImg;$('c-coach-img-wrap').style.display='block';}
+    const cTxt=S.CoachIntro||'';if(cTxt)$('t-coach').textContent=cTxt;else if(!cImg)$('c-coach-card').style.display='none';
+    const rent=S.CourseNotes||'';if(rent)$('t-rent').textContent=rent;else $('c-rent-card').style.display='none';
+    const faq=S.CourseFAQ||'';if(faq)buildFAQ(faq);else $('c-faq-card').style.display='none';
 
     // Venue
     const vList=$('venue-list');let vCnt=0;
     for(let i=1;;i++){
       const name=S[`Venue${i}Name`];if(!name)break;vCnt++;
-      const addr=S[`Venue${i}Addr`]||'',desc=S[`Venue${i}Desc`]||'',
-            img=S[`VenueImg${i}`]||'',map=S[`VenueMap${i}`]||'',
-            date=S[`Venue${i}Date`]||'',time=S[`Venue${i}Time`]||'',
-            fee=S[`Venue${i}Fee`]||'',cap=S[`Venue${i}Cap`]||'',
-            note=S[`Venue${i}Note`]||'';
-      const raw=map.trim();
-      const mapSrc=raw.startsWith('<iframe')?(raw.match(/src=["']([^"']+)["']/)||[])[1]||'':raw;
-      vList.innerHTML+=`<div class="venue-card">
-        <div class="venue-top">
-          <div class="venue-info"><h3>${name}</h3>
-            ${addr?`<div class="vrow"><i class="fas fa-location-dot"></i><span>${addr}</span></div>`:''}
-            ${date?`<div class="vrow"><i class="fas fa-calendar-days"></i><span>${date}</span></div>`:''}
-            ${time?`<div class="vrow"><i class="fas fa-clock"></i><span>${time}</span></div>`:''}
-            ${fee?`<div class="vrow"><i class="fas fa-dollar-sign"></i><span>${fee}</span></div>`:''}
-            ${cap?`<div class="vrow"><i class="fas fa-users"></i><span>${cap}</span></div>`:''}
-            ${desc?`<div class="vrow"><i class="fas fa-circle-info"></i><span class="prose">${desc}</span></div>`:''}
-          </div>
-          <div class="venue-photos">${img?`<img src="${durl(img)}" alt="${name}" loading="lazy">`:'<div class="c-no-img"><i class="fas fa-image"></i></div>'}</div>
-          <div class="venue-map">${mapSrc?`<iframe src="${mapSrc}" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`:'<div class="c-no-img"><i class="fas fa-map"></i><span>地圖待填入</span></div>'}</div>
-        </div>
-        ${note?`<div class="venue-notes"><i class="fas fa-triangle-exclamation"></i>${note}</div>`:''}
-      </div>`;
+      const addr=S[`Venue${i}Addr`]||'',desc=S[`Venue${i}Desc`]||'',img=S[`VenueImg${i}`]||'',map=S[`VenueMap${i}`]||'',date=S[`Venue${i}Date`]||'',time=S[`Venue${i}Time`]||'',fee=S[`Venue${i}Fee`]||'',cap=S[`Venue${i}Cap`]||'',note=S[`Venue${i}Note`]||'';
+      const raw=map.trim();const mapSrc=raw.startsWith('<iframe')?(raw.match(/src=["']([^"']+)["']/)||[])[1]||'':raw;
+      vList.innerHTML+=`<div class="venue-card"><div class="venue-top"><div class="venue-info"><h3>${name}</h3>${addr?`<div class="vrow"><i class="fas fa-location-dot"></i><span>${addr}</span></div>`:''} ${date?`<div class="vrow"><i class="fas fa-calendar-days"></i><span>${date}</span></div>`:''} ${time?`<div class="vrow"><i class="fas fa-clock"></i><span>${time}</span></div>`:''} ${fee?`<div class="vrow"><i class="fas fa-dollar-sign"></i><span>${fee}</span></div>`:''} ${cap?`<div class="vrow"><i class="fas fa-users"></i><span>${cap}</span></div>`:''} ${desc?`<div class="vrow"><i class="fas fa-circle-info"></i><span class="prose">${desc}</span></div>`:''}</div><div class="venue-photos">${img?`<img src="${durl(img)}" alt="${name}" loading="lazy">`:'<div class="c-no-img"><i class="fas fa-image"></i></div>'}</div><div class="venue-map">${mapSrc?`<iframe src="${mapSrc}" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`:'<div class="c-no-img"><i class="fas fa-map"></i><span>地圖待填入</span></div>'}</div></div>${note?`<div class="venue-notes"><i class="fas fa-triangle-exclamation"></i>${note}</div>`:''}</div>`;
     }
     if(!vCnt)$('venue-empty').style.display='block';
 
     // Partners
     if(S.PartnerIntro)$('t-partner-intro').textContent=S.PartnerIntro;
     const pList=$('partner-list');let pCnt=0;
-    for(let i=1;;i++){
-      const name=S[`PartnerName${i}`];if(!name)break;pCnt++;
-      const desc=S[`PartnerDesc${i}`]||'',img=S[`PartnerImg${i}`]||'',link=S[`PartnerLink${i}`]||'';
-      pList.innerHTML+=`<div class="partner-card">
-        ${img?`<img class="partner-logo" src="${durl(img)}" alt="${name}" loading="lazy">`:''}
-        <div><h3 style="color:var(--navy);margin-bottom:6px;font-size:1.05rem">${name}</h3>
-          <div class="prose" style="font-size:.87rem;color:#555">${desc}</div>
-          ${link?`<a href="${link}" target="_blank" class="partner-link"><i class="fas fa-arrow-up-right-from-square"></i> 前往官網</a>`:''}
-        </div>
-      </div>`;
-    }
+    for(let i=1;;i++){const name=S[`PartnerName${i}`];if(!name)break;pCnt++;const desc=S[`PartnerDesc${i}`]||'',img=S[`PartnerImg${i}`]||'',link=S[`PartnerLink${i}`]||'';pList.innerHTML+=`<div class="partner-card">${img?`<img class="partner-logo" src="${durl(img)}" alt="${name}" loading="lazy">`:''}<div><h3 style="color:var(--navy);margin-bottom:6px;font-size:1.05rem">${name}</h3><div class="prose" style="font-size:.87rem;color:#555">${desc}</div>${link?`<a href="${link}" target="_blank" class="partner-link"><i class="fas fa-arrow-up-right-from-square"></i> 前往官網</a>`:''}</div></div>`;}
     if(!pCnt)$('partner-empty').style.display='block';
 
     // Contact
-    lineHref=S.ContactLink||'#';
-    $('l-line').href=lineHref;
-    $('l-fb').href=S.FBLink||'#';
-    $('l-ig').href=S.IGLink||'#';
+    $('l-line').href=lineHref;$('l-fb').href=S.FBLink||'#';$('l-ig').href=S.IGLink||'#';
     const ciC=$('contact-info-cards');
     addCICard(ciC,'fas fa-user','聯絡人',S.StaffContact);
     addCICard(ciC,'fas fa-location-dot','地址',S.Address);
-    addCICard(ciC,'fas fa-building','統一編號',S.BizInfo?`${S.BizInfo}`:'');
+    if(S.BizInfo)addCICard(ciC,'fas fa-building','統一編號',S.BizInfo);
     addCICard(ciC,'fas fa-comment-dots','備註',S.ContactDesc);
-
-    if(S.ContactMap){
-      const mb=$('map-box'),raw=S.ContactMap.trim();
-      const src=raw.startsWith('<iframe')?(raw.match(/src=["']([^"']+)["']/)||[])[1]||'':raw;
-      if(src){const ifr=document.createElement('iframe');ifr.src=src;ifr.setAttribute('allowfullscreen','');ifr.setAttribute('loading','lazy');ifr.setAttribute('referrerpolicy','no-referrer-when-downgrade');ifr.style.cssText='width:100%;height:100%;border:0;display:block';mb.innerHTML='';mb.appendChild(ifr);}
-    }
+    if(S.ContactMap){const mb=$('map-box'),raw=S.ContactMap.trim();const src=raw.startsWith('<iframe')?(raw.match(/src=["']([^"']+)["']/)||[])[1]||'':raw;if(src){const ifr=document.createElement('iframe');ifr.src=src;ifr.setAttribute('allowfullscreen','');ifr.setAttribute('loading','lazy');ifr.setAttribute('referrerpolicy','no-referrer-when-downgrade');ifr.style.cssText='width:100%;height:100%;border:0;display:block';mb.innerHTML='';mb.appendChild(ifr);}}
 
     // Footer
-    $('f-slogan').textContent=S.FooterSlogan||'';
-    $('f-biz').textContent=S.BizInfo?`統編：${S.BizInfo}`:'';
-    $('f-staff').textContent=S.StaffContact||'';
-    $('f-addr').textContent=S.Address||'';
+    $('f-slogan').textContent=S.FooterSlogan||'';$('f-biz').textContent=S.BizInfo?`統編：${S.BizInfo}`:'';$('f-staff').textContent=S.StaffContact||'';$('f-addr').textContent=S.Address||'';
 
     // Products
     const pRows=parseCSV(await pRes.text()).slice(1);
-    prods=pRows.map((c,i)=>{
-      const extraImgs=c.slice(8).map(u=>durl(u)).filter(Boolean);
-      return{id:i,brand:c[0]||'',name:c[1]||'',cat:c[2]||'',price:c[3]||'',
-        desc:c[4]||'',img:durl(c[5]||''),spec:c[6]||'',stock:c[7]||'',imgs:extraImgs};
-    }).filter(p=>p.name);
+    prods=pRows.map((c,i)=>{const extraImgs=c.slice(8).map(u=>durl(u)).filter(Boolean);return{id:i,brand:c[0]||'',name:c[1]||'',cat:c[2]||'',price:c[3]||'',desc:c[4]||'',img:durl(c[5]||''),spec:c[6]||'',stock:c[7]||'',imgs:extraImgs};}).filter(p=>p.name);
     const brands=[...new Set(prods.map(p=>p.brand))].filter(Boolean);
     brands.forEach(b=>$('sb').innerHTML+=`<option value="${b}">${b}</option>`);
     updateCats();initVT();
 
-  }catch(e){console.error('Init error:',e);}
+    // News（可選工作表）
+    const nRes=await newsPromise;
+    if(nRes&&nRes.ok){
+      const nText=await nRes.text();
+      buildNewsFromSheet(parseCSV(nText));
+      buildNewsGrid(allNews);
+      buildNewsPreview();
+    }
+
+  }catch(e){console.error('Init:',e);}
   finally{const l=$('loader');l.classList.add('hide');setTimeout(()=>l.style.display='none',500);}
 }
 window.addEventListener('resize',()=>{if($('page-products').classList.contains('active'))initVT();});
