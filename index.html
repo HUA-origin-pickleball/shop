@@ -456,7 +456,7 @@ footer p{font-size:.82rem;line-height:1.95}
       <h2>我們提供</h2>
       <div class="service-grid">
         <div class="sv-card" onclick="go('courses')"><div class="sv-icon"><i class="fas fa-chalkboard-user"></i></div><h4>專業教學課程</h4><p>從零基礎到進階競技，四種課程方案，由認證教練全程帶領。</p><span class="sv-link">查看課程 <i class="fas fa-arrow-right"></i></span></div>
-        <div class="sv-card" onclick="go('products')"><div class="sv-icon"><i class="fas fa-store"></i></div><h4>專業器材選購</h4><p>代理及經銷多個知名品牌，涵蓋球拍、匹克球、背包與配件。</p><span class="sv-link">瀏覽商品 <i class="fas fa-arrow-right"></i></span></div>
+        <div class="sv-card" onclick="go('products')"><div class="sv-icon"><i class="fas fa-store"></i></div><h4>專業器材選購</h4><p>代理及經銷多個品牌，涵蓋球拍、匹克球、背包與配件。</p><span class="sv-link">瀏覽商品 <i class="fas fa-arrow-right"></i></span></div>
         <div class="sv-card" onclick="go('venue')"><div class="sv-icon"><i class="fas fa-location-dot"></i></div><h4>花蓮在地場館</h4><p>與在地優質室內場館合作，舒適專業的練習環境。</p><span class="sv-link">查看場地 <i class="fas fa-arrow-right"></i></span></div>
       </div>
     </div>
@@ -905,7 +905,7 @@ function buildNewsPreview(){
 
 /* ── Google 評論（固定範例，填入 GoogleReviewURL 後可連結） ── */
 function buildReviews(S){
-  const url=S.GoogleReviewURL||'';
+  const url=S.GoogleReviewURL||'https://www.google.com/maps/place/%E5%8E%9F%E9%BB%9E%E5%8C%B9%E5%85%8B%E7%90%83+Origin+Pickleball%EF%BC%88%E9%A0%90%E7%B4%84%E5%88%B6%EF%BC%89/@23.9805659,121.599783,17z/data=!4m8!3m7!1s0x34689f4a52c0289d:0xd0aada5e141c908f!8m2!3d23.9805659!4d121.599783!9m1!1b1!16s%2Fg%2F11yv1d1k45?hl=zh-TW';
   if(url)$('rv-link').href=url;
 
   // 固定顯示的範例評論（可從試算表 Reviews 工作表讀取，這裡先用預設）
