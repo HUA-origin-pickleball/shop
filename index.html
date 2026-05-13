@@ -425,7 +425,7 @@ footer p{font-size:.82rem;line-height:1.95}
       <div class="nav-logo-divider"></div>
       <div class="nav-logo-text">
         <span class="nav-logo-en">Official Website</span>
-        <span id="nav-brand" class="nav-logo-zh">原點匹克球 | Origin Pickleball</span>
+        <span id="nav-brand" class="nav-logo-zh">原點匹克球</span>
       </div>
     </div>
     <div class="nav-links">
@@ -637,7 +637,7 @@ footer p{font-size:.82rem;line-height:1.95}
         <h2>基本規則速覽</h2>
         <ul class="rule-list">
           <li><span class="rule-num">1</span>比賽分為單打（1v1）和雙打（2v2），雙打更為常見。</li>
-          <li><span class="rule-num">2</span>使用洞洞球（匹克球）和類似桌球拍的硬質球拍。</li>
+          <li><span class="rule-num">2</span>使用實心小球（匹克球）和類似桌球拍的硬質球拍。</li>
           <li><span class="rule-num">3</span>採用「只有發球方得分」制，先達到11分（需領先2分）者獲勝。</li>
           <li><span class="rule-num">4</span>發球必須低手揮拍（手腕以下），且球必須落在對角線的發球區。</li>
           <li><span class="rule-num">5</span>「廚房規則」：網前2.13公尺的禁區（Non-Volley Zone）內不能在球落地前擊球。</li>
@@ -659,7 +659,7 @@ footer p{font-size:.82rem;line-height:1.95}
         <h2>匹克球 vs 其他運動</h2>
         <div style="overflow-x:auto">
           <table class="compare-table">
-            <thead><tr><th>比較項目</th><th>匹克球 ⭐</th><th>羽毛球</th><th>網球</th><th>桌球</th></tr></thead>
+            <thead><tr><th>比較項目</th><th class="hl">匹克球 ⭐</th><th>羽毛球</th><th>網球</th><th>桌球</th></tr></thead>
             <tbody>
               <tr><td>上手難度</td><td class="hl">★☆☆ 非常容易</td><td>★★☆</td><td>★★★</td><td>★★☆</td></tr>
               <tr><td>體能需求</td><td class="hl">低〜中</td><td>中〜高</td><td>中〜高</td><td>低〜中</td></tr>
@@ -682,7 +682,7 @@ footer p{font-size:.82rem;line-height:1.95}
       </div>
     </div>
     <div class="card" style="text-align:center;background:linear-gradient(135deg,#eef3ee,#f4f6f4);padding:36px">
-      <div style="font-size:2rem;margin-bottom:12px🔥</div>
+      <div style="font-size:2rem;margin-bottom:12px">🏓</div>
       <h3 style="color:var(--navy);margin-bottom:8px;font-size:1.2rem">準備好下場了嗎？</h3>
       <p style="color:var(--sub);font-size:.9rem;margin-bottom:20px">一堂新手速成班，讓你從零到能上場對打</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
@@ -842,7 +842,7 @@ function buildSlider(urls,title,sub){
   });
   const ov=document.createElement('div');ov.className='hero-ov';box.insertBefore(ov,$('hp'));
   const tx=document.createElement('div');tx.className='hero-txt';
-  tx.innerHTML=`<h1>${title||'原點匹克球 | Origin Pickleball'}</h1>${sub?`<p>${sub}</p>`:''}`;
+  tx.innerHTML=`<h1>${title||'原點匹克球'}</h1>${sub?`<p>${sub}</p>`:''}`;
   box.appendChild(tx);
   valid.forEach((_,i)=>{
     const d=document.createElement('button');d.className='dot'+(i===0?' active':'');
@@ -1084,8 +1084,8 @@ async function init(){
     ]);
     const S=makeMap(parseCSV(await sRes.text()));
 
-    const title=S.SiteTitle||'原點匹克球 | Origin Pickleball';
-    document.title=`${title};
+    const title=S.SiteTitle||'原點匹克球';
+    document.title=`${title} | Origin Pickleball`;
     $('nav-brand').textContent=title;
     if(S.FaviconURL)$('favicon').href=durl(S.FaviconURL);
     const logo=durl(S.LogoURL||'');
