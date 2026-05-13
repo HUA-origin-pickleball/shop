@@ -1085,6 +1085,7 @@ async function init(){
     const S=makeMap(parseCSV(await sRes.text()));
 
     const title=S.SiteTitle||'原點匹克球 | Origin Pickleball';
+    document.title=`${title};
     $('nav-brand').textContent=title;
     if(S.FaviconURL)$('favicon').href=durl(S.FaviconURL);
     const logo=durl(S.LogoURL||'');
