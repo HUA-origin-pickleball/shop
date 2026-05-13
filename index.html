@@ -842,7 +842,7 @@ function buildSlider(urls,title,sub){
   });
   const ov=document.createElement('div');ov.className='hero-ov';box.insertBefore(ov,$('hp'));
   const tx=document.createElement('div');tx.className='hero-txt';
-  tx.innerHTML=`<h1>${title||'原點匹克球'}</h1>${sub?`<p>${sub}</p>`:''}`;
+  tx.innerHTML=`<h1>${title||'原點匹克球 | Origin Pickleball'}</h1>${sub?`<p>${sub}</p>`:''}`;
   box.appendChild(tx);
   valid.forEach((_,i)=>{
     const d=document.createElement('button');d.className='dot'+(i===0?' active':'');
@@ -1084,7 +1084,7 @@ async function init(){
     ]);
     const S=makeMap(parseCSV(await sRes.text()));
 
-    const title=S.SiteTitle||'原點匹克球';
+    const title=S.SiteTitle||'原點匹克球 | Origin Pickleball';
     document.title=`${title} | Origin Pickleball`;
     $('nav-brand').textContent=title;
     if(S.FaviconURL)$('favicon').href=durl(S.FaviconURL);
