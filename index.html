@@ -3,13 +3,70 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=5">
-<title>原點匹克球 | Origin Pickleball</title>
+
+<!-- ══ SEO Meta ══ -->
+<title>原點匹克球 | 課程教學/器材販售/推廣活動 | Origin Pickleball</title>
+<meta name="description" content="花蓮唯一匹克球專賣店。原點匹克球，翰堡教練提供新手速成班、初階班、高效練球班、兒童樂齡班。JNICE、ANIVIIA、Triple Ace等品牌球拍代理、經銷。花蓮縣花蓮市林森路249巷2弄19號。">
+<meta name="keywords" content="花蓮匹克球,匹克球花蓮,原點匹克球,匹克球教學,匹克球課程,匹克球球拍,花蓮運動,Pickleball花蓮,匹克球新手,Origin Pickleball">
+<meta name="author" content="原點匹克球 Origin Pickleball">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://hua-origin-pickleball.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="原點匹克球 Origin Pickleball">
+<meta property="og:title" content="原點匹克球｜花蓮匹克球教學・球拍專賣">
+<meta property="og:description" content="花蓮唯一匹克球專賣店，翰堡教練提供各種課程，品牌球拍代理、經銷。從零基礎開始，一堂課就能上場對打！">
+<meta property="og:url" content="https://hua-origin-pickleball.github.io/">
+<meta property="og:locale" content="zh_TW">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="原點匹克球｜課程教學/器材販售/推廣活動">
+<meta name="twitter:description" content="花蓮唯一匹克球專賣店，翰堡教練提供各種課程，品牌球拍代理、經銷。從零基礎開始，一堂課就能上場對打！">
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@graph":[
+    {
+      "@type":"LocalBusiness",
+      "@id":"https://hua-origin-pickleball.github.io/#business",
+      "name":"原點匹克球 Origin Pickleball",
+      "alternateName":["原點匹克球","Origin Pickleball"],
+      "description":"花蓮唯一匹克球專賣店，翰堡教練提供各種課程，品牌球拍代理、經銷及場地資訊。",
+      "url":"https://hua-origin-pickleball.github.io/",
+      "telephone":"+886-972-995470",
+      "address":{"@type":"PostalAddress","streetAddress":"林森路249巷2弄19號","addressLocality":"花蓮市","addressRegion":"花蓮縣","postalCode":"970","addressCountry":"TW"},
+      "geo":{"@type":"GeoCoordinates","latitude":23.9805659,"longitude":121.599783},
+      "sameAs":["https://www.facebook.com/61586647553875/","https://lin.ee/sABJ7AK"],
+      "priceRange":"$800-$10000",
+      "currenciesAccepted":"TWD",
+      "paymentAccepted":"現金, 轉帳",
+      "areaServed":{"@type":"City","name":"花蓮市"}
+    },
+    {
+      "@type":"WebSite",
+      "@id":"https://hua-origin-pickleball.github.io/#website",
+      "url":"https://hua-origin-pickleball.github.io/",
+      "name":"原點匹克球 Origin Pickleball",
+      "inLanguage":"zh-TW"
+    },
+    {
+      "@type":"FAQPage",
+      "mainEntity":[
+        {"@type":"Question","name":"花蓮哪裡可以學匹克球？","acceptedAnswer":{"@type":"Answer","text":"原點匹克球提供花蓮在地匹克球課程，由PKing輪堡國際認證教練授課，請透過LINE洽詢。"}},
+        {"@type":"Question","name":"完全沒有打過球可以上課嗎？","acceptedAnswer":{"@type":"Answer","text":"可以！新手速成班專為零基礎設計，2小時內掌握規則與基本技術，上課含球拍使用。"}},
+        {"@type":"Question","name":"花蓮哪裡買匹克球拍？","acceptedAnswer":{"@type":"Answer","text":"原點匹克球代理及經銷JNICE、ANIVIIA、Triple Ace、Vispinvo等多個品牌，歡迎至花蓮市林森路249巷2弄19號來店或透過LINE詢問。"}}
+      ]
+    }
+  ]
+}
+</script>
+
 <link id="favicon" rel="icon" href="">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{font-family:"PingFang TC","Microsoft JhengHei",sans-serif;background:#f4f6f4;color:#2c3e50;line-height:1.75;overflow-x:hidden}
+/* 修正1：彈窗開啟時鎖定背景，用 class 控制避免手機當機 */
+body.modal-open{overflow:hidden;position:fixed;width:100%;top:0}
 img{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
 button{cursor:pointer;border:none;background:none;font-family:inherit}
@@ -355,7 +412,7 @@ footer{background:#1a1a1a;color:#888;padding:48px 20px;text-align:center}
 hr.fd{border:none;border-top:1px solid #333;max-width:140px;margin:12px auto}
 footer p{font-size:.82rem;line-height:1.95}
 
-/* Responsive */
+/* ── Responsive ── */
 @media(max-width:960px){
   .shop-wrap{grid-template-columns:1fr}
   .filter-panel{position:static;display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;align-items:end}
@@ -377,6 +434,8 @@ footer p{font-size:.82rem;line-height:1.95}
   :root{--nh:58px}
   .nav-links{display:none}
   .hbg{display:flex}
+  /* 修正2：手機版保留 Official Website 文字 */
+  .nav-logo-en{font-size:.52rem;letter-spacing:.08em}
   .hero-slides{height:300px}
   .hero-txt{padding:18px 16px 14px}
   .hdots{right:12px;bottom:6px}
@@ -384,12 +443,17 @@ footer p{font-size:.82rem;line-height:1.95}
   .card{padding:20px 16px}
   .flex-row,.flex-row.rev{flex-direction:column;gap:18px}
   .side-img img{max-height:200px}
-  .contact-wrap{grid-template-columns:1fr}
-  .map-wrap{height:260px}
-  .partner-card{flex-direction:column;align-items:flex-start}
-  .mbox{flex-direction:column;max-height:95vh}
-  .m-gallery{min-height:auto}
-  .m-det{padding:18px}
+  /* 修正3：聯絡我們手機版單欄，地圖高度適中 */
+  .contact-wrap{grid-template-columns:1fr;gap:16px}
+  .map-wrap{height:280px}
+  /* 修正4：合作夥伴手機版改為垂直排列 */
+  .partner-card{flex-direction:column;align-items:flex-start;gap:14px}
+  .partner-logo{width:70px;height:70px}
+  /* 修正5：彈窗手機版可捲動不當機 */
+  .mbox{flex-direction:column;max-height:88dvh;overflow-y:auto}
+  .m-gallery{min-height:180px;flex-shrink:0}
+  .m-det{padding:18px;overflow-y:visible}
+  .nm-box{max-height:88dvh}
   .pgrid{grid-template-columns:1fr 1fr;gap:11px}
   .pgrid.v-list{grid-template-columns:1fr}
   .pgrid.v-list .pc{flex-direction:row}
@@ -410,7 +474,8 @@ footer p{font-size:.82rem;line-height:1.95}
   .hero-txt h1{font-size:1.35rem}
   .pgrid,.pgrid.v-2{grid-template-columns:1fr 1fr}
   .pgrid.v-list{grid-template-columns:1fr}
-  .nav-logo-en{display:none}
+  /* 極小螢幕才縮小，不隱藏 */
+  .nav-logo-en{font-size:.46rem;letter-spacing:.05em}
   .news-grid{grid-template-columns:1fr}
 }
 </style>
@@ -454,7 +519,6 @@ footer p{font-size:.82rem;line-height:1.95}
 
 <!-- ABOUT -->
 <div id="page-about" class="page active">
-  <!-- 低調跑馬燈 -->
   <div class="marquee-bar" id="marquee-bar">
     <div class="marquee-wrap">
       <span class="marquee-label">最新消息</span>
@@ -494,15 +558,11 @@ footer p{font-size:.82rem;line-height:1.95}
         </div>
       </div>
     </div>
-
-    <!-- 最新消息預覽 -->
     <div class="card" id="news-preview-card" style="display:none">
       <h2>最新消息</h2>
       <div id="news-preview-grid" class="news-preview-grid"></div>
       <span class="see-more" onclick="go('news')">查看所有消息 <i class="fas fa-arrow-right"></i></span>
     </div>
-
-    <!-- 精選評論 -->
     <div class="card">
       <h2>學員評價</h2>
       <div class="rv-summary">
@@ -522,14 +582,10 @@ footer p{font-size:.82rem;line-height:1.95}
         <i class="fas fa-arrow-right" style="margin-left:auto;color:var(--sub)"></i>
       </a>
     </div>
-
-    <!-- 大事紀 Timeline -->
     <div class="card" id="timeline-card" style="display:none">
       <h2>我們的故事</h2>
       <div class="timeline" id="timeline"></div>
     </div>
-
-    <!-- 團隊介紹（名片） -->
     <div id="sec-biz"></div>
   </div>
 </div>
@@ -634,7 +690,6 @@ footer p{font-size:.82rem;line-height:1.95}
         <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-circle-info"></i></div><h3>名稱由來</h3></div><div class="gd-card-body">「Pickleball」這個名字有兩種說法：一說來自發明人 Pritchard 家的狗「Pickles」，牠常撿球；另一說來自划艇賽術語「pickle boat」（由不同隊落選球員組成的雜牌隊），比喻這項運動融合多種球類的特性。兩種說法各有擁護者，真相至今仍是個謎！</div></div>
       </div>
     </div>
-
     <div id="guide-rules" class="guide-section">
       <div class="card" style="margin-bottom:20px">
         <h2>基本規則速覽</h2>
@@ -651,81 +706,19 @@ footer p{font-size:.82rem;line-height:1.95}
       <div class="card">
         <h2>場地詳細說明</h2>
         <div class="guide-grid" style="margin-bottom:20px">
-          <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-ruler-combined"></i></div><h3>場地尺寸</h3></div><div class="gd-card-body">
-            標準匹克球場地（單打與雙打相同）：<br><br>
-            📐 <strong>場地：</strong>6.1m × 13.4m（20 × 44 英尺）<br>
-            🔶 <strong>廚房（NVZ）：</strong>從網延伸兩側各 2.13m（7 英尺），全場寬<br>
-            📏 <strong>發球區：</strong>廚房線到底線 4.57m（15 英尺），各分左右<br>
-            🎯 <strong>建議總面積：</strong>至少 9.14m × 18.29m（含緩衝區）
-          </div></div>
-          <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-arrows-up-down"></i></div><h3>網的規格</h3></div><div class="gd-card-body">
-            匹克球的球網高度特殊，中央略低於兩側：<br><br>
-            🥅 <strong>兩側網柱高：</strong>91.4 cm（36 英吋）<br>
-            🥅 <strong>中央網高：</strong>86.4 cm（34 英吋）<br><br>
-            中央略低的設計讓球往中間打更容易過網，有助延長來回球，也讓角度變化更豐富。<br><br>
-            網寬需橫跨整個場地 6.1m，網孔需夠小以防球穿過。
-          </div></div>
-          <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-utensils"></i></div><h3>廚房（Kitchen）</h3></div><div class="gd-card-body">
-            廚房是匹克球最具特色的規則區域，正式名稱為非截擊區（Non-Volley Zone, NVZ）。<br><br>
-            ✅ <strong>可以做的事：</strong><br>
-            · 走進廚房（任何時候都可以）<br>
-            · 進入廚房後讓球彈地再打<br>
-            · 在廚房線後截擊空中球<br><br>
-            ❌ <strong>不可以做的事：</strong><br>
-            · 在廚房內截擊空中球（含踩線）<br>
-            · 截擊後因動能踏入廚房
-          </div></div>
+          <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-ruler-combined"></i></div><h3>場地尺寸</h3></div><div class="gd-card-body">標準匹克球場地（單打與雙打相同）：<br><br>📐 <strong>場地：</strong>6.1m × 13.4m（20 × 44 英尺）<br>🔶 <strong>廚房（NVZ）：</strong>從網延伸兩側各 2.13m（7 英尺），全場寬<br>📏 <strong>發球區：</strong>廚房線到底線 4.57m（15 英尺），各分左右<br>🎯 <strong>建議總面積：</strong>至少 9.14m × 18.29m（含緩衝區）</div></div>
+          <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-arrows-up-down"></i></div><h3>網的規格</h3></div><div class="gd-card-body">匹克球的球網高度特殊，中央略低於兩側：<br><br>🥅 <strong>兩側網柱高：</strong>91.4 cm（36 英吋）<br>🥅 <strong>中央網高：</strong>86.4 cm（34 英吋）<br><br>中央略低的設計讓球往中間打更容易過網，有助延長來回球，也讓角度變化更豐富。<br><br>網寬需橫跨整個場地 6.1m，網孔需夠小以防球穿過。</div></div>
+          <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-utensils"></i></div><h3>廚房（Kitchen）</h3></div><div class="gd-card-body">廚房是匹克球最具特色的規則區域，正式名稱為非截擊區（Non-Volley Zone, NVZ）。<br><br>✅ <strong>可以做的事：</strong><br>· 走進廚房（任何時候都可以）<br>· 進入廚房後讓球彈地再打<br>· 在廚房線後截擊空中球<br><br>❌ <strong>不可以做的事：</strong><br>· 在廚房內截擊空中球（含踩線）<br>· 截擊後因動能踏入廚房</div></div>
         </div>
-        <div style="background:var(--bg);border-radius:10px;padding:16px 20px;font-size:.85rem;color:#555;line-height:1.9">
-          💡 <strong>快速記憶口訣：</strong>「先彈兩下才能截；廚房線前不能截；只有發球方才得分」
-        </div>
+        <div style="background:var(--bg);border-radius:10px;padding:16px 20px;font-size:.85rem;color:#555;line-height:1.9">💡 <strong>快速記憶口訣：</strong>「先彈兩下才能截；廚房線前不能截；只有發球方才得分」</div>
       </div>
     </div>
-
     <div id="guide-gear" class="guide-section">
       <div class="guide-grid" style="margin-bottom:20px">
-        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-table-tennis-paddle-ball"></i></div><h3>球拍選購重點</h3></div><div class="gd-card-body">
-          <strong>重量（最重要）：</strong><br>
-          · 輕拍（7.6oz）(約215g)：操控靈活，適合初學者、女性及注重網前細膩控球的玩家<br>
-          · 重拍（8.2oz）(約232g)：底線力量更強，適合有一定基礎的進階玩家<br><br>
-          <strong>核心厚度：</strong><br>
-          · 14mm：彈性好，擊球感清脆，打感偏硬<br>
-          · 16mm：控球更穩定，容錯率高，初學者首選<br>
-          <strong>面板材質：</strong><br>
-          · 玻璃纖維：較柔和、彈性好，初學者兩者都適合<br>
-          · 碳纖維：旋轉多、回彈快，適合進階型玩家
-        </div></div>
-        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-circle-dot"></i></div><h3>球的選擇</h3></div><div class="gd-card-body">
-          匹克球有 26〜40 個小孔，依使用環境分為：<br><br>
-          <strong>室外球：</strong><br>
-          孔洞較小（通常 40 孔）、較硬較重，耐磨損、不怕風，適合戶外硬地場。<br><br>
-          <strong>室內球：</strong><br>
-          孔洞較大（通常 26 孔）、較輕軟，彈跳稍低，適合木質或塑膠地板的室內場，回球較慢，初學者更容易控制。<br><br>
-          <strong>靜音訓練球：</strong><br>
-          材質柔軟、撞擊聲小，適合在住宅區或室內練習，不擾民。<br><br>
-          💡 初學者建議先使用室內球，球速較慢更容易建立手感。
-        </div></div>
-        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-shoe-prints"></i></div><h3>鞋子與服裝</h3></div><div class="gd-card-body">
-          <strong>鞋子是最關鍵的裝備：</strong><br><br>
-          ✅ <strong>建議穿著：</strong><br>
-          · 室內場：羽球鞋、排球鞋、室內網球鞋<br>
-          · 室外場：網球鞋、專業匹克球鞋<br>
-          · 需要良好的側向（橫向）支撐力<br><br>
-          ❌ <strong>避免穿著：</strong><br>
-          · 跑步鞋（缺乏側向支撐，容易扭傷腳踝）<br>
-          · 籃球鞋（重量過重，靈活性差）<br>
-          · 拖鞋、休閒鞋<br><br>
-          <strong>服裝：</strong>舒適透氣的運動服即可。建議吸濕排汗材質，可攜帶毛巾和水壺。
-        </div></div>
-        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-star"></i></div><h3>原點推薦入門組合</h3></div><div class="gd-card-body">
-          預算有限、想先體驗再說？<br><br>
-          ✅ 入門款球拍（$1600以下）<br>
-          ✅ 室內訓練球 1〜2 顆<br>
-          ✅ 吸濕排汗運動服<br>
-          ✅ 室內羽球鞋或網球鞋<br><br>
-          💡 <strong>最省錢的方式：</strong>先報名新手速成或初階班，球拍租借費用已包含在課程費用內，體驗後再決定是否購買自己的裝備。<br><br>
-          <span style="color:var(--g);font-weight:700;cursor:pointer" onclick="go('products')">→ 瀏覽所有球拍與配件</span>
-        </div></div>
+        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-table-tennis-paddle-ball"></i></div><h3>球拍選購重點</h3></div><div class="gd-card-body"><strong>重量（最重要）：</strong><br>· 輕拍（7.6oz）(約215g)：操控靈活，適合初學者、女性及注重網前細膩控球的玩家<br>· 重拍（8.2oz）(約232g)：底線力量更強，適合有一定基礎的進階玩家<br><br><strong>核心厚度：</strong><br>· 14mm：彈性好，擊球感清脆，打感偏硬<br>· 16mm：控球更穩定，容錯率高，初學者首選<br><strong>面板材質：</strong><br>· 玻璃纖維：較柔和、彈性好，初學者兩者都適合<br>· 碳纖維：旋轉多、回彈快，適合進階型玩家</div></div>
+        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-circle-dot"></i></div><h3>球的選擇</h3></div><div class="gd-card-body">匹克球有 26〜40 個小孔，依使用環境分為：<br><br><strong>室外球：</strong><br>孔洞較小（通常 40 孔）、較硬較重，耐磨損、不怕風，適合戶外硬地場。<br><br><strong>室內球：</strong><br>孔洞較大（通常 26 孔）、較輕軟，彈跳稍低，適合木質或塑膠地板的室內場，回球較慢，初學者更容易控制。<br><br><strong>靜音訓練球：</strong><br>材質柔軟、撞擊聲小，適合在住宅區或室內練習，不擾民。<br><br>💡 初學者建議先使用室內球，球速較慢更容易建立手感。</div></div>
+        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-shoe-prints"></i></div><h3>鞋子與服裝</h3></div><div class="gd-card-body"><strong>鞋子是最關鍵的裝備：</strong><br><br>✅ <strong>建議穿著：</strong><br>· 室內場：羽球鞋、排球鞋、室內網球鞋<br>· 室外場：網球鞋、專業匹克球鞋<br>· 需要良好的側向（橫向）支撐力<br><br>❌ <strong>避免穿著：</strong><br>· 跑步鞋（缺乏側向支撐，容易扭傷腳踝）<br>· 籃球鞋（重量過重，靈活性差）<br>· 拖鞋、休閒鞋<br><br><strong>服裝：</strong>舒適透氣的運動服即可。建議吸濕排汗材質，可攜帶毛巾和水壺。</div></div>
+        <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-star"></i></div><h3>原點推薦入門組合</h3></div><div class="gd-card-body">預算有限、想先體驗再說？<br><br>✅ 入門款球拍（$1600以下）<br>✅ 室內訓練球 1〜2 顆<br>✅ 吸濕排汗運動服<br>✅ 室內羽球鞋或網球鞋<br><br>💡 <strong>最省錢的方式：</strong>先報名新手速成或初階班，球拍租借費用已包含在課程費用內，體驗後再決定是否購買自己的裝備。<br><br><span style="color:var(--g);font-weight:700;cursor:pointer" onclick="go('products')">→ 瀏覽所有球拍與配件</span></div></div>
       </div>
       <div class="card">
         <h2>球拍規格速查表</h2>
@@ -743,7 +736,6 @@ footer p{font-size:.82rem;line-height:1.95}
         </div>
       </div>
     </div>
-
     <div id="guide-compare" class="guide-section">
       <div class="card">
         <h2>匹克球 vs 其他球拍運動</h2>
@@ -770,7 +762,6 @@ footer p{font-size:.82rem;line-height:1.95}
         </div>
       </div>
     </div>
-
     <div id="guide-tips" class="guide-section">
       <div class="guide-grid">
         <div class="gd-card"><div class="gd-card-head"><div class="gd-icon"><i class="fas fa-1"></i></div><h3>往廚房線推進</h3></div><div class="gd-card-body">最重要的戰術：盡快走到廚房線前站定。在廚房線前，你能以最短距離覆蓋所有球路，並用 Dink 控制比賽節奏。<br><br>初學者最常犯的錯誤：發球後停在底線附近，讓對方有充裕時間控球。正確做法是完成第三球後立刻往前推進。</div></div>
@@ -782,7 +773,7 @@ footer p{font-size:.82rem;line-height:1.95}
       </div>
     </div>
     <div class="card" style="text-align:center;background:linear-gradient(135deg,#eef3ee,#f4f6f4);padding:36px">
-      <div style="font-size:2rem;margin-bottom:12px🔥</div>
+      <div style="font-size:2rem;margin-bottom:12px">🏓</div>
       <h3 style="color:var(--navy);margin-bottom:8px;font-size:1.2rem">準備好下場了嗎？</h3>
       <p style="color:var(--sub);font-size:.9rem;margin-bottom:20px">一堂新手速成班，讓你從零到能上場對打</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
@@ -923,7 +914,20 @@ function restoreHash(){const h=location.hash.slice(1);if(PAGES.includes(h))go(h,
 function toggleMenu(){$('hbg').classList.toggle('open');const m=$('mob-menu');m.style.display=m.style.display==='flex'?'none':'flex';}
 function cm(){$('hbg').classList.remove('open');$('mob-menu').style.display='none';}
 
-/* Hero — 確保置中 */
+/* 修正：用 class 控制 body 鎖定，避免 iOS 彈窗當機 */
+function lockBody(){
+  const y=window.scrollY;
+  document.body.style.top=`-${y}px`;
+  document.body.classList.add('modal-open');
+}
+function unlockBody(){
+  const y=Math.abs(parseInt(document.body.style.top||'0'));
+  document.body.classList.remove('modal-open');
+  document.body.style.top='';
+  window.scrollTo(0,y);
+}
+
+/* Hero */
 function buildSlider(urls,title,sub){
   const box=$('hero-slides'),de=$('hdots');
   box.querySelectorAll('.slide,.hero-ov,.hero-txt').forEach(e=>e.remove());
@@ -934,7 +938,6 @@ function buildSlider(urls,title,sub){
   valid.forEach((u,i)=>{
     const d=document.createElement('div');
     d.className='slide'+(i===0?' active':'');
-    // 明確設定 background-position:center center
     d.style.backgroundImage=`url('${durl(u)}')`;
     d.style.backgroundPosition='center center';
     d.style.backgroundSize='cover';
@@ -965,8 +968,8 @@ function goSlide(n){
 function step(d){goSlide((si+d+total)%total);}
 
 /* Lightbox */
-function openLB(src){$('lb-img').src=src;$('lb').classList.add('open');document.body.style.overflow='hidden';}
-function closeLB(){$('lb').classList.remove('open');document.body.style.overflow='';}
+function openLB(src){$('lb-img').src=src;$('lb').classList.add('open');lockBody();}
+function closeLB(){$('lb').classList.remove('open');unlockBody();}
 
 /* News */
 const TAGS={event:{cls:'tag-event',label:'活動'},course:{cls:'tag-course',label:'開班'},product:{cls:'tag-product',label:'商品'},news:{cls:'tag-news',label:'公告'}};
@@ -999,11 +1002,11 @@ function openNews(id){
   $('nm-title').textContent=n.title;$('nm-date').textContent=n.date;
   $('nm-content').textContent=n.content||n.excerpt;
   const img=$('nm-img');if(n.img){img.src=n.img;img.style.display='block';}else img.style.display='none';
-  $('news-modal').classList.add('open');document.body.style.overflow='hidden';
+  $('news-modal').classList.add('open');lockBody();
 }
-function closeNews(){$('news-modal').classList.remove('open');document.body.style.overflow='';}
+function closeNews(){$('news-modal').classList.remove('open');unlockBody();}
 
-/* 大事紀 Timeline（從 BaseImg/BaseText 生成） */
+/* 大事紀 Timeline */
 function buildTimeline(S){
   const tl=$('timeline');let count=0;
   for(let i=1;;i++){
@@ -1011,7 +1014,6 @@ function buildTimeline(S){
     if(img===undefined&&txt===undefined)break;
     if(!txt||!txt.trim())continue;
     count++;
-    // 從文字第一行抽取日期（如果有「年月日」格式）
     const lines=txt.trim().split('\n');
     const dateLine=lines[0].match(/\d{2,4}[年\/\-]\d{1,2}[月\/\-]?\d{0,2}[日]?/);
     const dateStr=dateLine?dateLine[0]:'';
@@ -1033,7 +1035,7 @@ function buildTimeline(S){
   if(count>0)$('timeline-card').style.display='block';
 }
 
-/* Reviews（從試算表 Review1_Name/Star/Date/Text 讀取） */
+/* Reviews */
 function buildReviews(S){
   const g=$('rv-grid');let cnt=0;
   for(let i=1;;i++){
@@ -1052,7 +1054,6 @@ function buildReviews(S){
       <div class="rv-text">${text}</div>
     </div>`;
   }
-  // 評分
   const score=S.GoogleScore||'5.0',count=S.GoogleCount||'';
   $('rv-score').textContent=parseFloat(score).toFixed(1);
   const sn=Math.round(parseFloat(score));$('rv-stars').textContent='★'.repeat(sn)+'☆'.repeat(5-sn);
@@ -1108,7 +1109,6 @@ function buildCourses(content,S){
     const descLines=[],priceLines=[];let foundP=false;
     lines.slice(1).forEach(l=>{if(l.match(/費用|元\/人|\$[0-9]|人班|人數/)){foundP=true;priceLines.push(l);}else if(!foundP)descLines.push(l);});
     const priceRows=parsePrices(priceLines.join(' '));
-    // 費用：極簡一行文字
     let priceHTML='';
     if(priceRows.length){
       const txt=priceRows.map(r=>`${r.n} $${r.p}`).join('・');
@@ -1170,9 +1170,9 @@ function openMod(id){
   if(p.stock){ms.textContent=p.stock;ms.className='m-stk '+sc;ms.style.display='inline-block';}else ms.style.display='none';
   $('m-spec').innerHTML=`<strong>規格：</strong>${p.spec||'請洽詢'}`;
   $('m-desc').textContent=p.desc;$('m-line').href=lineHref;
-  $('modal').classList.add('open');document.body.style.overflow='hidden';
+  $('modal').classList.add('open');lockBody();
 }
-function closeMod(){$('modal').classList.remove('open');document.body.style.overflow='';}
+function closeMod(){$('modal').classList.remove('open');unlockBody();}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeMod();closeNews();closeLB();}});
 
 /* INIT */
@@ -1183,32 +1183,23 @@ async function init(){
       fetch(`https://docs.google.com/spreadsheets/d/${SID}/gviz/tq?tqx=out:csv&sheet=Products`)
     ]);
     const S=makeMap(parseCSV(await sRes.text()));
-
     const title=S.SiteTitle||'原點匹克球';
     document.title=`${title} | Origin Pickleball`;
     $('nav-brand').textContent=title;
     if(S.FaviconURL)$('favicon').href=durl(S.FaviconURL);
     const logo=durl(S.LogoURL||'');
     if(logo){$('logo-img').src=logo;$('foot-logo').src=logo;}else $('logo-img').style.display='none';
-
     $('t-about').textContent=S.AboutContent||'';
     buildPhil(S.Philosophy||'');
     buildTimeline(S);
     buildReviews(S);
-
-    // Biz cards
     let bc='';
     for(let i=1;;i++){const img=S[`BizCardImg${i}`];if(!img)break;const u=durl(img);bc+=`<div class="biz-card" onclick="openLB('${u}')"><img src="${u}" alt="" loading="lazy"></div>`;}
     if(bc)$('sec-biz').innerHTML=`<div class="card"><h2>團隊介紹</h2><div class="biz-grid">${bc}</div></div>`;
-
-    // Hero
     const heroUrls=[];for(let i=1;;i++){const u=S[`HeroURL${i}`];if(!u)break;heroUrls.push(u);}
     buildSlider(heroUrls,S.HeroTitle||title,S.HeroSub||'');
-
     lineHref=S.ContactLink||'#';
     const glb=$('guide-line-btn');if(glb)glb.href=lineHref;
-
-    // Courses
     const ciImg=durl(S.CoursePoster||''),ciTxt=S.CourseIntro||'';
     if(ciImg||ciTxt){$('c-intro-content').innerHTML=`<div class="flex-row">${ciImg?`<div class="side-img"><img src="${ciImg}" alt="課程" loading="lazy"></div>`:''}<div class="side-text"><div class="prose">${ciTxt}</div></div></div>`;}else $('c-intro-card').style.display='none';
     buildCourses(S.CourseContent,S);
@@ -1217,8 +1208,6 @@ async function init(){
     const cTxt=S.CoachIntro||'';if(cTxt)$('t-coach').textContent=cTxt;else if(!cImg)$('c-coach-card').style.display='none';
     const rent=S.CourseNotes||'';if(rent)$('t-rent').textContent=rent;else $('c-rent-card').style.display='none';
     const faq=S.CourseFAQ||'';if(faq)buildFAQ(faq);else $('c-faq-card').style.display='none';
-
-    // Venue
     const vList=$('venue-list');let vCnt=0;
     for(let i=1;;i++){
       const name=S[`Venue${i}Name`];if(!name)break;vCnt++;
@@ -1227,14 +1216,10 @@ async function init(){
       vList.innerHTML+=`<div class="venue-card"><div class="venue-top"><div class="venue-info"><h3>${name}</h3>${addr?`<div class="vrow"><i class="fas fa-location-dot"></i><span>${addr}</span></div>`:''} ${date?`<div class="vrow"><i class="fas fa-calendar-days"></i><span>${date}</span></div>`:''} ${time?`<div class="vrow"><i class="fas fa-clock"></i><span>${time}</span></div>`:''} ${fee?`<div class="vrow"><i class="fas fa-dollar-sign"></i><span>${fee}</span></div>`:''} ${cap?`<div class="vrow"><i class="fas fa-users"></i><span>${cap}</span></div>`:''} ${desc?`<div class="vrow"><i class="fas fa-circle-info"></i><span class="prose">${desc}</span></div>`:''}</div><div class="venue-photos">${img?`<img src="${durl(img)}" alt="${name}" loading="lazy">`:'<div class="c-no-img" style="min-height:260px"><i class="fas fa-image"></i></div>'}</div><div class="venue-map">${mapSrc?`<iframe src="${mapSrc}" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>`:'<div class="c-no-img" style="min-height:260px"><i class="fas fa-map"></i></div>'}</div></div>${note?`<div class="venue-notes"><i class="fas fa-triangle-exclamation"></i>${note}</div>`:''}</div>`;
     }
     if(!vCnt)$('venue-empty').style.display='block';
-
-    // Partners
     if(S.PartnerIntro)$('t-partner-intro').textContent=S.PartnerIntro;
     const pList=$('partner-list');let pCnt=0;
     for(let i=1;;i++){const name=S[`PartnerName${i}`];if(!name)break;pCnt++;const desc=S[`PartnerDesc${i}`]||'',img=S[`PartnerImg${i}`]||'',link=S[`PartnerLink${i}`]||'';pList.innerHTML+=`<div class="partner-card">${img?`<img class="partner-logo" src="${durl(img)}" alt="${name}" loading="lazy">`:''}<div><h3 style="color:var(--navy);margin-bottom:6px;font-size:1.05rem">${name}</h3><div class="prose" style="font-size:.87rem;color:#555">${desc}</div>${link?`<a href="${link}" target="_blank" class="partner-link"><i class="fas fa-arrow-up-right-from-square"></i> 前往官網</a>`:''}</div></div>`;}
     if(!pCnt)$('partner-empty').style.display='block';
-
-    // Contact
     $('l-line').href=lineHref;$('l-fb').href=S.FBLink||'#';$('l-ig').href=S.IGLink||'#';
     const ciC=$('contact-info-cards');
     addCICard(ciC,'fas fa-user','聯絡人',S.StaffContact);
@@ -1242,29 +1227,22 @@ async function init(){
     if(S.BizInfo)addCICard(ciC,'fas fa-building','統一編號',S.BizInfo);
     addCICard(ciC,'fas fa-comment-dots','備註',S.ContactDesc);
     if(S.ContactMap){const mb=$('map-box'),raw=S.ContactMap.trim();const src=raw.startsWith('<iframe')?(raw.match(/src=["']([^"']+)["']/)||[])[1]||'':raw;if(src){const ifr=document.createElement('iframe');ifr.src=src;ifr.setAttribute('allowfullscreen','');ifr.setAttribute('loading','lazy');ifr.setAttribute('referrerpolicy','no-referrer-when-downgrade');ifr.style.cssText='width:100%;height:100%;border:0;display:block';mb.innerHTML='';mb.appendChild(ifr);}}
-
     $('f-slogan').textContent=S.FooterSlogan||'';$('f-biz').textContent=S.BizInfo?`統編：${S.BizInfo}`:'';$('f-staff').textContent=S.StaffContact||'';$('f-addr').textContent=S.Address||'';
-
-    // Products
     const pRows=parseCSV(await pRes.text()).slice(1);
     prods=pRows.map((c,i)=>{const ex=c.slice(8).map(u=>durl(u)).filter(Boolean);return{id:i,brand:c[0]||'',name:c[1]||'',cat:c[2]||'',price:c[3]||'',desc:c[4]||'',img:durl(c[5]||''),spec:c[6]||'',stock:c[7]||'',imgs:ex};}).filter(p=>p.name);
     const brands=[...new Set(prods.map(p=>p.brand))].filter(Boolean);
     brands.forEach(b=>$('sb').innerHTML+=`<option value="${b}">${b}</option>`);
     updateCats();initVT();
-
-    // News
     try{
       const nRes=await fetch(`https://docs.google.com/spreadsheets/d/${SID}/gviz/tq?tqx=out:csv&sheet=News`);
       if(nRes.ok){
         const nRows=parseCSV(await nRes.text()).slice(1);
         allNews=nRows.map((c,i)=>({id:i,date:c[0]||'',type:(c[1]||'news').toLowerCase(),title:c[2]||'',excerpt:c[3]||'',content:c[4]||'',img:durl(c[5]||'')})).filter(n=>n.title).reverse();
         buildNewsGrid(allNews);
-        // 首頁預覽
         if(allNews.length){
           const top=allNews.slice(0,3),g=$('news-preview-grid');g.innerHTML='';
           top.forEach(n=>{const t=ti(n.type);g.innerHTML+=`<div class="npv" onclick="openNews(${n.id})"><div class="npv-tag">${t.label}</div><div class="npv-title">${n.title}</div><div class="npv-date">${n.date}</div></div>`;});
           $('news-preview-card').style.display='block';
-          // 跑馬燈
           const inner=$('marquee-inner');
           const items=allNews.map(n=>`<span class="marquee-item" onclick="openNews(${n.id})"><span class="m-dot"></span>${n.title}</span>`).join('');
           inner.innerHTML=items+items;
@@ -1272,7 +1250,6 @@ async function init(){
         }
       }
     }catch(e){}
-
   }catch(e){console.error('Init:',e);}
   finally{const l=$('loader');l.classList.add('hide');setTimeout(()=>l.style.display='none',500);}
 }
