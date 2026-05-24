@@ -50,7 +50,7 @@
     {
       "@type":"FAQPage",
       "mainEntity":[
-        {"@type":"Question","name":"花蓮哪裡可以學匹克球？","acceptedAnswer":{"@type":"Answer","text":"原點匹克球提供花蓮在地匹克球課程，由PKing輪堡國際認證教練授課，請透過LINE洽詢。"}},
+        {"@type":"Question","name":"花蓮哪裡可以學匹克球？","acceptedAnswer":{"@type":"Answer","text":"原點匹克球提供花蓮在地匹克球課程，請透過LINE洽詢。"}},
         {"@type":"Question","name":"完全沒有打過球可以上課嗎？","acceptedAnswer":{"@type":"Answer","text":"可以！新手速成班專為零基礎設計，2小時內掌握規則與基本技術，上課含球拍使用。"}},
         {"@type":"Question","name":"花蓮哪裡買匹克球拍？","acceptedAnswer":{"@type":"Answer","text":"原點匹克球代理及經銷JNICE、ANIVIIA、Triple Ace、Vispinvo等多個品牌，歡迎至花蓮市林森路249巷2弄19號來店或透過LINE詢問。"}}
       ]
@@ -65,7 +65,6 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{font-family:"PingFang TC","Microsoft JhengHei",sans-serif;background:#f4f6f4;color:#2c3e50;line-height:1.75;overflow-x:hidden}
-/* 修正1：彈窗開啟時鎖定背景，用 class 控制避免手機當機 */
 body.modal-open{overflow:hidden;position:fixed;width:100%;top:0}
 img{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
@@ -135,7 +134,7 @@ h2::after{content:"";position:absolute;left:0;bottom:0;width:32px;height:5px;bac
   position:absolute;inset:0;opacity:0;transition:opacity 1s ease;
   background-repeat:no-repeat;
   background-size:cover;
-  background-position:center center; /* 確保置中 */
+  background-position:center center;
 }
 .slide.active{opacity:1}
 .hero-ov{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,0) 0%,rgba(0,0,0,0) 30%,rgba(0,0,0,.25) 55%,rgba(0,0,0,.68) 100%);pointer-events:none}
@@ -226,7 +225,6 @@ h2::after{content:"";position:absolute;left:0;bottom:0;width:32px;height:5px;bac
 .ccard-title{font-size:1.05rem;font-weight:800;color:var(--navy);margin-bottom:4px}
 .ccard-dur{font-size:.75rem;color:var(--sub);display:flex;align-items:center;gap:5px;margin-bottom:10px}
 .ccard-desc{font-size:.86rem;color:#444;line-height:1.7;white-space:pre-wrap;word-break:break-word;flex:1}
-/* ── 費用：極簡一行 ── */
 .price-line{margin-top:14px;padding-top:12px;border-top:1px solid var(--border);font-size:.84rem;color:#555;line-height:1.7}
 .price-line strong{color:var(--navy);font-size:.78rem;display:block;margin-bottom:2px;letter-spacing:.04em;text-transform:uppercase}
 .ccard-imgs{position:relative;overflow:hidden;background:#eee}
@@ -272,13 +270,20 @@ h2::after{content:"";position:absolute;left:0;bottom:0;width:32px;height:5px;bac
 .partner-logo{width:90px;height:90px;border-radius:10px;object-fit:contain;flex-shrink:0;background:#f5f5f5;padding:8px}
 .partner-link{display:inline-flex;align-items:center;gap:5px;margin-top:8px;color:var(--g);font-weight:700;font-size:.86rem}
 
-/* Shop */
+/* ══ Shop ══ */
 .shop-wrap{display:grid;grid-template-columns:230px 1fr;gap:28px}
 .filter-panel{background:var(--white);padding:18px;border-radius:var(--r);box-shadow:var(--sh);position:sticky;top:calc(var(--nh)+12px);height:fit-content}
 .filter-panel label{display:block;font-size:.72rem;font-weight:700;color:var(--sub);text-transform:uppercase;letter-spacing:.05em;margin:12px 0 4px}
 .filter-panel label:first-child{margin-top:0}
 .fi-input{width:100%;padding:8px 10px;border:1.5px solid var(--border);border-radius:var(--r-sm);font-size:.87rem;color:#2c3e50;background:#fff;outline:none;transition:.2s}
 .fi-input:focus{border-color:var(--g)}
+/* ── 價格區間 ── */
+.price-range-row{display:flex;align-items:center;gap:6px}
+.price-range-row .fi-input{padding:7px 8px}
+.price-sep{font-size:.85rem;color:var(--sub);flex-shrink:0}
+.price-apply-btn{width:100%;margin-top:6px;padding:7px 0;background:var(--g);color:#fff;border-radius:var(--r-sm);font-size:.82rem;font-weight:700;transition:.2s}
+.price-apply-btn:hover{background:var(--gd)}
+/* ─────────── */
 .pcnt{font-size:.78rem;color:var(--sub);margin-top:10px}
 .view-bar{display:flex;align-items:center;justify-content:flex-end;gap:6px;margin-bottom:14px}
 .vbtn{width:32px;height:32px;border-radius:var(--r-sm);border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:.85rem;color:var(--sub);transition:.2s}
@@ -294,6 +299,9 @@ h2::after{content:"";position:absolute;left:0;bottom:0;width:32px;height:5px;bac
 .pc-badge{font-size:.67rem;color:var(--g);font-weight:700;margin-bottom:2px}
 .pc-name{font-weight:700;font-size:.88rem;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .pc-desc{font-size:.77rem;color:#888;margin:4px 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.4}
+/* ── 老闆的話：卡片縮略 ── */
+.pc-boss{font-size:.72rem;color:#3a5232;background:#eef5eb;border-left:2px solid var(--g);border-radius:0 4px 4px 0;padding:4px 7px;margin:4px 0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;line-height:1.45}
+/* ─────────────────────── */
 .pc-price{color:var(--acc);font-weight:800;font-size:1rem;margin-top:auto;padding-top:6px}
 .stk{display:inline-flex;align-items:center;gap:4px;font-size:.72rem;font-weight:600;color:var(--sub)}
 .stk::before{content:"";width:6px;height:6px;border-radius:50%;flex-shrink:0}
@@ -328,7 +336,12 @@ h2::after{content:"";position:absolute;left:0;bottom:0;width:32px;height:5px;bac
 .m-badge{font-size:.7rem;font-weight:800;color:var(--g);text-transform:uppercase;letter-spacing:.07em}
 .m-name{color:var(--navy);font-size:1.2rem;font-weight:800;margin:6px 0 2px;line-height:1.3}
 .m-price{font-size:1.45rem;color:var(--acc);font-weight:900;margin:6px 0 10px}
-.m-spec{background:var(--bg);border-radius:7px;padding:8px 12px;font-size:.83rem;color:#555;margin-bottom:10px}
+/* ── 規格：支援換行 ── */
+.m-spec{background:var(--bg);border-radius:7px;padding:8px 12px;font-size:.83rem;color:#555;margin-bottom:10px;white-space:pre-wrap;word-break:break-word;line-height:1.7}
+/* ── 老闆的話：modal ── */
+.m-boss{background:#eef5eb;border-left:3px solid var(--g);border-radius:0 8px 8px 0;padding:10px 14px;margin-bottom:12px;font-size:.85rem;color:#2e4a28;line-height:1.65}
+.m-boss-label{font-size:.72rem;font-weight:800;color:var(--g);margin-bottom:4px;display:flex;align-items:center;gap:5px}
+/* ───────────────────── */
 .m-desc{font-size:.87rem;color:#555;white-space:pre-wrap;word-break:break-word;line-height:1.8;margin-bottom:16px}
 .m-stk{font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:12px}
 .btn-line{display:flex;align-items:center;justify-content:center;gap:8px;background:#06c755;color:#fff;padding:13px;border-radius:10px;font-weight:700;font-size:.93rem;transition:.2s}
@@ -417,6 +430,7 @@ footer p{font-size:.82rem;line-height:1.95}
   .shop-wrap{grid-template-columns:1fr}
   .filter-panel{position:static;display:grid;grid-template-columns:1fr 1fr;gap:6px 16px;align-items:end}
   .filter-panel label{margin-top:0}
+  .price-apply-btn{grid-column:1/-1}
   .pcnt{grid-column:1/-1}
   .ccard-inner{grid-template-columns:1fr}
   .ccard-imgs{min-height:200px}
@@ -434,7 +448,6 @@ footer p{font-size:.82rem;line-height:1.95}
   :root{--nh:58px}
   .nav-links{display:none}
   .hbg{display:flex}
-  /* 修正2：手機版保留 Official Website 文字 */
   .nav-logo-en{font-size:.52rem;letter-spacing:.08em}
   .hero-slides{height:300px}
   .hero-txt{padding:18px 16px 14px}
@@ -443,13 +456,10 @@ footer p{font-size:.82rem;line-height:1.95}
   .card{padding:20px 16px}
   .flex-row,.flex-row.rev{flex-direction:column;gap:18px}
   .side-img img{max-height:200px}
-  /* 修正3：聯絡我們手機版單欄，地圖高度適中 */
   .contact-wrap{grid-template-columns:1fr;gap:16px}
   .map-wrap{height:280px}
-  /* 修正4：合作夥伴手機版改為垂直排列 */
   .partner-card{flex-direction:column;align-items:flex-start;gap:14px}
   .partner-logo{width:70px;height:70px}
-  /* 修正5：彈窗手機版可捲動不當機 */
   .mbox{flex-direction:column;max-height:88dvh;overflow-y:auto}
   .m-gallery{min-height:180px;flex-shrink:0}
   .m-det{padding:18px;overflow-y:visible}
@@ -474,7 +484,6 @@ footer p{font-size:.82rem;line-height:1.95}
   .hero-txt h1{font-size:1.35rem}
   .pgrid,.pgrid.v-2{grid-template-columns:1fr 1fr}
   .pgrid.v-list{grid-template-columns:1fr}
-  /* 極小螢幕才縮小，不隱藏 */
   .nav-logo-en{font-size:.46rem;letter-spacing:.05em}
   .news-grid{grid-template-columns:1fr}
 }
@@ -642,6 +651,15 @@ footer p{font-size:.82rem;line-height:1.95}
         <select class="fi-input" id="sb" onchange="updateCats()"><option value="all">所有品牌</option></select>
         <label>類別</label>
         <select class="fi-input" id="sc" onchange="drawProds()"><option value="all">所有類別</option></select>
+        <!-- ══ 價格區間篩選（新增） ══ -->
+        <label>價格區間</label>
+        <div class="price-range-row">
+          <input class="fi-input" type="number" id="pmin" placeholder="最低" min="0">
+          <span class="price-sep">—</span>
+          <input class="fi-input" type="number" id="pmax" placeholder="最高" min="0">
+        </div>
+        <button class="price-apply-btn" onclick="drawProds()">套用篩選</button>
+        <!-- ══════════════════════════ -->
         <div class="pcnt" id="pcnt"></div>
       </aside>
       <div>
@@ -773,7 +791,7 @@ footer p{font-size:.82rem;line-height:1.95}
       </div>
     </div>
     <div class="card" style="text-align:center;background:linear-gradient(135deg,#eef3ee,#f4f6f4);padding:36px">
-      <div style="font-size:2rem;margin-bottom:12px">🏓</div>
+      <div style="font-size:2rem;margin-bottom:12px">🔥</div>
       <h3 style="color:var(--navy);margin-bottom:8px;font-size:1.2rem">準備好下場了嗎？</h3>
       <p style="color:var(--sub);font-size:.9rem;margin-bottom:20px">一堂新手速成班，讓你從零到能上場對打</p>
       <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
@@ -821,6 +839,12 @@ footer p{font-size:.82rem;line-height:1.95}
       <div id="m-name" class="m-name"></div>
       <div id="m-price" class="m-price"></div>
       <div id="m-stk" class="m-stk" style="display:none"></div>
+      <!-- ── 老闆的話（modal，新增） ── -->
+      <div id="m-boss" class="m-boss" style="display:none">
+        <div class="m-boss-label"><i class="fas fa-comment-dots"></i>老闆說</div>
+        <div id="m-boss-text"></div>
+      </div>
+      <!-- ─────────────────────────── -->
       <div id="m-spec" class="m-spec"></div>
       <div id="m-desc" class="m-desc"></div>
       <a href="#" id="m-line" target="_blank" class="btn-line"><i class="fab fa-line"></i>LINE 訂購 / 詢問</a>
@@ -914,7 +938,6 @@ function restoreHash(){const h=location.hash.slice(1);if(PAGES.includes(h))go(h,
 function toggleMenu(){$('hbg').classList.toggle('open');const m=$('mob-menu');m.style.display=m.style.display==='flex'?'none':'flex';}
 function cm(){$('hbg').classList.remove('open');$('mob-menu').style.display='none';}
 
-/* 修正：用 class 控制 body 鎖定，避免 iOS 彈窗當機 */
 function lockBody(){
   const y=window.scrollY;
   document.body.style.top=`-${y}px`;
@@ -1135,20 +1158,60 @@ function toggleFAQ(btn){btn.classList.toggle('open');btn.nextElementSibling.clas
 /* Contact */
 function addCICard(c,icon,label,val){if(!val)return;c.innerHTML+=`<div class="ci-row"><div class="ci-row-icon"><i class="${icon}"></i></div><div><div class="ci-row-label">${label}</div><div class="ci-row-val">${val}</div></div></div>`;}
 
-/* Products */
+/* ══ Products ══ */
 function initVT(){const mob=window.innerWidth<=768;$('vg').style.display=mob?'none':'flex';$('vl').style.display=mob?'none':'flex';$('v1').style.display=mob?'flex':'none';$('v2').style.display=mob?'flex':'none';if(mob&&(curView==='g'||curView==='l'))curView='1';if(!mob&&(curView==='1'||curView==='2'))curView='g';applyV();}
 function sv(v){curView=v;['g','l','1','2'].forEach(x=>{const b=$('v'+x);if(b)b.classList.toggle('on',x===v);});applyV();}
 function applyV(){const g=$('pgrid');g.classList.remove('v-list','v-2');if(curView==='l')g.classList.add('v-list');if(curView==='2')g.classList.add('v-2');}
 function updateCats(){const b=$('sb').value;const cats=[...new Set(prods.filter(p=>b==='all'||p.brand===b).map(p=>p.cat))].filter(Boolean);const s=$('sc');s.innerHTML='<option value="all">所有類別</option>';cats.forEach(c=>s.innerHTML+=`<option value="${c}">${c}</option>`);drawProds();}
-function stkCls(s){if(!s)return'';if(s==='有貨')return'stk-ok';if(s==='售完')return'stk-out';return'stk-pre';}
+
+/* ── 庫存顯示邏輯 ──
+   stock 欄位規則：
+   · 純數字（如 "12"）→ 有庫存，顯示「庫存 12 件」
+   · "售完" 或 "" → 售完
+   · 其他文字（如 "預購中"）→ 原文顯示，套 stk-pre 樣式
+*/
+function stkInfo(raw){
+  const s=(raw||'').trim();
+  if(!s||s==='售完')return{cls:'stk-out',label:'售完',show:!!s};
+  if(/^\d+$/.test(s))return{cls:'stk-ok',label:`庫存 ${s} 件`,show:true};
+  return{cls:'stk-pre',label:s,show:true};
+}
+
 function drawProds(){
   const b=$('sb').value,c=$('sc').value,q=$('srch').value.toLowerCase();
-  const list=prods.filter(p=>(b==='all'||p.brand===b)&&(c==='all'||p.cat===c)&&(p.name.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q)));
+  const pmin=parseFloat($('pmin').value)||0;
+  const pmaxRaw=$('pmax').value;
+  const pmax=pmaxRaw===''?Infinity:parseFloat(pmaxRaw)||Infinity;
+
+  const list=prods.filter(p=>{
+    const price=parseFloat((p.price||'0').replace(/,/g,''))||0;
+    return(b==='all'||p.brand===b)
+      &&(c==='all'||p.cat===c)
+      &&(p.name.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q))
+      &&price>=pmin&&price<=pmax;
+  });
+
   const g=$('pgrid');g.innerHTML='';$('pcnt').textContent=`共 ${list.length} 件商品`;
   if(!list.length){g.innerHTML=`<div class="empty"><i class="fas fa-box-open"></i><p>找不到符合條件的商品</p></div>`;return;}
-  list.forEach(p=>{const sc=stkCls(p.stock);g.innerHTML+=`<div class="pc" onclick="openMod(${p.id})"><div class="pc-img"><img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 80%22%3E%3Crect width=%22100%22 height=%2280%22 fill=%22%23fff%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23ccc%22 font-size=%2210%22%3ENo Image%3C/text%3E%3C/svg%3E'"></div><div class="pc-body"><div class="pc-badge">${p.brand}${p.brand&&p.cat?' · ':''}${p.cat}</div><div class="pc-name">${p.name}</div><div class="pc-desc">${p.desc}</div><div class="pc-price">$${p.price}</div>${p.stock?`<span class="stk ${sc}">${p.stock}</span>`:''}</div></div>`;});
+
+  list.forEach(p=>{
+    const si=stkInfo(p.stock);
+    const bossHtml=p.boss?`<div class="pc-boss">${p.boss}</div>`:'';
+    g.innerHTML+=`<div class="pc" onclick="openMod(${p.id})">
+      <div class="pc-img"><img src="${p.img}" alt="${p.name}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 80%22%3E%3Crect width=%22100%22 height=%2280%22 fill=%22%23fff%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 fill=%22%23ccc%22 font-size=%2210%22%3ENo Image%3C/text%3E%3C/svg%3E'"></div>
+      <div class="pc-body">
+        <div class="pc-badge">${p.brand}${p.brand&&p.cat?' · ':''}${p.cat}</div>
+        <div class="pc-name">${p.name}</div>
+        <div class="pc-desc">${p.desc}</div>
+        ${bossHtml}
+        <div class="pc-price">$${p.price}</div>
+        ${si.show?`<span class="stk ${si.cls}">${si.label}</span>`:''}
+      </div>
+    </div>`;
+  });
   applyV();
 }
+
 function buildModGallery(imgs){
   const gal=$('m-gallery');gal.innerHTML='';
   if(!imgs.length){gal.innerHTML=`<div style="flex:1;display:flex;align-items:center;justify-content:center;color:#ccc;padding:20px">無圖片</div>`;return;}
@@ -1161,15 +1224,29 @@ function buildModGallery(imgs){
 }
 function goMod(n){modIdx=n;[...document.querySelectorAll('.mg-slide')].forEach((s,i)=>s.classList.toggle('active',i===n));[...document.querySelectorAll('.m-thumb')].forEach((t,i)=>t.classList.toggle('active',i===n));}
 function stepMod(dir){goMod((modIdx+dir+modImgs.length)%modImgs.length);}
+
 function openMod(id){
   const p=prods.find(x=>x.id===id);if(!p)return;
   buildModGallery([p.img,...(p.imgs||[])].filter(Boolean));
   $('m-badge').textContent=`${p.brand}${p.brand&&p.cat?' · ':''}${p.cat}`;
-  $('m-name').textContent=p.name;$('m-price').textContent=`$${p.price}`;
-  const ms=$('m-stk'),sc=stkCls(p.stock);
-  if(p.stock){ms.textContent=p.stock;ms.className='m-stk '+sc;ms.style.display='inline-block';}else ms.style.display='none';
-  $('m-spec').innerHTML=`<strong>規格：</strong>${p.spec||'請洽詢'}`;
-  $('m-desc').textContent=p.desc;$('m-line').href=lineHref;
+  $('m-name').textContent=p.name;
+  $('m-price').textContent=`$${p.price}`;
+
+  /* 庫存 */
+  const ms=$('m-stk'),si=stkInfo(p.stock);
+  if(si.show){ms.textContent=si.label;ms.className='m-stk '+si.cls;ms.style.display='inline-block';}
+  else ms.style.display='none';
+
+  /* 老闆的話 */
+  const mb=$('m-boss'),mbt=$('m-boss-text');
+  if(p.boss){mbt.textContent=p.boss;mb.style.display='block';}
+  else mb.style.display='none';
+
+  /* 規格（支援換行） */
+  $('m-spec').innerHTML=`<strong>規格：</strong>${p.spec?p.spec.replace(/\n/g,'<br>'):'請洽詢'}`;
+
+  $('m-desc').textContent=p.desc;
+  $('m-line').href=lineHref;
   $('modal').classList.add('open');lockBody();
 }
 function closeMod(){$('modal').classList.remove('open');unlockBody();}
@@ -1228,11 +1305,30 @@ async function init(){
     addCICard(ciC,'fas fa-comment-dots','備註',S.ContactDesc);
     if(S.ContactMap){const mb=$('map-box'),raw=S.ContactMap.trim();const src=raw.startsWith('<iframe')?(raw.match(/src=["']([^"']+)["']/)||[])[1]||'':raw;if(src){const ifr=document.createElement('iframe');ifr.src=src;ifr.setAttribute('allowfullscreen','');ifr.setAttribute('loading','lazy');ifr.setAttribute('referrerpolicy','no-referrer-when-downgrade');ifr.style.cssText='width:100%;height:100%;border:0;display:block';mb.innerHTML='';mb.appendChild(ifr);}}
     $('f-slogan').textContent=S.FooterSlogan||'';$('f-biz').textContent=S.BizInfo?`統編：${S.BizInfo}`:'';$('f-staff').textContent=S.StaffContact||'';$('f-addr').textContent=S.Address||'';
+
+    /* ── Products 表解析（欄位順序：brand,name,cat,price,desc,img,spec,stock,boss,img2,img3…） ── */
     const pRows=parseCSV(await pRes.text()).slice(1);
-    prods=pRows.map((c,i)=>{const ex=c.slice(8).map(u=>durl(u)).filter(Boolean);return{id:i,brand:c[0]||'',name:c[1]||'',cat:c[2]||'',price:c[3]||'',desc:c[4]||'',img:durl(c[5]||''),spec:c[6]||'',stock:c[7]||'',imgs:ex};}).filter(p=>p.name);
+    prods=pRows.map((c,i)=>{
+      const ex=c.slice(9).map(u=>durl(u)).filter(Boolean); // 第9欄起為額外圖片
+      return{
+        id:i,
+        brand:c[0]||'',
+        name:c[1]||'',
+        cat:c[2]||'',
+        price:c[3]||'',
+        desc:c[4]||'',
+        img:durl(c[5]||''),
+        spec:(c[6]||'').replace(/\\n/g,'\n'),  // 規格支援 \n 換行
+        stock:c[7]||'',
+        boss:c[8]||'',   // 老闆的話（新增第9欄，index 8）
+        imgs:ex
+      };
+    }).filter(p=>p.name);
+
     const brands=[...new Set(prods.map(p=>p.brand))].filter(Boolean);
     brands.forEach(b=>$('sb').innerHTML+=`<option value="${b}">${b}</option>`);
     updateCats();initVT();
+
     try{
       const nRes=await fetch(`https://docs.google.com/spreadsheets/d/${SID}/gviz/tq?tqx=out:csv&sheet=News`);
       if(nRes.ok){
