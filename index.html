@@ -1184,11 +1184,12 @@ function drawProds(){
   const pmax=pmaxRaw===''?Infinity:parseFloat(pmaxRaw)||Infinity;
 
   const list=prods.filter(p=>{
-    const price=parseFloat((p.price||'0').replace(/,/g,''))||0;
+    const price=parseFloat((p.price||'0').replace(/[^0-9.]/g,''))||0;
+    const priceOk=!p.price||(price>=pmin&&price<=pmax);
     return(b==='all'||p.brand===b)
       &&(c==='all'||p.cat===c)
       &&(p.name.toLowerCase().includes(q)||p.desc.toLowerCase().includes(q))
-      &&price>=pmin&&price<=pmax;
+      &&price>=pmin&&price<=pmax&&priceOk;
   });
 
   const g=$('pgrid');g.innerHTML='';$('pcnt').textContent=`共 ${list.length} 件商品`;
@@ -1228,7 +1229,7 @@ function openMod(id){
   buildModGallery([p.img,...(p.imgs||[])].filter(Boolean));
   $('m-badge').textContent=`${p.brand}${p.brand&&p.cat?' · ':''}${p.cat}`;
   $('m-name').textContent=p.name;
-  $('m-price').textContent=`$${p.price}`;
+  $('m-price').textContent=p.price?`${p.price}`:'私訊詢價';
 
   /* 庫存 */
   const ms=$('m-stk'),si=stkInfo(p.stock);
