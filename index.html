@@ -1261,10 +1261,11 @@ function openMod(id){
   if(si.show){ms.textContent=si.label;ms.className='m-stk '+si.cls;ms.style.display='inline-block';}
   else ms.style.display='none';
 
-  /* 1. 商品說明 */
+  // 預設先載入主商品的說明與規格
   $('m-desc').textContent=p.desc||'';
+  $('m-spec').innerHTML=`<strong>規格：</strong>${p.spec?p.spec.replace(/\n/g,'<br>'):'請洽詢'}`;
 
-  /* 2. 款式選項（動態綁定切換圖片功能） */
+  /* 2. 款式選項（動態綁定切換圖片、說明、規格） */
   const mvWrap=$('m-variants-wrap'),mvBox=$('m-variants');
   mvBox.innerHTML='';
   if(p.variants&&p.variants.length>0){
@@ -1273,22 +1274,35 @@ function openMod(id){
       const btn=document.createElement('button');
       btn.className='m-variant-btn' + (vIdx===0?' active':'');
       btn.textContent=v.name;
+      
+      // 初始化：若第一款有獨立說明或規格，開窗時直接載入
+      if(vIdx===0){
+        if(v.desc) $('m-desc').textContent=v.desc;
+        if(v.spec) $('m-spec').innerHTML=`<strong>規格：</strong>${v.spec.replace(/\n/g,'<br>')}`;
+      }
+
       btn.onclick=function(){
         mvBox.querySelectorAll('.m-variant-btn').forEach(b=>b.classList.remove('active'));
         btn.classList.add('active');
+        
+        // A. 切換對應圖片
         if(v.img){
           const imgIdx=galleryImgs.indexOf(v.img);
           if(imgIdx!==-1)goMod(imgIdx);
         }
+        
+        // B. 切換說明（若款式欄位空白，則顯示主說明）
+        $('m-desc').textContent = v.desc ? v.desc : (p.desc || '');
+        
+        // C. 切換規格（若款式欄位空白，則顯示主規格）
+        const currentSpec = v.spec ? v.spec : p.spec;
+        $('m-spec').innerHTML = `<strong>規格：</strong>${currentSpec ? currentSpec.replace(/\n/g,'<br>') : '請洽詢'}`;
       };
       mvBox.appendChild(btn);
     });
   }else{
     mvWrap.style.display='none';
   }
-
-  /* 3. 規格（支援換行） */
-  $('m-spec').innerHTML=`<strong>規格：</strong>${p.spec?p.spec.replace(/\n/g,'<br>'):'請洽詢'}`;
 
   /* 4. 老闆的話 */
   const mb=$('m-boss'),mbt=$('m-boss-text');
@@ -1355,16 +1369,23 @@ async function init(){
     if(S.ContactMap){const mb=$('map-box'),raw=S.ContactMap.trim();const src=raw.startsWith('<iframe')?(raw.match(/src=["']([^"']+)["']/)||[])[1]||'':raw;if(src){const ifr=document.createElement('iframe');ifr.src=src;ifr.setAttribute('allowfullscreen','');ifr.setAttribute('loading','lazy');ifr.setAttribute('referrerpolicy','no-referrer-when-downgrade');ifr.style.cssText='width:100%;height:100%;border:0;display:block';mb.innerHTML='';mb.appendChild(ifr);}}
     $('f-slogan').textContent=S.FooterSlogan||'';$('f-biz').textContent=S.BizInfo?`統編：${S.BizInfo}`:'';$('f-staff').textContent=S.StaffContact||'';$('f-addr').textContent=S.Address||'';
 
-    /* ── Products 表解析（欄位：brand,name,cat,price,desc,img,spec,stock,boss,款式1名稱,款式1圖片...無限延伸） ── */
+   /* ── Products 表解析（欄位：A~I為主資料，J開始每4欄為一組款式資料） ── */
     const pRows=parseCSV(await pRes.text()).slice(1);
     prods=pRows.map((c,i)=>{
-      // 從第 9 欄開始，每兩個欄位一組（款式名稱、款式圖片）
       const variants=[];
-      for(let j=9;j<c.length;j+=2){
+      // 從第 9 欄 (J欄) 開始，每 4 個欄位一組（名稱、圖片、說明、規格）
+      for(let j=9;j<c.length;j+=4){
         const vName=c[j]||'';
         const vImg=durl(c[j+1]||'');
+        const vDesc=c[j+2]||'';
+        const vSpec=(c[j+3]||'').replace(/\\n/g,'\n');
         if(vName.trim()){
-          variants.push({name:vName.trim(),img:vImg});
+          variants.push({
+            name:vName.trim(),
+            img:vImg,
+            desc:vDesc.trim(),
+            spec:vSpec.trim()
+          });
         }
       }
       return{
@@ -1375,7 +1396,7 @@ async function init(){
         price:c[3]||'',
         desc:c[4]||'',
         img:durl(c[5]||''),
-        spec:(c[6]||'').replace(/\\n/g,'\n'),  // 規格支援 \n 換行
+        spec:(c[6]||'').replace(/\\n/g,'\n'),
         stock:c[7]||'',
         boss:c[8]||'',
         variants:variants
