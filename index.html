@@ -1099,7 +1099,7 @@ function buildReviews(S){
 function buildPhil(text){
   const box=$('phil-grid');
   const icons=['fas fa-award','fas fa-face-laugh-beam','fas fa-location-dot','fas fa-people-group','fas fa-star','fas fa-heart'];
-  const defs=[{icon:'fas fa-award',t:'專業',d:'PKing 輪堡國際認證教練與裁判，系統化教學讓你快速進步。'},{icon:'fas fa-face-laugh-beam',t:'樂趣',d:'我們相信運動應該快樂，每堂課都讓你流汗又歡笑。'},{icon:'fas fa-location-dot',t:'在地',d:'深耕花蓮，合作場地優質，服務在地社區與遠道旅人。'},{icon:'fas fa-people-group',t:'全齡',d:'從兒童到樂齡，每個人都能找到屬於自己的節奏。'}];
+  const defs=[{icon:'fas fa-award',t:'專業',d:'認證教練與裁判，系統化教學讓你快速進步。'},{icon:'fas fa-face-laugh-beam',t:'樂趣',d:'我們相信運動應該快樂，每堂課都讓你流汗又歡笑。'},{icon:'fas fa-location-dot',t:'在地',d:'深耕花蓮，合作場地優質，服務在地社區與遠道旅人。'},{icon:'fas fa-people-group',t:'全齡',d:'從兒童到樂齡，每個人都能找到屬於自己的節奏。'}];
   if(!text){defs.forEach(d=>{box.innerHTML+=`<div class="phil-item"><div class="phil-icon"><i class="${d.icon}"></i></div><div><h4>${d.t}</h4><p>${d.d}</p></div></div>`;});return;}
   const items=text.split('●').filter(s=>s.trim());
   if(items.length>=2){items.forEach((item,i)=>{const lines=item.trim().split('\n').filter(l=>l.trim());const t=lines[0].trim(),d=lines.slice(1).join(' ').trim();box.innerHTML+=`<div class="phil-item"><div class="phil-icon"><i class="${icons[i%icons.length]}"></i></div><div><h4>${t}</h4><p>${d}</p></div></div>`;});}
