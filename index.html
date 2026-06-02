@@ -850,6 +850,10 @@ footer p{font-size:.82rem;line-height:1.95}
       <div id="m-name" class="m-name"></div>
       <div id="m-price" class="m-price"></div>
       <div id="m-stk" class="m-stk" style="display:none"></div>
+      <div id="m-boss" class="m-boss" style="display:none">
+        <div class="m-boss-label"><i class="fas fa-comment-dots"></i> 老闆的話</div>
+        <div id="m-boss-text"></div>
+      </div>
       <!-- ── 款式選項（新增） ── -->
       <div id="m-variants-wrap" style="display:none">
         <div class="m-variant-label">選擇款式</div>
@@ -1331,8 +1335,8 @@ async function init(){
         spec:(c[6]||'').replace(/\\n/g,'\n'),  // 規格支援 \n 換行
         stock:c[7]||'',
         boss:c[8]||'',
-        variants:ex.variants,  // [{name,img}, ...]
-        imgs:ex.imgs            // 額外圖片（無款式時用）
+        variants:[],  
+        imgs:ex       // 塞入 ex 陣列，抓得到額外圖片
       };
     }).filter(p=>p.name);
 
