@@ -1335,8 +1335,8 @@ async function init(){
         spec:(c[6]||'').replace(/\\n/g,'\n'),  // 規格支援 \n 換行
         stock:c[7]||'',
         boss:c[8]||'',
-        variants:[],  
-        imgs:ex       // 塞入 ex 陣列，抓得到額外圖片
+        variants:ex.variants,  
+        imgs:ex.imgs            
       };
     }).filter(p=>p.name);
 
