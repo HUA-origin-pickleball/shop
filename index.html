@@ -850,18 +850,21 @@ footer p{font-size:.82rem;line-height:1.95}
       <div id="m-name" class="m-name"></div>
       <div id="m-price" class="m-price"></div>
       <div id="m-stk" class="m-stk" style="display:none"></div>
-      <div id="m-boss" class="m-boss" style="display:none">
-        <div class="m-boss-label"><i class="fas fa-comment-dots"></i> 老闆的話</div>
-        <div id="m-boss-text"></div>
-      </div>
-      <!-- ── 款式選項（新增） ── -->
+      
+      <div id="m-desc" class="m-desc"></div>
+      
       <div id="m-variants-wrap" style="display:none">
         <div class="m-variant-label">選擇款式</div>
         <div id="m-variants" class="m-variants"></div>
       </div>
-      <!-- ───────────────────── -->
+      
       <div id="m-spec" class="m-spec"></div>
-      <div id="m-desc" class="m-desc"></div>
+      
+      <div id="m-boss" class="m-boss" style="display:none">
+        <div class="m-boss-label"><i class="fas fa-comment-dots"></i> 老闆的話</div>
+        <div id="m-boss-text"></div>
+      </div>
+      
       <a href="#" id="m-line" target="_blank" class="btn-line"><i class="fab fa-line"></i>LINE 訂購 / 詢問</a>
     </div>
   </div>
@@ -1241,7 +1244,14 @@ function stepMod(dir){goMod((modIdx+dir+modImgs.length)%modImgs.length);}
 
 function openMod(id){
   const p=prods.find(x=>x.id===id);if(!p)return;
-  buildModGallery([p.img,...(p.imgs||[])].filter(Boolean));
+  
+  // 彙整主圖與所有款式的圖片到彈出視窗畫廊中
+  const galleryImgs=[p.img];
+  p.variants.forEach(v=>{
+    if(v.img&&!galleryImgs.includes(v.img))galleryImgs.push(v.img);
+  });
+  buildModGallery(galleryImgs);
+  
   $('m-badge').textContent=`${p.brand}${p.brand&&p.cat?' · ':''}${p.cat}`;
   $('m-name').textContent=p.name;
   $('m-price').textContent=p.price?`${p.price}`:'私訊詢價';
@@ -1251,15 +1261,40 @@ function openMod(id){
   if(si.show){ms.textContent=si.label;ms.className='m-stk '+si.cls;ms.style.display='inline-block';}
   else ms.style.display='none';
 
-  /* 老闆的話 */
+  /* 1. 商品說明 */
+  $('m-desc').textContent=p.desc||'';
+
+  /* 2. 款式選項（動態綁定切換圖片功能） */
+  const mvWrap=$('m-variants-wrap'),mvBox=$('m-variants');
+  mvBox.innerHTML='';
+  if(p.variants&&p.variants.length>0){
+    mvWrap.style.display='block';
+    p.variants.forEach((v,vIdx)=>{
+      const btn=document.createElement('button');
+      btn.className='m-variant-btn' + (vIdx===0?' active':'');
+      btn.textContent=v.name;
+      btn.onclick=function(){
+        mvBox.querySelectorAll('.m-variant-btn').forEach(b=>b.classList.remove('active'));
+        btn.classList.add('active');
+        if(v.img){
+          const imgIdx=galleryImgs.indexOf(v.img);
+          if(imgIdx!==-1)goMod(imgIdx);
+        }
+      };
+      mvBox.appendChild(btn);
+    });
+  }else{
+    mvWrap.style.display='none';
+  }
+
+  /* 3. 規格（支援換行） */
+  $('m-spec').innerHTML=`<strong>規格：</strong>${p.spec?p.spec.replace(/\n/g,'<br>'):'請洽詢'}`;
+
+  /* 4. 老闆的話 */
   const mb=$('m-boss'),mbt=$('m-boss-text');
   if(p.boss){mbt.textContent=p.boss;mb.style.display='block';}
   else mb.style.display='none';
 
-  /* 規格（支援換行） */
-  $('m-spec').innerHTML=`<strong>規格：</strong>${p.spec?p.spec.replace(/\n/g,'<br>'):'請洽詢'}`;
-
-  $('m-desc').textContent=p.desc;
   $('m-line').href=lineHref;
   $('modal').classList.add('open');lockBody();
 }
@@ -1320,10 +1355,18 @@ async function init(){
     if(S.ContactMap){const mb=$('map-box'),raw=S.ContactMap.trim();const src=raw.startsWith('<iframe')?(raw.match(/src=["']([^"']+)["']/)||[])[1]||'':raw;if(src){const ifr=document.createElement('iframe');ifr.src=src;ifr.setAttribute('allowfullscreen','');ifr.setAttribute('loading','lazy');ifr.setAttribute('referrerpolicy','no-referrer-when-downgrade');ifr.style.cssText='width:100%;height:100%;border:0;display:block';mb.innerHTML='';mb.appendChild(ifr);}}
     $('f-slogan').textContent=S.FooterSlogan||'';$('f-biz').textContent=S.BizInfo?`統編：${S.BizInfo}`:'';$('f-staff').textContent=S.StaffContact||'';$('f-addr').textContent=S.Address||'';
 
-    /* ── Products 表解析（欄位順序：brand,name,cat,price,desc,img,spec,stock,boss,img2,img3…） ── */
+    /* ── Products 表解析（欄位：brand,name,cat,price,desc,img,spec,stock,boss,款式1名稱,款式1圖片...無限延伸） ── */
     const pRows=parseCSV(await pRes.text()).slice(1);
     prods=pRows.map((c,i)=>{
-      const ex=c.slice(9).map(u=>durl(u)).filter(Boolean); // 第9欄起為額外圖片
+      // 從第 9 欄開始，每兩個欄位一組（款式名稱、款式圖片）
+      const variants=[];
+      for(let j=9;j<c.length;j+=2){
+        const vName=c[j]||'';
+        const vImg=durl(c[j+1]||'');
+        if(vName.trim()){
+          variants.push({name:vName.trim(),img:vImg});
+        }
+      }
       return{
         id:i,
         brand:c[0]||'',
@@ -1335,11 +1378,9 @@ async function init(){
         spec:(c[6]||'').replace(/\\n/g,'\n'),  // 規格支援 \n 換行
         stock:c[7]||'',
         boss:c[8]||'',
-        variants:ex.variants,  
-        imgs:ex.imgs            
+        variants:variants
       };
     }).filter(p=>p.name);
-
     const brands=[...new Set(prods.map(p=>p.brand))].filter(Boolean);
     brands.forEach(b=>$('sb').innerHTML+=`<option value="${b}">${b}</option>`);
     updateCats();initVT();
