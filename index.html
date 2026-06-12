@@ -77,7 +77,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{font-family:"PingFang TC","Microsoft JhengHei",sans-serif;background:#f4f6f4;color:#2c3e50;line-height:1.75;overflow-x:hidden}
-body.modal-open{overflow:hidden;position:fixed;width:100%;top:0}
+body.modal-open{overflow:hidden}
 img{max-width:100%;height:auto;display:block}
 a{color:inherit;text-decoration:none}
 button{cursor:pointer;border:none;background:none;font-family:inherit}
@@ -388,7 +388,7 @@ h2::after{content:"";position:absolute;left:0;bottom:0;width:32px;height:5px;bac
 .news-modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:3500;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
 .news-modal.open{display:flex}
 .nm-box{background:#fff;width:100%;max-width:680px;border-radius:20px;max-height:90vh;overflow-y:auto;position:relative}
-.nm-img{width:100%;height:240px;object-fit:cover;display:block}
+.nm-img{width:100%;height:auto;max-height:80vh;object-fit:contain;display:block;background:#f4f4f4;}
 .nm-body{padding:28px}
 .nm-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.9);display:flex;align-items:center;justify-content:center;font-size:1rem;color:#666;z-index:10;box-shadow:0 2px 8px rgba(0,0,0,.15)}
 .nm-tag{font-size:.72rem;font-weight:800;padding:3px 10px;border-radius:20px;display:inline-block;margin-bottom:10px}
@@ -965,15 +965,10 @@ function toggleMenu(){$('hbg').classList.toggle('open');const m=$('mob-menu');m.
 function cm(){$('hbg').classList.remove('open');$('mob-menu').style.display='none';}
 
 function lockBody(){
-  const y=window.scrollY;
-  document.body.style.top=`-${y}px`;
   document.body.classList.add('modal-open');
 }
 function unlockBody(){
-  const y=Math.abs(parseInt(document.body.style.top||'0'));
   document.body.classList.remove('modal-open');
-  document.body.style.top='';
-  window.scrollTo(0,y);
 }
 
 /* Hero */
@@ -1190,12 +1185,6 @@ function sv(v){curView=v;['g','l','1','2'].forEach(x=>{const b=$('v'+x);if(b)b.c
 function applyV(){const g=$('pgrid');g.classList.remove('v-list','v-2');if(curView==='l')g.classList.add('v-list');if(curView==='2')g.classList.add('v-2');}
 function updateCats(){const b=$('sb').value;const cats=[...new Set(prods.filter(p=>b==='all'||p.brand===b).map(p=>p.cat))].filter(Boolean);const s=$('sc');s.innerHTML='<option value="all">所有類別</option>';cats.forEach(c=>s.innerHTML+=`<option value="${c}">${c}</option>`);drawProds();}
 
-/* ── 庫存顯示邏輯 ──
-   stock 欄位規則：
-   · 純數字（如 "12"）→ 有庫存，顯示「庫存 12 件」
-   · "售完" 或 "" → 售完
-   · 其他文字（如 "預購中"）→ 原文顯示，套 stk-pre 樣式
-*/
 function stkInfo(raw){
   const s=(raw||'').trim();
   if(!s||s==='售完')return{cls:'stk-out',label:'售完',show:!!s};
@@ -1253,7 +1242,6 @@ function stepMod(dir){goMod((modIdx+dir+modImgs.length)%modImgs.length);}
 function openMod(id){
   const p=prods.find(x=>x.id===id);if(!p)return;
   
-  // 彙整主圖與所有款式的圖片到彈出視窗畫廊中
   const galleryImgs=[p.img];
   p.variants.forEach(v=>{
     if(v.img&&!galleryImgs.includes(v.img))galleryImgs.push(v.img);
@@ -1264,16 +1252,13 @@ function openMod(id){
   $('m-name').textContent=p.name;
   $('m-price').textContent=p.price?`${p.price}`:'私訊詢價';
 
-  /* 庫存 */
   const ms=$('m-stk'),si=stkInfo(p.stock);
   if(si.show){ms.textContent=si.label;ms.className='m-stk '+si.cls;ms.style.display='inline-block';}
   else ms.style.display='none';
 
-  // 預設先載入主商品的說明與規格
   $('m-desc').textContent=p.desc||'';
   $('m-spec').innerHTML=`<strong>規格：</strong>${p.spec?p.spec.replace(/\n/g,'<br>'):'請洽詢'}`;
 
-  /* 2. 款式選項（動態綁定切換圖片、說明、規格） */
   const mvWrap=$('m-variants-wrap'),mvBox=$('m-variants');
   mvBox.innerHTML='';
   if(p.variants&&p.variants.length>0){
@@ -1283,7 +1268,6 @@ function openMod(id){
       btn.className='m-variant-btn' + (vIdx===0?' active':'');
       btn.textContent=v.name;
       
-      // 初始化：若第一款有獨立說明或規格，開窗時直接載入
       if(vIdx===0){
         if(v.desc) $('m-desc').textContent=v.desc;
         if(v.spec) $('m-spec').innerHTML=`<strong>規格：</strong>${v.spec.replace(/\n/g,'<br>')}`;
@@ -1293,16 +1277,13 @@ function openMod(id){
         mvBox.querySelectorAll('.m-variant-btn').forEach(b=>b.classList.remove('active'));
         btn.classList.add('active');
         
-        // A. 切換對應圖片
         if(v.img){
           const imgIdx=galleryImgs.indexOf(v.img);
           if(imgIdx!==-1)goMod(imgIdx);
         }
         
-        // B. 切換說明（若款式欄位空白，則顯示主說明）
         $('m-desc').textContent = v.desc ? v.desc : (p.desc || '');
         
-        // C. 切換規格（若款式欄位空白，則顯示主規格）
         const currentSpec = v.spec ? v.spec : p.spec;
         $('m-spec').innerHTML = `<strong>規格：</strong>${currentSpec ? currentSpec.replace(/\n/g,'<br>') : '請洽詢'}`;
       };
@@ -1312,7 +1293,6 @@ function openMod(id){
     mvWrap.style.display='none';
   }
 
-  /* 4. 老闆的話 */
   const mb=$('m-boss'),mbt=$('m-boss-text');
   if(p.boss){mbt.textContent=p.boss;mb.style.display='block';}
   else mb.style.display='none';
@@ -1377,11 +1357,9 @@ async function init(){
     if(S.ContactMap){const mb=$('map-box'),raw=S.ContactMap.trim();const src=raw.startsWith('<iframe')?(raw.match(/src=["']([^"']+)["']/)||[])[1]||'':raw;if(src){const ifr=document.createElement('iframe');ifr.src=src;ifr.setAttribute('allowfullscreen','');ifr.setAttribute('loading','lazy');ifr.setAttribute('referrerpolicy','no-referrer-when-downgrade');ifr.style.cssText='width:100%;height:100%;border:0;display:block';mb.innerHTML='';mb.appendChild(ifr);}}
     $('f-slogan').textContent=S.FooterSlogan||'';$('f-biz').textContent=S.BizInfo?`統編：${S.BizInfo}`:'';$('f-staff').textContent=S.StaffContact||'';$('f-addr').textContent=S.Address||'';
 
-   /* ── Products 表解析（欄位：A~I為主資料，J開始每4欄為一組款式資料） ── */
     const pRows=parseCSV(await pRes.text()).slice(1);
     prods=pRows.map((c,i)=>{
       const variants=[];
-      // 從第 9 欄 (J欄) 開始，每 4 個欄位一組（名稱、圖片、說明、規格）
       for(let j=9;j<c.length;j+=4){
         const vName=c[j]||'';
         const vImg=durl(c[j+1]||'');
