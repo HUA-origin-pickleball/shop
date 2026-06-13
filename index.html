@@ -1185,6 +1185,18 @@ function sv(v){curView=v;['g','l','1','2'].forEach(x=>{const b=$('v'+x);if(b)b.c
 function applyV(){const g=$('pgrid');g.classList.remove('v-list','v-2');if(curView==='l')g.classList.add('v-list');if(curView==='2')g.classList.add('v-2');}
 function updateCats(){const b=$('sb').value;const cats=[...new Set(prods.filter(p=>b==='all'||p.brand===b).map(p=>p.cat))].filter(Boolean);const s=$('sc');s.innerHTML='<option value="all">所有類別</option>';cats.forEach(c=>s.innerHTML+=`<option value="${c}">${c}</option>`);drawProds();}
 
+function priceNum(s){return parseFloat((s||'').replace(/[^0-9.]/g,''))||0;}
+function pricePrefix(s){const m=(s||'').match(/^[^\d]*/);return m?m[0]:'';}
+function priceDisplay(p){
+  const prices=[p.price,...p.variants.map(v=>v.price)].filter(x=>x&&x.trim());
+  if(!prices.length)return p.price||'';
+  const nums=prices.map(priceNum);
+  const min=Math.min(...nums),max=Math.max(...nums);
+  const pre=pricePrefix(prices[0]);
+  if(min===max)return prices[0];
+  return `${pre}${min.toLocaleString()}~${pre}${max.toLocaleString()}`;
+}
+function variantPrice(p,v){return(v&&v.price&&v.price.trim())?v.price:p.price;}
 function stkInfo(raw){
   const s=(raw||'').trim();
   if(!s||s==='售完')return{cls:'stk-out',label:'售完',show:!!s};
@@ -1218,7 +1230,7 @@ function drawProds(){
       <div class="pc-body">
         <div class="pc-badge">${p.brand}${p.brand&&p.cat?' · ':''}${p.cat}</div>
         <div class="pc-name">${p.name}</div>
-        <div class="pc-price">${p.price}</div>
+        <div class="pc-price">${priceDisplay(p)}</div>
         ${si.show?`<span class="stk ${si.cls}">${si.label}</span>`:''}
       </div>
     </div>`;
@@ -1250,7 +1262,7 @@ function openMod(id){
   
   $('m-badge').textContent=`${p.brand}${p.brand&&p.cat?' · ':''}${p.cat}`;
   $('m-name').textContent=p.name;
-  $('m-price').textContent=p.price?`${p.price}`:'私訊詢價';
+  $('m-price').textContent=(p.variants&&p.variants.length?variantPrice(p,p.variants[0]):p.price)||'私訊詢價';
 
   const ms=$('m-stk'),si=stkInfo(p.stock);
   if(si.show){ms.textContent=si.label;ms.className='m-stk '+si.cls;ms.style.display='inline-block';}
@@ -1286,6 +1298,8 @@ function openMod(id){
         
         const currentSpec = v.spec ? v.spec : p.spec;
         $('m-spec').innerHTML = `<strong>規格：</strong>${currentSpec ? currentSpec.replace(/\n/g,'<br>') : '請洽詢'}`;
+
+        $('m-price').textContent = variantPrice(p,v) || '私訊詢價';
       };
       mvBox.appendChild(btn);
     });
@@ -1360,17 +1374,19 @@ async function init(){
     const pRows=parseCSV(await pRes.text()).slice(1);
     prods=pRows.map((c,i)=>{
       const variants=[];
-      for(let j=9;j<c.length;j+=4){
+      for(let j=9;j<c.length;j+=5){
         const vName=c[j]||'';
         const vImg=durl(c[j+1]||'');
         const vDesc=c[j+2]||'';
         const vSpec=(c[j+3]||'').replace(/\\n/g,'\n');
+        const vPrice=c[j+4]||'';
         if(vName.trim()){
           variants.push({
             name:vName.trim(),
             img:vImg,
             desc:vDesc.trim(),
-            spec:vSpec.trim()
+            spec:vSpec.trim(),
+            price:vPrice.trim()
           });
         }
       }
