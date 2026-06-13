@@ -230,6 +230,24 @@ h2::after{content:"";position:absolute;left:0;bottom:0;width:32px;height:5px;bac
 .lb-close{position:absolute;top:16px;right:20px;color:#fff;font-size:1.6rem;opacity:.7;cursor:pointer;background:none;border:none}
 .lb-close:hover{opacity:1}
 
+/* ── Weather badge ── */
+.weather-badge{position:absolute;top:16px;right:16px;z-index:4;background:rgba(255,255,255,.18);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.28);border-radius:30px;padding:7px 14px;color:#fff;font-size:.78rem;display:none;align-items:center;gap:8px}
+.weather-badge.show{display:flex}
+.weather-badge .w-icon{font-size:1.15rem;line-height:1}
+.weather-badge .w-temp{font-weight:800;font-size:.92rem}
+@media(max-width:768px){.weather-badge{top:10px;right:10px;font-size:.7rem;padding:5px 11px}.weather-badge .w-temp{font-size:.85rem}}
+
+/* ── Floating contact buttons ── */
+.fab-wrap{position:fixed;right:18px;bottom:18px;z-index:2000;display:flex;flex-direction:column;align-items:center;gap:10px}
+.fab-item{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:1.2rem;box-shadow:0 4px 14px rgba(0,0,0,.25);opacity:0;transform:translateY(10px) scale(.6);transition:.25s;pointer-events:none}
+.fab-wrap.open .fab-item{opacity:1;transform:translateY(0) scale(1);pointer-events:auto}
+.fab-item.fab-line{background:#06c755}
+.fab-item.fab-fb{background:#1877f2}
+.fab-item.fab-ig{background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)}
+.fab-main{width:54px;height:54px;border-radius:50%;background:var(--g);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.4rem;box-shadow:0 6px 18px rgba(0,0,0,.3);transition:.3s;border:none;cursor:pointer}
+.fab-main.open{background:var(--acc)}
+@media(max-width:768px){.fab-wrap{right:14px;bottom:14px}.fab-main{width:50px;height:50px;font-size:1.25rem}.fab-item{width:42px;height:42px;font-size:1.05rem}}
+
 /* Courses */
 .ccard{background:var(--white);border-radius:16px;box-shadow:var(--sh);margin-bottom:20px;overflow:hidden}
 .ccard-inner{display:grid;grid-template-columns:1fr 1fr;min-height:260px}
@@ -554,6 +572,7 @@ footer p{font-size:.82rem;line-height:1.95}
     </div>
   </div>
   <div class="hero" id="hero">
+    <div class="weather-badge" id="weather-badge"></div>
     <div class="hero-slides" id="hero-slides">
       <button class="hero-arr" id="hp" onclick="step(-1)"><i class="fas fa-chevron-left"></i></button>
       <button class="hero-arr" id="hn" onclick="step(1)"><i class="fas fa-chevron-right"></i></button>
@@ -1015,6 +1034,50 @@ function step(d){goSlide((si+d+total)%total);}
 function openLB(src){$('lb-img').src=src;$('lb').classList.add('open');lockBody();}
 function closeLB(){$('lb').classList.remove('open');unlockBody();}
 
+/* ── 天氣小工具（Open-Meteo，免金鑰）── */
+async function fetchWeather(){
+  try{
+    const res=await fetch('https://api.open-meteo.com/v1/forecast?latitude=23.9806&longitude=121.5998&current=temperature_2m,weather_code&timezone=Asia%2FTaipei');
+    const d=await res.json();
+    const t=Math.round(d.current.temperature_2m);
+    const code=d.current.weather_code;
+    const wmap={0:['☀️','晴朗'],1:['🌤️','晴時多雲'],2:['⛅','多雲'],3:['☁️','陰天'],45:['🌫️','起霧'],48:['🌫️','起霧'],51:['🌦️','小雨'],53:['🌦️','小雨'],55:['🌧️','雨'],61:['🌧️','雨'],63:['🌧️','雨'],65:['🌧️','大雨'],71:['🌨️','下雪'],80:['🌦️','短暫陣雨'],81:['🌧️','陣雨'],82:['⛈️','強降雨'],95:['⛈️','雷雨'],96:['⛈️','雷雨'],99:['⛈️','雷雨']};
+    const w=wmap[code]||['🌡️','花蓮天氣'];
+    const el=$('weather-badge');
+    if(el){el.innerHTML=`<span class="w-icon">${w[0]}</span><span><span class="w-temp">${t}°C</span> ${w[1]} · 花蓮</span>`;el.classList.add('show');}
+  }catch(e){}
+}
+
+/* ── 懸浮聯絡按鈕（FB / IG / LINE）── */
+function initFab(S){
+  if($('fab-wrap'))return;
+  const wrap=document.createElement('div');
+  wrap.className='fab-wrap';wrap.id='fab-wrap';
+  const items=[
+    {cls:'fab-ig',icon:'fab fa-instagram',href:S.IGLink},
+    {cls:'fab-fb',icon:'fab fa-facebook-f',href:S.FBLink},
+    {cls:'fab-line',icon:'fab fa-line',href:lineHref}
+  ];
+  items.forEach(it=>{
+    if(!it.href||it.href==='#')return;
+    const a=document.createElement('a');
+    a.className='fab-item '+it.cls;a.href=it.href;a.target='_blank';a.rel='noopener';
+    a.innerHTML=`<i class="${it.icon}"></i>`;
+    wrap.appendChild(a);
+  });
+  const btn=document.createElement('button');
+  btn.className='fab-main';btn.id='fab-main';btn.setAttribute('aria-label','聯絡我們');
+  btn.innerHTML='<i class="fas fa-comment-dots"></i>';
+  btn.onclick=toggleFab;
+  wrap.appendChild(btn);
+  document.body.appendChild(wrap);
+}
+function toggleFab(){
+  const w=$('fab-wrap'),b=$('fab-main');
+  w.classList.toggle('open');b.classList.toggle('open');
+  b.innerHTML=w.classList.contains('open')?'<i class="fas fa-times"></i>':'<i class="fas fa-comment-dots"></i>';
+}
+
 /* News */
 const TAGS={event:{cls:'tag-event',label:'活動'},course:{cls:'tag-course',label:'開班'},product:{cls:'tag-product',label:'商品'},news:{cls:'tag-news',label:'公告'}};
 function ti(t){return TAGS[t]||TAGS.news;}
@@ -1342,6 +1405,8 @@ async function init(){
     buildSlider(heroUrls,S.HeroTitle||title,S.HeroSub||'');
     lineHref=S.ContactLink||'#';
     const glb=$('guide-line-btn');if(glb)glb.href=lineHref;
+    initFab(S);
+    fetchWeather();
     const ciImg=durl(S.CoursePoster||''),ciTxt=S.CourseIntro||'';
     if(ciImg||ciTxt){$('c-intro-content').innerHTML=`<div class="flex-row">${ciImg?`<div class="side-img"><img src="${ciImg}" alt="課程" loading="lazy"></div>`:''}<div class="side-text"><div class="prose">${ciTxt}</div></div></div>`;}else $('c-intro-card').style.display='none';
     buildCourses(S.CourseContent,S);
